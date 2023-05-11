@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 
+	"com.vitanexus/main/internal/gql/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -20,15 +21,23 @@ func GetConnection() (*gorm.DB, error) {
 
 	dbConn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		NamingStrategy: schema.NamingStrategy{
-			TablePrefix:   "vn_",
+			// TablePrefix:   "vn_",
 			SingularTable: false,
 		},
 	})
 	if err != nil {
-		fmt.Print("GetConnection - err", err)
 		return nil, err
 	}
-	fmt.Print("GetConnection - dbConn", dbConn)
+
+	dbConn.AutoMigrate(&model.User{})
+	if result := dbConn.Create(&model.User{
+		FirstName: "Teste",
+		LastName:  "Teste",
+		Email:     "Teste",
+		Password:  "Teste",
+	}); result.Error != nil {
+		fmt.Println("result.Error", result.Error)
+	}
 
 	return dbConn, nil
 }

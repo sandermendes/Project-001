@@ -20,7 +20,9 @@
 		"vscode": {
 			// Extensions to be installed
 			"extensions": [
-				"golang.Go"
+				"golang.Go",
+				"mquandalle.Graphql",
+				"jinliming2.vscode-go-template"
 			]
 		}
 	},
