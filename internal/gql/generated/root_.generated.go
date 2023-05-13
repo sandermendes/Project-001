@@ -215,16 +215,12 @@ type Mutation
 scalar UInt64
 
 type User {
-    # id: UUID! @DatabaseField(custom: "type:uuid;primaryKey;default:gen_random_uuid()")
+    # Base Model added by gqlgen model template: model.gotpl
 
     firstName: String! @DatabaseField(fieldName: "first_name")
     lastName:  String! @DatabaseField(fieldName: "last_name")
     email:    String! @DatabaseField(custom: "not null")
     password: String! @DatabaseField(custom: "not null")
-
-	# createdAt: UInt64! @DatabaseField(custom: "autoCreateTime;not null")
-	# updatedAt: UInt64 @DatabaseField(custom: "autoUpdateTime;not null")
-	# deletedAt: UInt64 @DatabaseField(custom: "index")
 }
 
 extend type Query {

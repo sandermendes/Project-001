@@ -71,23 +71,3 @@ models:
   UInt64:
     model:
       - com.vitanexus/main/internal/custom/scalar.UInt64
-
-  # User:
-  #   model: com.vitanexus/main/internal/gql/model/model.User
-  #   fields:
-  #     articles:
-  #       resolver: true
-  #     comments:
-  #       resolver: true
-  # Todo:
-  #   fields:
-  #     user:
-  #       resolver: true
-
-  # User:
-  #   model: com.vitanexus/main/internal/gql/model/model.User
-  #     fields:
-  #       articles:
-  #         resolver: true
-  #       comments:
-  #         resolver: true
