@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"com.vitanexus/main/internal/custom/models"
+	"com.project001/main/internal/custom/models"
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/codegen/config"
 )

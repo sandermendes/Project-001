@@ -13,7 +13,7 @@
 {{ reserveImport "github.com/vektah/gqlparser/v2/ast" }}
 {{ reserveImport "github.com/99designs/gqlgen/graphql" }}
 {{ reserveImport "github.com/99designs/gqlgen/graphql/introspection" }}
-{{ reserveImport "com.vitanexus/main/internal/orm/models" }}
+{{ reserveImport "com.project001/main/internal/orm/models" }}
 
 {{- range $model := .Interfaces }}
 	{{ with .Description }} {{.|prefixLines "// "}} {{ end }}

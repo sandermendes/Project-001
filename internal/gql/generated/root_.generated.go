@@ -7,7 +7,7 @@ import (
 	"context"
 	"errors"
 
-	"com.vitanexus/main/internal/gql/model"
+	"com.project001/main/internal/gql/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	gqlparser "github.com/vektah/gqlparser/v2"
@@ -217,6 +217,10 @@ scalar UInt64
 type User {
     # Base Model added by gqlgen model template: model.gotpl
 
+    # @DatabaseField directive means to, generate command to Gorm structure the data in Database
+    #   fieldName, is about a name for cloumn table
+    #   custom is about a some another custom column config, eg: "type:uuid;primaryKey;default:gen_random_uuid()",
+    #   final code result in struct is like, eg: FirstName string ` + "`" + `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"` + "`" + `
     firstName: String! @DatabaseField(fieldName: "first_name")
     lastName:  String! @DatabaseField(fieldName: "last_name")
     email:    String! @DatabaseField(custom: "not null")

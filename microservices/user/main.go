@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"com.vitanexus/main/shared"
+	"com.project001/main/shared"
 )
 
 const defaultPort = "8080"

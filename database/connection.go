@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	"com.vitanexus/main/internal/gql/model"
+	"com.project001/main/internal/gql/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"

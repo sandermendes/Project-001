@@ -3,7 +3,7 @@
 package model
 
 import (
-	"com.vitanexus/main/internal/orm/models"
+	"com.project001/main/internal/orm/models"
 )
 
 type NewUser struct {

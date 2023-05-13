@@ -1,4 +1,4 @@
-module com.vitanexus/main
+module com.project001/main
 
 go 1.20
 

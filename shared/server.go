@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"com.vitanexus/main/internal/gql/directives"
-	"com.vitanexus/main/internal/gql/generated"
-	gql "com.vitanexus/main/internal/gql/resolvers"
+	"com.project001/main/internal/gql/directives"
+	"com.project001/main/internal/gql/generated"
+	gql "com.project001/main/internal/gql/resolvers"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 )

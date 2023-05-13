@@ -8,8 +8,8 @@ import (
 	"context"
 	"fmt"
 
-	"com.vitanexus/main/internal/gql/generated"
-	"com.vitanexus/main/internal/gql/model"
+	"com.project001/main/internal/gql/generated"
+	"com.project001/main/internal/gql/model"
 )
 
 // Mutation returns generated.MutationResolver implementation.

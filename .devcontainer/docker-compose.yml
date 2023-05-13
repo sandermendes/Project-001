@@ -4,8 +4,8 @@ volumes:
   postgres-data:
 
 networks:
-  vitanexus:
-    name: vitanexus
+  project001:
+    name: project001
 
 services:
   app:
@@ -25,7 +25,7 @@ services:
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     # network_mode: service:db
     networks:
-      - vitanexus
+      - project001
 
     # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
     # (Adding the "ports" property to this file will not forward from a Codespace.)
@@ -39,7 +39,7 @@ services:
       # Ensure that the variables in .env match the same variables in devcontainer.json
       - .env
     networks:
-      - vitanexus
+      - project001
     ports:
       - 5432:5432
 
@@ -50,6 +50,6 @@ services:
     image: adminer
     restart: always
     networks:
-      - vitanexus
+      - project001
     ports:
       - 8088:8080

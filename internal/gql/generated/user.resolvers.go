@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"sync"
 
-	"com.vitanexus/main/internal/gql/model"
+	"com.project001/main/internal/gql/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -415,21 +415,21 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNNewUser2comᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2comᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
 	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNUpdateUser2comᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐUpdateUser(ctx context.Context, v interface{}) (model.UpdateUser, error) {
+func (ec *executionContext) unmarshalNUpdateUser2comᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐUpdateUser(ctx context.Context, v interface{}) (model.UpdateUser, error) {
 	res, err := ec.unmarshalInputUpdateUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUser2comᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2comᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖcomᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖcomᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -453,7 +453,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖcomᚗvitanexusᚋmainᚋinternal
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖcomᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖcomᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -473,7 +473,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖcomᚗvitanexusᚋmainᚋinternal
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖcomᚗvitanexusᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖcomᚗproject001ᚋmainᚋinternalᚋgqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")

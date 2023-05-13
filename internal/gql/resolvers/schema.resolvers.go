@@ -7,7 +7,7 @@ package resolvers
 import (
 	"log"
 
-	"com.vitanexus/main/database"
+	"com.project001/main/database"
 )
 
 // !!! WARNING !!!
