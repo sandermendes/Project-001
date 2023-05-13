@@ -417,14 +417,22 @@ func (m *Plugin) generateFields(cfg *config.Config, schemaType *ast.Definition) 
 }
 
 func (r *Plugin) InjectSourceEarly() *ast.Source {
+	// return &ast.Source{
+	// 	Name: "directives.graphql",
+	// 	Input: `
+	// 		directive @goField(
+	// 			forceResolver: Boolean
+	// 			name: String
+	// 		  ) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+	// 		  directive @DatabaseField(fieldName: String) on OBJECT | FIELD_DEFINITION
+	// 		scalar Time
+	// 	`,
+	// 	BuiltIn: false,
+	// }
 	return &ast.Source{
 		Name: "directives.graphql",
 		Input: `
-			directive @goField(
-				forceResolver: Boolean
-				name: String
-			  ) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
-			  directive @DatabaseField(fieldName: String) on OBJECT | FIELD_DEFINITION
+			directive @DatabaseField(fieldName: String) on OBJECT | FIELD_DEFINITION
 			scalar Time
 		`,
 		BuiltIn: false,

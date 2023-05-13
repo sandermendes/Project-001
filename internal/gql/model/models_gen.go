@@ -6,24 +6,14 @@ import (
 	"com.vitanexus/main/internal/orm/models"
 )
 
-type NewTodo struct {
+type NewUser struct {
 	models.Base
-	Text   string `json:"text" `
-	UserID string `json:"userId" `
+	FirstName string `json:"firstName" `
 }
 
-type Todo struct {
+type UpdateUser struct {
 	models.Base
-	ID   string `json:"id" `
-	Text string `json:"text" `
-	Done bool   `json:"done" `
-	User *User  `json:"user" `
-}
-
-type UpdateTodo struct {
-	models.Base
-	Text   string `json:"text" `
-	UserID string `json:"userId" `
+	FirstName string `json:"firstName" `
 }
 
 type User struct {

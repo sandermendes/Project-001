@@ -16,3 +16,21 @@ type User {
 	# updatedAt: UInt64 @DatabaseField(custom: "autoUpdateTime;not null")
 	# deletedAt: UInt64 @DatabaseField(custom: "index")
 }
+
+extend type Query {
+  users: [User!]!
+}
+
+input NewUser {
+  firstName: String!
+}
+
+input UpdateUser {
+  firstName: String!
+}
+
+extend type Mutation {
+  createUser(input: NewUser!): User!
+  updateUser(input: UpdateUser!): User!
+}
+

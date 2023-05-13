@@ -5,9 +5,10 @@ schema:
 
 # Where should the generated server code go?
 exec:
-  package: generated
   layout: follow-schema
   dir: internal/gql/generated
+  package: generated
+  filename_template: "{name}.resolvers.go"
   # filename: internal/gql/generated/generated.go
 
 # Uncomment to enable federation
@@ -70,3 +71,23 @@ models:
   UInt64:
     model:
       - com.vitanexus/main/internal/custom/scalar.UInt64
+
+  # User:
+  #   model: com.vitanexus/main/internal/gql/model/model.User
+  #   fields:
+  #     articles:
+  #       resolver: true
+  #     comments:
+  #       resolver: true
+  # Todo:
+  #   fields:
+  #     user:
+  #       resolver: true
+
+  # User:
+  #   model: com.vitanexus/main/internal/gql/model/model.User
+  #     fields:
+  #       articles:
+  #         resolver: true
+  #       comments:
+  #         resolver: true
