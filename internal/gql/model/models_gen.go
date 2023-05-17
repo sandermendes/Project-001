@@ -6,9 +6,26 @@ import (
 	"com.project001/main/internal/orm/models"
 )
 
+type Login struct {
+	models.Base
+	Email    string `json:"email" `
+	Password string `json:"password" `
+}
+
 type NewUser struct {
 	models.Base
 	FirstName string `json:"firstName" `
+	LastName  string `json:"lastName" `
+	Email     string `json:"email" `
+	Password  string `json:"password" `
+}
+
+type Register struct {
+	models.Base
+	FirstName string `json:"firstName" `
+	LastName  string `json:"lastName" `
+	Email     string `json:"email" `
+	Password  string `json:"password" `
 }
 
 type UpdateUser struct {

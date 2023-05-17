@@ -8,6 +8,7 @@ import (
 	"log"
 
 	"com.project001/main/database"
+	"com.project001/main/internal/gql/generated"
 )
 
 // !!! WARNING !!!
@@ -24,3 +25,22 @@ func NewResolver() *Resolver {
 
 	return &Resolver{db: db}
 }
+
+type mutationResolver struct {
+	*Resolver
+	// userService resolvers.mutationResolver
+}
+
+// type schemaResolver struct{ *Resolver }
+
+// Mutation returns generated.MutationResolver implementation.
+func (r *Resolver) Mutation() generated.MutationResolver {
+	return &mutationResolver{r}
+}
+
+// Mutation returns generated.MutationResolver implementation.
+func (r *Resolver) Query() generated.QueryResolver {
+	return &queryResolver{r}
+}
+
+type queryResolver struct{ *Resolver }

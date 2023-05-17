@@ -41,6 +41,8 @@ type DirectiveRoot struct {
 type ComplexityRoot struct {
 	Mutation struct {
 		CreateUser func(childComplexity int, input model.NewUser) int
+		Login      func(childComplexity int, input model.Login) int
+		Register   func(childComplexity int, input model.Register) int
 		UpdateUser func(childComplexity int, input model.UpdateUser) int
 	}
 
@@ -82,6 +84,30 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(model.NewUser)), true
+
+	case "Mutation.login":
+		if e.complexity.Mutation.Login == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_login_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.Login(childComplexity, args["input"].(model.Login)), true
+
+	case "Mutation.register":
+		if e.complexity.Mutation.Register == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_register_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.Register(childComplexity, args["input"].(model.Register)), true
 
 	case "Mutation.updateUser":
 		if e.complexity.Mutation.UpdateUser == nil {
@@ -138,7 +164,9 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	rc := graphql.GetOperationContext(ctx)
 	ec := executionContext{rc, e}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
+		ec.unmarshalInputLogin,
 		ec.unmarshalInputNewUser,
+		ec.unmarshalInputRegister,
 		ec.unmarshalInputUpdateUser,
 	)
 	first := true
@@ -208,6 +236,28 @@ type Query
 
 type Mutation
 `, BuiltIn: false},
+	{Name: "../../../microservices/account/schemas/account.graphql", Input: `# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+input Login {
+  email: String!
+  password: String!
+}
+
+input Register {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+}
+
+extend type Mutation {
+  register(input: Register!): String!
+  login(input: Login!): String!
+}
+
+`, BuiltIn: false},
 	{Name: "../../../microservices/user/schemas/user.graphql", Input: `# GraphQL schema example
 #
 # https://gqlgen.com/getting-started/
@@ -233,6 +283,9 @@ extend type Query {
 
 input NewUser {
   firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
 }
 
 input UpdateUser {

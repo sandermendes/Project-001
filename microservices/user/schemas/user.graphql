@@ -23,6 +23,9 @@ extend type Query {
 
 input NewUser {
   firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
 }
 
 input UpdateUser {

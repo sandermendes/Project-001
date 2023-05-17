@@ -19,12 +19,15 @@
 		// Specif properties for customization VSCode
 		"vscode": {
 			"settings": {
+				"go.gopath": "/go",
+				"go.goroot": "/usr/local/go",
 				"jinliming2.vscode-go-template.patterns": "**/*.gotpl"
 			},
 			// Extensions to be installed
 			"extensions": [
 				"golang.Go",
 				"mquandalle.Graphql",
+				"zxh404.vscode-proto3",
 				"jinliming2.vscode-go-template"
 			]
 		}

@@ -8,35 +8,44 @@ import (
 	"context"
 	"fmt"
 
-	"com.project001/main/internal/gql/generated"
 	"com.project001/main/internal/gql/model"
+	"com.project001/main/providers/encrypt"
+	"com.project001/main/shared/utils"
 )
 
-// Mutation returns generated.MutationResolver implementation.
-func (r *Resolver) Mutation() generated.MutationResolver {
-	return &userResolver{r}
-}
-
-// Mutation returns generated.MutationResolver implementation.
-func (r *Resolver) Query() generated.QueryResolver {
-	return &queryResolver{r}
-}
-
-type userResolver struct{ *Resolver }
+// type userResolver struct{ *Resolver }
 
 // type mutationResolver struct{ *Resolver }
 
 // CreateUser is the resolver for the createUser field.
-func (r *userResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createTodo"))
+func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) (*model.User, error) {
+
+	// Hash submitted password
+	passwordHash, err := encrypt.GenHash(input.Password, 14)
+	if err != nil {
+		return nil, err
+	}
+	input.Password = passwordHash
+
+	var user model.User
+	if err := utils.Copy(&user, &input); err != nil {
+		return nil, err
+	}
+
+	if err := r.db.Create(&user).First(&user).Scan(&user).Error; err != nil {
+		return nil, err
+	}
+
+	fmt.Println("input", input)
+	fmt.Println("user", user)
+
+	return &user, nil
 }
 
 // UpdateUser is the resolver for the updateUser field.
-func (r *userResolver) UpdateUser(ctx context.Context, input model.UpdateUser) (*model.User, error) {
+func (r *mutationResolver) UpdateUser(ctx context.Context, input model.UpdateUser) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: UpdateUser - updateUser"))
 }
-
-type queryResolver struct{ *Resolver }
 
 // User is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {

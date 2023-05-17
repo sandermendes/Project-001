@@ -13,9 +13,9 @@ import (
 func main() {
 	// flag.Parse()
 
-	port, ok := os.LookupEnv("USER_SERVICE_PORT")
+	port, ok := os.LookupEnv("ACCOUNT_SERVICE_PORT")
 	if !ok {
-		fmt.Println("USER_SERVICE_PORT - ok", ok)
+		fmt.Println("ACCOUNT_SERVICE_PORT - ok", ok)
 		panic(fmt.Sprintf("no port specified for %s", port))
 	}
 
