@@ -6,11 +6,6 @@ FROM mcr.microsoft.com/devcontainers/go:0-1.20-bullseye
 
 # [Optional] Uncomment the next lines to use go get to install anything else you need
 USER vscode
-# RUN go get -x <your-dependency-or-tool>
-# USER root
-
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
 # Protoc Compiler
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest \
@@ -23,3 +18,7 @@ RUN sudo apt install unzip \
     && unzip protobuf.zip -d protobuf \
     && sudo mv protobuf /lib \
     && sudo ln -s /lib/protobuf/bin/protoc /usr/local/bin/protoc
+# USER root
+
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
