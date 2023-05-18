@@ -1,8 +1,7 @@
 {
-    // "protoc": {
-        // "path": "/usr/local/bin/protoc",
-        // "options": [
-        //     "--proto_path=${workspaceFolder}/**/*.proto"
-        // ]
-    // }
+    "protoc": {
+        "options": [
+            "--proto_path=${workspaceFolder}/microservices/**/protobufs/**/*.proto"
+        ]
+    }
 }

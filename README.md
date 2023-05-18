@@ -5,4 +5,4 @@ Go Golang Gorm Postgres Gqlgen Graphql
 Need to proper format Readme file
 
 Some commands
-protoc --go_out=microservices/account/pb --go-grpc_out=microservices/account/pb **/*.proto
+protoc --go_out=microservices/account/pb --go-grpc_out=microservices/account/pb microservices/**/protobufs/**/*.proto
