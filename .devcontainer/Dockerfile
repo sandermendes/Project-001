@@ -7,6 +7,9 @@ FROM mcr.microsoft.com/devcontainers/go:0-1.20-bullseye
 # [Optional] Uncomment the next lines to use go get to install anything else you need
 USER vscode
 
+# Enforce SSH Url
+RUN git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+
 # Protoc Compiler
 RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest \
     && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
