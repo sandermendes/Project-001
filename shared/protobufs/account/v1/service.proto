@@ -1,0 +1,14 @@
+syntax = "proto3";
+package account.v1;
+
+// option go_package = "com.vitanexus/main/protobufs/account/v1";
+// option go_package = "com.vitanexus/main/microservices/account/protobufs/v1";
+// option go_package = "com.vitanexus/main/microservices/account/pb/v1";
+option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/account/v1;accountv1";
+
+import "account/v1/account.proto";
+import "account/v1/register.proto";
+
+service AccountService {
+    rpc Register(account.v1.RegisterRequest) returns (account.v1.AccountResponse) {}
+}
