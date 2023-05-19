@@ -14,5 +14,5 @@ Need more detailed information
 Commands to execute in devcontainer container, if has some change in proto files:
 
 `
-$ protoc --go_out=microservices/account/pb --go-grpc_out=microservices/account/pb microservices/**/protobufs/**/*.proto
+protoc --go_out=generated --go-grpc_out=generated --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative **/*.proto
 `

@@ -6,13 +6,13 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user/model"
-	// accountV1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/generated/account/v1"
+	accountV1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/generated/account/v1"
 )
 
 type Repository interface {
 	// GetUsers() error
 
-	CreateUser( /* input *accountV1.RegisterRequest */ ) error
+	CreateUser(input *accountV1.RegisterRequest) error
 	// UpdateUser() error
 	// DeleteUser() error
 }

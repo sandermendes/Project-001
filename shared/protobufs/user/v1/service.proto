@@ -1,15 +1,8 @@
 syntax = "proto3";
 package user.v1;
 
-// option go_package = "com.vitanexus/main/protobufs/account/v1";
-// option go_package = "com.vitanexus/main/microservices/user/protobufs/v1";
-// option go_package = "com.vitanexus/main/microservices/user/pb/v1";
-option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/user/v1;userv1";
+option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/generated/user/v1;userv1";
 
-// import "microservices/account/protobufs/v1/register.proto";
-// import "microservices/user/protobufs/v1/user.proto";
-// import "microservices/account/protobufs/v1/register.proto";
-// import "microservices/user/protobufs/v1/user.proto";
 import "account/v1/register.proto";
 import "user/v1/user.proto";
 

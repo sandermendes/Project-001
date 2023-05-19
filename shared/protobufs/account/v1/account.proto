@@ -1,11 +1,7 @@
 syntax = "proto3";
 package account.v1;
 
-// option go_package = ".accountV1";
-// option go_package = "account.v1;com.vitanexus/main/microservices/account/protobufs/v1";
-// option go_package = "com.vitanexus/main/protobufs/account/v1";
-// option go_package = "./;generated";
-option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/account/v1;accountv1";
+option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/generated/account/v1;accountv1";
 
 message AccountResponse {
     string token = 1;
