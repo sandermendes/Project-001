@@ -3,7 +3,7 @@
 package model
 
 import (
-	"com.project001/main/internal/orm/models"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/orm/models"
 )
 
 type Login struct {

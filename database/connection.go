@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	"com.project001/main/internal/gql/model"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"

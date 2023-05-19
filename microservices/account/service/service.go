@@ -1,1 +1,4 @@
-package accountService
+package service
+
+type Service interface {
+}

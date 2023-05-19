@@ -1,12 +1,17 @@
 package repository
 
-import (
-	"context"
+// type Repository interface {
+// 	Close()
+// 	Register(ctx context.Context, input *accountV1.RegisterRequest) (*accountV1.AccountResponse, error)
+// 	Login(ctx context.Context, input *accountV1.LoginRequest) (*accountV1.AccountResponse, error)
+// }
 
-	"com.project001/main/internal/gql/model"
-)
+// type repository struct {
+// 	db *gorm.DB
+// }
 
-type Repository interface {
-	Close()
-	Register(ctx context.Context, input model.Register) (string, error)
-}
+// func Register(r *repository) (*accountV1.AccountResponse, error) {
+// 	r.db.
+
+// 	return nil, nil
+// }

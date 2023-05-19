@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"com.project001/main/internal/custom/models"
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/codegen/config"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/custom/models"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module com.project001/main
+module github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main
 
 go 1.20
 

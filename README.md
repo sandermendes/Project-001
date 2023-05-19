@@ -1,11 +1,12 @@
 # Project
 ## Technologies used
-1. Gorm
-2. Postgres
-3. Gqlgen
-4. Graphql
-5. Grpc
-6. Protobuf
+1. DevContainer (TODO: Add more info about)
+2. Gorm
+3. Postgres
+4. Gqlgen
+5. Graphql
+6. Grpc
+7. Protobuf
 
 # TODO
 Need more detailed information

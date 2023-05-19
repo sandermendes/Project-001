@@ -7,8 +7,8 @@ package resolvers
 import (
 	"log"
 
-	"com.project001/main/database"
-	"com.project001/main/internal/gql/generated"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/database"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/generated"
 )
 
 // !!! WARNING !!!

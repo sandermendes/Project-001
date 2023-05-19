@@ -4,11 +4,11 @@ import (
 	"log"
 	"net/http"
 
-	"com.project001/main/internal/gql/directives"
-	"com.project001/main/internal/gql/generated"
-	gql "com.project001/main/internal/gql/resolvers"
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/directives"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/generated"
+	gql "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/resolvers"
 )
 
 func InitGraphqlServer(port string) error {

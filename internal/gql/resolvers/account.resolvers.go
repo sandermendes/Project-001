@@ -10,7 +10,7 @@ import (
 	"net"
 	"os"
 
-	"com.project001/main/internal/gql/model"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 )
 
 // Mutation returns generated.MutationResolver implementation.

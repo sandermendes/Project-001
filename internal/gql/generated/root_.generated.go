@@ -7,7 +7,7 @@ import (
 	"context"
 	"errors"
 
-	"com.project001/main/internal/gql/model"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	gqlparser "github.com/vektah/gqlparser/v2"

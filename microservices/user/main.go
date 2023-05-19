@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"com.project001/main/shared"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared"
 )
 
 // const defaultPort = "8080"

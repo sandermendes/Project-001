@@ -8,9 +8,9 @@ import (
 	"context"
 	"fmt"
 
-	"com.project001/main/internal/gql/model"
-	"com.project001/main/providers/encrypt"
-	"com.project001/main/shared/utils"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/encrypt"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 )
 
 // type userResolver struct{ *Resolver }
