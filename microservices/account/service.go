@@ -24,6 +24,7 @@ type service struct {
 
 func NewService() Service {
 	userConn, err := serviceConnection.GetUserConnection()
+	fmt.Println("NewService - err\n", err)
 	if err != nil {
 		log.Fatalf("failed to connect to userService: %v", err)
 	}
@@ -36,7 +37,7 @@ func NewService() Service {
 func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error) {
 	user, err := s.userConn.CreateUser(ctx, input)
 	if err != nil {
-		fmt.Println("err: ", err)
+		fmt.Println("Account - Register - err: ", err)
 		return nil, status.Error(codes.Internal, err.Error()) /* fmt.Errorf("error CreateUser connect: %s", err.Error()) */
 	}
 

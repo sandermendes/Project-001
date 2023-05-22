@@ -26,7 +26,7 @@ func NewGrpcServer() *Server {
 	}
 }
 
-func interceptorLogger(ctx context.Context, _ interface{}, info *grpc.UnaryServerInfo, _ grpc.UnaryHandler) (interface{}, error) {
+func interceptorLogger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	var ipAddr string
 	if p, of := peer.FromContext(ctx); of {
 		// fmt.Printf("interceptorLogger - ctx - p.Addr.(*net.TCPAddr).IP.String() %s\n", p.Addr.(*net.TCPAddr).IP.String())
@@ -34,7 +34,14 @@ func interceptorLogger(ctx context.Context, _ interface{}, info *grpc.UnaryServe
 		ipAddr = p.Addr.(*net.TCPAddr).IP.String()
 	}
 	fmt.Printf("%s - %s - method - %s\n", time.Now().Format(time.DateTime), ipAddr, strings.Split(info.FullMethod, "/")[1])
-	return nil, nil
+	// fmt.Println("handler", handler)
+
+	resp, err := handler(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, err
 }
 
 func ListenGRPC(port string) error {
