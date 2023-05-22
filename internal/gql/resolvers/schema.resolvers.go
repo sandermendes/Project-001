@@ -7,8 +7,8 @@ package resolvers
 import (
 	"log"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/database"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/generated"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database"
 )
 
 // !!! WARNING !!!
@@ -18,7 +18,7 @@ import (
 //     it when you're done.
 //   - You have helper methods in this file. Move them out to keep these resolver files clean.
 func NewResolver() *Resolver {
-	db, err := database.GetConnection()
+	db, err := database.NewConnection()
 	if err != nil {
 		log.Fatalf("failed to connect to database: %v", err)
 	}

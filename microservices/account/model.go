@@ -1,4 +1,4 @@
-package accountModel
+package account
 
 type Account struct {
 	Id   string

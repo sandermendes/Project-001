@@ -2,14 +2,14 @@ package database
 
 import (
 	"fmt"
+	"os/user"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 )
 
-func GetConnection() (*gorm.DB, error) {
+func NewConnection() (*gorm.DB, error) {
 	// dsn := fmt.Sprintf(
 	// 	"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 	// 	host, port, username, db, password,
@@ -29,7 +29,7 @@ func GetConnection() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	dbConn.AutoMigrate(&model.User{})
+	dbConn.AutoMigrate(&user.User{})
 
 	return dbConn, nil
 }

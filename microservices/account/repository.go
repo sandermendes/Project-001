@@ -1,4 +1,4 @@
-package repository
+package account
 
 // type Repository interface {
 // 	Close()
