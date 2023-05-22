@@ -9,6 +9,7 @@ import (
 
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -25,8 +26,14 @@ func NewGrpcServer() *Server {
 	}
 }
 
-func interceptorLogger(_ context.Context, _ interface{}, info *grpc.UnaryServerInfo, _ grpc.UnaryHandler) (interface{}, error) {
-	fmt.Printf("%s - FullMethod %s\n", time.Now().Format(time.DateTime), strings.Split(info.FullMethod, "/")[1])
+func interceptorLogger(ctx context.Context, _ interface{}, info *grpc.UnaryServerInfo, _ grpc.UnaryHandler) (interface{}, error) {
+	var ipAddr string
+	if p, of := peer.FromContext(ctx); of {
+		// fmt.Printf("interceptorLogger - ctx - p.Addr.(*net.TCPAddr).IP.String() %s\n", p.Addr.(*net.TCPAddr).IP.String())
+		// fmt.Printf("interceptorLogger - ctx - p.Addr.(*net.TCPAddr).Network() %s\n", p.Addr.(*net.TCPAddr).Network())
+		ipAddr = p.Addr.(*net.TCPAddr).IP.String()
+	}
+	fmt.Printf("%s - %s - method - %s\n", time.Now().Format(time.DateTime), ipAddr, strings.Split(info.FullMethod, "/")[1])
 	return nil, nil
 }
 
