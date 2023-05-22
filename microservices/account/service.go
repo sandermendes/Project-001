@@ -8,6 +8,8 @@ import (
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	serviceConnection "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/service_connection"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type Service interface {
@@ -34,7 +36,8 @@ func NewService() Service {
 func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error) {
 	user, err := s.userConn.CreateUser(ctx, input)
 	if err != nil {
-		return nil, err
+		fmt.Println("err: ", err)
+		return nil, status.Error(codes.Internal, err.Error()) /* fmt.Errorf("error CreateUser connect: %s", err.Error()) */
 	}
 
 	fmt.Println("Service - Register - user", user)

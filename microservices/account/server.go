@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"net"
+	"strings"
+	"time"
 
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	"google.golang.org/grpc"
@@ -23,13 +25,21 @@ func NewGrpcServer() *Server {
 	}
 }
 
+func interceptorLogger(_ context.Context, _ interface{}, info *grpc.UnaryServerInfo, _ grpc.UnaryHandler) (interface{}, error) {
+	fmt.Printf("%s - FullMethod %s\n", time.Now().Format(time.DateTime), strings.Split(info.FullMethod, "/")[1])
+	return nil, nil
+}
+
 func ListenGRPC(port string) error {
 	ln, err := net.Listen("tcp", fmt.Sprintf(":%s", port))
 	if err != nil {
 		return err
 	}
 
-	serv := grpc.NewServer()
+	var opts []grpc.ServerOption
+	opts = append(opts, grpc.UnaryInterceptor(interceptorLogger))
+
+	serv := grpc.NewServer(opts...)
 	grpcServer := NewGrpcServer()
 	accountv1.RegisterAccountServiceServer(serv, grpcServer)
 	reflection.Register(serv)

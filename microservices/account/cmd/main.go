@@ -18,7 +18,7 @@ func main() {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}
 
-	fmt.Printf("Listening on port: %s", port)
+	fmt.Printf("Listening on port: %s\n", port)
 	if err := account.ListenGRPC(port); err == nil {
 		log.Fatal("server exited", err.Error())
 	}
