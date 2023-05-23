@@ -11,8 +11,7 @@
 # TODO
 Need more detailed information
 
-Commands to execute in devcontainer container, if has some change in proto files:
-
+Use the following command to generate protobufs files, if has some change in *.proto files:
 `
-protoc --go_out=_generated --go-grpc_out=_generated --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative **/*.proto
+$ ./generate-protobufs.sh
 `

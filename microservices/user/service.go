@@ -28,6 +28,9 @@ func NewService() Service {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
 
+	// Execute migrations
+	db.AutoMigrate(&User{})
+
 	return &userService{
 		repository: &repository{
 			db: db,

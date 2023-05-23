@@ -33,7 +33,8 @@ func interceptorLogger(ctx context.Context, req interface{}, info *grpc.UnarySer
 		// fmt.Printf("interceptorLogger - ctx - p.Addr.(*net.TCPAddr).Network() %s\n", p.Addr.(*net.TCPAddr).Network())
 		ipAddr = p.Addr.(*net.TCPAddr).IP.String()
 	}
-	fmt.Printf("%s - %s - method - %s\n", time.Now().Format(time.DateTime), ipAddr, strings.Split(info.FullMethod, "/")[1])
+	fullMethod := strings.Split(info.FullMethod, "/")
+	fmt.Printf("%s - %s - Method - %s - %s\n", time.Now().Format(time.DateTime), ipAddr, fullMethod[1], fullMethod[2])
 	// fmt.Println("handler", handler)
 
 	resp, err := handler(ctx, req)

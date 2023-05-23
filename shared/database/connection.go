@@ -2,7 +2,6 @@ package database
 
 import (
 	"fmt"
-	"os/user"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -28,8 +27,6 @@ func NewConnection() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	dbConn.AutoMigrate(&user.User{})
 
 	return dbConn, nil
 }
