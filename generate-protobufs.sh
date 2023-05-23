@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+PROTOBUF_FOLDER=shared/protobufs
 GENERATED_OUTPUT_PATH=_generated
 
 echo "Accessing protobuf's folder..."
-cd "shared/protobufs"
+cd $PROTOBUF_FOLDER
 
 echo "Cleaning generated protobufs..."
 rm -rf $(realpath ./_generated/*)
