@@ -6,7 +6,6 @@ package resolvers
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
@@ -52,20 +51,26 @@ func (r *Resolver) Register(ctx context.Context, input model.Register) (*model.A
 	return &accountResponse, nil
 }
 
-// UpdateUser is the resolver for the updateUser field.
+// Login is the resolver for check user credentials.
 func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.AccountResponse, error) {
-	fmt.Println("Login - account.resolver")
+	// Covert to protobuf to
+	var loginInput accountv1.LoginRequest
+	if err := utils.Copy(&loginInput, &input); err != nil {
+		return nil, err
+	}
 
-	// conn, err := getUserConnection(nil)
-	// if err != nil {
-	// 	return "", err
-	// }
+	// Connect to Account Service and try to get some feedback from hin
+	login, err := r.account.Login(ctx, &loginInput)
+	if err != nil {
+		return nil, utils.FmtLogError(err)
+	}
 
-	// fmt.Println("Login - ctx", &ctx)
-	// fmt.Println("Login - conn", &conn)
-	return nil, nil
-
-	// panic(fmt.Errorf("not implemented: Login - login"))
+	// Convert result
+	var accountResponse model.AccountResponse
+	if err := utils.Copy(&accountResponse, &login); err != nil {
+		return nil, err
+	}
+	return &accountResponse, nil
 }
 
 // type queryResolver struct{ *Resolver }

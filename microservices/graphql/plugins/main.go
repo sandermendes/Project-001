@@ -6,7 +6,7 @@ import (
 
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/codegen/config"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/custom/models"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/custom/models"
 )
 
 func main() {

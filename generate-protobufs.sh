@@ -10,7 +10,7 @@ cd $PROTOBUF_FOLDER
 echo "Cleaning generated protobufs..."
 rm -rf $(realpath ./_generated/*)
 
-echo "Generating generated protobufs..."
+echo "Generating protobufs files..."
 protoc \
     --go_out=$GENERATED_OUTPUT_PATH \
     --go-grpc_out=$GENERATED_OUTPUT_PATH \

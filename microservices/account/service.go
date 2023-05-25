@@ -45,13 +45,13 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 	// fmt.Println("Service - Register - user", user)
 
 	return &accountv1.AccountResponse{
-		Token:    "0123456-0123456-01234560123",
+		Token:    "register-0123456-0123456-01234560123",
 		Redirect: "/test/redirect",
 	}, nil
 }
 
 func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error) {
-	fmt.Println("Account - Service - Login - input", input)
+	fmt.Println("Account - Service - Login")
 	// user, err := s.userConn.Login(ctx, input)
 	// if err != nil {
 	// 	return nil, err
@@ -60,7 +60,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	// fmt.Println("Service - Register - user", user)
 
 	return &accountv1.AccountResponse{
-		Token:    "0123456-0123456-01234560123",
+		Token:    "login-0123456-0123456-01234560123",
 		Redirect: "/test/redirect",
 	}, nil
 }
