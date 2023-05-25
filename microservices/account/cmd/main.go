@@ -11,8 +11,6 @@ import (
 // const defaultPort = "8080"
 
 func main() {
-	// flag.Parse()
-
 	port, ok := os.LookupEnv("ACCOUNT_SERVICE_PORT")
 	if !ok {
 		panic(fmt.Sprintf("No port specified for %s", port))

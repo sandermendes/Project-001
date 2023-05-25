@@ -33,6 +33,7 @@ func NewService() Service {
 }
 
 func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error) {
+	// Call userService function CreateUser
 	user, err := s.userConn.CreateUser(ctx, input)
 	if err != nil {
 		return nil, utils.FmtLogError(err)
@@ -51,7 +52,7 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 
 func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error) {
 	fmt.Println("Account - Service - Login - input", input)
-	// user, err := s.userConn.CreateUser(ctx, input)
+	// user, err := s.userConn.Login(ctx, input)
 	// if err != nil {
 	// 	return nil, err
 	// }

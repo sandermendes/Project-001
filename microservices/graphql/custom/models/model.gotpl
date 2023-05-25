@@ -13,7 +13,6 @@
 {{ reserveImport "github.com/vektah/gqlparser/v2/ast" }}
 {{ reserveImport "github.com/99designs/gqlgen/graphql" }}
 {{ reserveImport "github.com/99designs/gqlgen/graphql/introspection" }}
-{{ reserveImport "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/orm/models" }}
 
 {{- range $model := .Interfaces }}
 	{{ with .Description }} {{.|prefixLines "// "}} {{ end }}
@@ -34,7 +33,6 @@
 {{ range $model := .Models }}
 	{{with .Description }} {{.|prefixLines "// "}} {{end}}
 	type {{ goModelName .Name }} struct {
-		models.Base
 
 		{{- range $field := .Fields }}
 			{{- with .Description }}

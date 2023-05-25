@@ -9,14 +9,12 @@ import (
 )
 
 func main() {
-	// flag.Parse()
-
 	port, ok := os.LookupEnv("USER_SERVICE_PORT")
 	if !ok {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}
 
-	fmt.Printf("Listening on port: %s", port)
+	fmt.Printf("Listening on port: %s\n", port)
 	if err := user.ListenGRPC(port); err == nil {
 		log.Fatal("server exited", err.Error())
 	}

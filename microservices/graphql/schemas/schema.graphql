@@ -2,6 +2,6 @@
 #
 # https://gqlgen.com/getting-started/
 
-type Query
+# type Query
 
 type Mutation

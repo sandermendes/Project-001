@@ -14,8 +14,13 @@ input Register {
   password: String!
 }
 
+type AccountResponse {
+  token: String
+  redirect: String
+}
+
 extend type Mutation {
-  register(input: Register!): String!
-  login(input: Login!): String!
+  register(input: Register!): AccountResponse
+  login(input: Login!): AccountResponse
 }
 

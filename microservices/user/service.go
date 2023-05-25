@@ -13,6 +13,7 @@ import (
 type Service interface {
 	// GetUsers() error
 
+	// GetUser() error
 	CreateUser(ctx context.Context, input *accountv1.RegisterRequest) (*User, error)
 	// UpdateUser() error
 	// DeleteUser() error

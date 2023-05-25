@@ -17,3 +17,5 @@ protoc \
     --go_opt=paths=source_relative \
     --go-grpc_opt=paths=source_relative \
     $(find . -name "*.proto")
+
+echo "Complete"

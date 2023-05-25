@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	"google.golang.org/grpc"
@@ -30,7 +31,10 @@ func ListenGRPC(port string) error {
 		return err
 	}
 
-	serv := grpc.NewServer()
+	var opts []grpc.ServerOption
+	opts = append(opts, grpc.UnaryInterceptor(interceptors.Logger))
+
+	serv := grpc.NewServer(opts...)
 	grpcServer := NewGrpcServer()
 	userv1.RegisterUserServiceServer(serv, grpcServer)
 	reflection.Register(serv)

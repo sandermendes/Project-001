@@ -7,9 +7,9 @@ import (
 	"context"
 	"errors"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -31,7 +31,6 @@ type Config struct {
 
 type ResolverRoot interface {
 	Mutation() MutationResolver
-	Query() QueryResolver
 }
 
 type DirectiveRoot struct {
@@ -39,22 +38,17 @@ type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
+	AccountResponse struct {
+		Redirect func(childComplexity int) int
+		Token    func(childComplexity int) int
+	}
+
 	Mutation struct {
-		CreateUser func(childComplexity int, input model.NewUser) int
-		Login      func(childComplexity int, input model.Login) int
-		Register   func(childComplexity int, input model.Register) int
-		UpdateUser func(childComplexity int, input model.UpdateUser) int
+		Login    func(childComplexity int, input model.Login) int
+		Register func(childComplexity int, input model.Register) int
 	}
 
 	Query struct {
-		Users func(childComplexity int) int
-	}
-
-	User struct {
-		Email     func(childComplexity int) int
-		FirstName func(childComplexity int) int
-		LastName  func(childComplexity int) int
-		Password  func(childComplexity int) int
 	}
 }
 
@@ -73,17 +67,19 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	_ = ec
 	switch typeName + "." + field {
 
-	case "Mutation.createUser":
-		if e.complexity.Mutation.CreateUser == nil {
+	case "AccountResponse.redirect":
+		if e.complexity.AccountResponse.Redirect == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_createUser_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
+		return e.complexity.AccountResponse.Redirect(childComplexity), true
+
+	case "AccountResponse.token":
+		if e.complexity.AccountResponse.Token == nil {
+			break
 		}
 
-		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(model.NewUser)), true
+		return e.complexity.AccountResponse.Token(childComplexity), true
 
 	case "Mutation.login":
 		if e.complexity.Mutation.Login == nil {
@@ -109,53 +105,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.Register(childComplexity, args["input"].(model.Register)), true
 
-	case "Mutation.updateUser":
-		if e.complexity.Mutation.UpdateUser == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_updateUser_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.UpdateUser(childComplexity, args["input"].(model.UpdateUser)), true
-
-	case "Query.users":
-		if e.complexity.Query.Users == nil {
-			break
-		}
-
-		return e.complexity.Query.Users(childComplexity), true
-
-	case "User.email":
-		if e.complexity.User.Email == nil {
-			break
-		}
-
-		return e.complexity.User.Email(childComplexity), true
-
-	case "User.firstName":
-		if e.complexity.User.FirstName == nil {
-			break
-		}
-
-		return e.complexity.User.FirstName(childComplexity), true
-
-	case "User.lastName":
-		if e.complexity.User.LastName == nil {
-			break
-		}
-
-		return e.complexity.User.LastName(childComplexity), true
-
-	case "User.password":
-		if e.complexity.User.Password == nil {
-			break
-		}
-
-		return e.complexity.User.Password(childComplexity), true
-
 	}
 	return 0, false
 }
@@ -165,9 +114,7 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	ec := executionContext{rc, e}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
 		ec.unmarshalInputLogin,
-		ec.unmarshalInputNewUser,
 		ec.unmarshalInputRegister,
-		ec.unmarshalInputUpdateUser,
 	)
 	first := true
 
@@ -228,15 +175,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "../schemas/schema.graphql", Input: `# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Query
-
-type Mutation
-`, BuiltIn: false},
-	{Name: "../../../microservices/account/schemas/account.graphql", Input: `# GraphQL schema example
+	{Name: "../../account/schemas/account.graphql", Input: `# GraphQL schema example
 #
 # https://gqlgen.com/getting-started/
 
@@ -252,53 +191,26 @@ input Register {
   password: String!
 }
 
+type AccountResponse {
+  token: String
+  redirect: String
+}
+
 extend type Mutation {
-  register(input: Register!): String!
-  login(input: Login!): String!
+  register(input: Register!): AccountResponse
+  login(input: Login!): AccountResponse
 }
 
 `, BuiltIn: false},
-	{Name: "../../../microservices/user/schemas/user.graphql", Input: `# GraphQL schema example
+	{Name: "../schemas/schema.graphql", Input: `# GraphQL schema example
 #
 # https://gqlgen.com/getting-started/
 
-scalar UInt64
+# type Query
 
-type User {
-    # Base Model added by gqlgen model template: model.gotpl
-
-    # @DatabaseField directive means to, generate command to Gorm structure the data in Database
-    #   fieldName, is about a name for cloumn table
-    #   custom is about a some another custom column config, eg: "type:uuid;primaryKey;default:gen_random_uuid()",
-    #   final code result in struct is like, eg: FirstName string ` + "`" + `gorm:"type:uuid;primaryKey;default:gen_random_uuid()"` + "`" + `
-    firstName: String! @DatabaseField(fieldName: "first_name")
-    lastName:  String! @DatabaseField(fieldName: "last_name")
-    email:    String! @DatabaseField(custom: "not null")
-    password: String! @DatabaseField(custom: "not null")
-}
-
-extend type Query {
-  users: [User!]!
-}
-
-input NewUser {
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-}
-
-input UpdateUser {
-  firstName: String!
-}
-
-extend type Mutation {
-  createUser(input: NewUser!): User!
-  updateUser(input: UpdateUser!): User!
-}
-
+type Mutation
 `, BuiltIn: false},
-	{Name: "../../../directives.graphql", Input: `
+	{Name: "../directives.graphql", Input: `
 			directive @DatabaseField(fieldName: String) on OBJECT | FIELD_DEFINITION
 			scalar Time
 		`, BuiltIn: false},
