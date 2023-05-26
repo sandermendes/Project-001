@@ -8,12 +8,13 @@
 6. Grpc
 7. Protobuf
 
-![Sander Mendes App Project-001 Management](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-2023-05-25-1843.png)
+![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-2023-05-25-1843.png)
 
 # TODO
 Need more detailed information
 
 Use the following command to generate protobufs files, if has some change in *.proto files:
+
 `
 $ ./generate-protobufs.sh
 `
