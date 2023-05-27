@@ -3,12 +3,11 @@ package user.v1;
 
 option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1;userv1";
 
-import "account/v1/register.proto";
 import "user/v1/user.proto";
 
 service UserService {
     rpc GetUser(UpdateUserRequest) returns (UserResponse);
-    rpc CreateUser(account.v1.RegisterRequest) returns (UserResponse);
+    rpc CreateUser(CreateUserRequest) returns (UserResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
     rpc DeleteUser(UpdateUserRequest) returns (UserResponse);
 }

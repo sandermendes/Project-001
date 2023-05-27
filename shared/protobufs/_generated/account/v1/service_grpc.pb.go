@@ -8,9 +8,11 @@ package accountv1
 
 import (
 	context "context"
+	v1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -21,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	AccountService_Register_FullMethodName = "/account.v1.AccountService/Register"
 	AccountService_Login_FullMethodName    = "/account.v1.AccountService/Login"
+	AccountService_Me_FullMethodName       = "/account.v1.AccountService/Me"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -29,6 +32,7 @@ const (
 type AccountServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*AccountResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AccountResponse, error)
+	Me(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error)
 }
 
 type accountServiceClient struct {
@@ -57,12 +61,22 @@ func (c *accountServiceClient) Login(ctx context.Context, in *LoginRequest, opts
 	return out, nil
 }
 
+func (c *accountServiceClient) Me(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error) {
+	out := new(v1.UserResponse)
+	err := c.cc.Invoke(ctx, AccountService_Me_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility
 type AccountServiceServer interface {
 	Register(context.Context, *RegisterRequest) (*AccountResponse, error)
 	Login(context.Context, *LoginRequest) (*AccountResponse, error)
+	Me(context.Context, *emptypb.Empty) (*v1.UserResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -75,6 +89,9 @@ func (UnimplementedAccountServiceServer) Register(context.Context, *RegisterRequ
 }
 func (UnimplementedAccountServiceServer) Login(context.Context, *LoginRequest) (*AccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedAccountServiceServer) Me(context.Context, *emptypb.Empty) (*v1.UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Me not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
@@ -125,6 +142,24 @@ func _AccountService_Login_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_Me_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).Me(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AccountService_Me_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).Me(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +174,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _AccountService_Login_Handler,
+		},
+		{
+			MethodName: "Me",
+			Handler:    _AccountService_Me_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
