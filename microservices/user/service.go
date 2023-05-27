@@ -17,7 +17,7 @@ import (
 type Service interface {
 	// GetUsers() error
 
-	// GetUser() error
+	GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
 	CreateUser(ctx context.Context, input *accountv1.RegisterRequest) (*User, error)
 	UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
 	DeleteUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
@@ -41,6 +41,26 @@ func NewService() Service {
 			db: db,
 		},
 	}
+}
+
+func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error) {
+	var (
+		err      error
+		findUser User
+	)
+	if input.GetId() == "" {
+		return nil, status.Error(codes.FailedPrecondition, "need to be included field ID")
+	}
+	userID, _ := uuid.Parse(input.GetId())
+	findUser.ID = userID
+
+	// Check if User exists
+	user, err := r.repository.GetUserById(&findUser)
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
 
 func (r *userService) CreateUser(ctx context.Context, input *accountv1.RegisterRequest) (*User, error) {

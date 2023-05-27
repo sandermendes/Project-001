@@ -8,8 +8,11 @@ import (
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/grpc/status"
 )
 
 type Server struct {
@@ -39,6 +42,21 @@ func ListenGRPC(port string) error {
 	userv1.RegisterUserServiceServer(serv, grpcServer)
 	reflection.Register(serv)
 	return serv.Serve(ln)
+}
+
+func (s *Server) GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
+	user, err := s.service.GetUser(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	var userResponse userv1.UserResponse
+	if err = utils.Copy(&userResponse, &user); err != nil {
+		return nil, status.Error(codes.Internal, "fail to return user data")
+	}
+	userResponse.Id = user.ID.String()
+
+	return &userResponse, nil
 }
 
 func (s *Server) CreateUser(ctx context.Context, input *accountv1.RegisterRequest) (*userv1.UserResponse, error) {
