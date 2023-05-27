@@ -7,5 +7,8 @@ import "account/v1/register.proto";
 import "user/v1/user.proto";
 
 service UserService {
-    rpc CreateUser(account.v1.RegisterRequest) returns (user.v1.UserResponse);
+    rpc GetUser(UpdateUserRequest) returns (UserResponse);
+    rpc CreateUser(account.v1.RegisterRequest) returns (UserResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+    rpc DeleteUser(UpdateUserRequest) returns (UserResponse);
 }

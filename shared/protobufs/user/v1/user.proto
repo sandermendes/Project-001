@@ -3,6 +3,14 @@ package user.v1;
 
 option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1;userv1";
 
+message UpdateUserRequest {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string email = 4;
+    optional string password = 5;
+}
+
 message UserResponse {
     string id = 1;
     string first_name = 2;
