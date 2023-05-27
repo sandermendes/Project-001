@@ -64,19 +64,13 @@ func (s *Server) CreateUser(ctx context.Context, input *userv1.CreateUserRequest
 		return nil, err
 	}
 
-	// var userResponse userv1.UserResponse
-	// if err = utils.Copy(&userResponse, &user); err != nil {
-	// 	return nil, status.Error(codes.Internal, "fail to return user data")
-	// }
-	// userResponse.Id = user.ID.String()
+	var userResponse userv1.UserResponse
+	if err = utils.Copy(&userResponse, &user); err != nil {
+		return nil, status.Error(codes.Internal, "fail to return user data")
+	}
+	userResponse.Id = user.ID.String()
 
-	// return &userResponse, nil
-	return &userv1.UserResponse{
-		Id:        user.ID.String(),
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
-		Email:     user.Email,
-	}, nil
+	return &userResponse, nil
 }
 
 func (s *Server) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {

@@ -43,10 +43,9 @@ func NewService() Service {
 }
 
 func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error) {
-	var (
-		// err      error
-		findUser User
-	)
+	// TODO: Add some log
+	var findUser User
+
 	if input.GetId() == "" {
 		return nil, status.Error(codes.FailedPrecondition, "need to be included field ID")
 	}
@@ -64,11 +63,7 @@ func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserReque
 
 func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRequest) (*User, error) {
 	// TODO: Add some log
-	var (
-		user User
-
-	// err error
-	)
+	var user User
 
 	if err := utils.Copy(&user, &input); err != nil {
 		return nil, err
@@ -87,19 +82,13 @@ func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRe
 		return nil, err
 	}
 
-	// // TODO: Implement copy function
-	// return user, nil
 	return userResponse, nil
 }
 
 func (r *userService) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error) {
 	// TODO: Add some log
+	var findUser User
 
-	var (
-		findUser User
-
-		err error
-	)
 	if input.GetId() == "" {
 		return nil, status.Error(codes.FailedPrecondition, "need to be included field ID")
 	}
@@ -138,12 +127,8 @@ func (r *userService) UpdateUser(ctx context.Context, input *userv1.UpdateUserRe
 func (r *userService) DeleteUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error) {
 	// TODO: Add some log
 
-	var (
-		findUser User
-	// userResponse *User
+	var findUser User
 
-	// err error
-	)
 	if input.GetId() == "" {
 		return nil, status.Error(codes.FailedPrecondition, "Missing field ID")
 	}
