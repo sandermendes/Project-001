@@ -9,12 +9,13 @@ import (
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	serviceConnection "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/service_connection"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type Service interface {
 	Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error)
-
 	Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error)
+	Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error)
 }
 
 type service struct {
@@ -33,13 +34,22 @@ func NewService() Service {
 }
 
 func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error) {
+	var (
+		err error
+
+		user *userv1.CreateUserRequest
+	)
+	if err = utils.Copy(&user, &input); err != nil {
+		return nil, err
+	}
+
 	// Call userService function CreateUser
-	user, err := s.userConn.CreateUser(ctx, input)
+	userCreated, err := s.userConn.CreateUser(ctx, user)
 	if err != nil {
 		return nil, utils.FmtLogError(err)
 	}
 
-	if user.Email == "" {
+	if userCreated.Email == "" {
 		// TODO:
 	}
 	// fmt.Println("Service - Register - user", user)
@@ -62,5 +72,13 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	return &accountv1.AccountResponse{
 		Token:    "login-0123456-0123456-01234560123",
 		Redirect: "/test/redirect",
+	}, nil
+}
+
+func (s *service) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
+	fmt.Println("Account - Service - Me")
+
+	return &userv1.UserResponse{
+		FirstName: "Me User test",
 	}, nil
 }

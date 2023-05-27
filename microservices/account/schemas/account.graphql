@@ -25,9 +25,12 @@ type User {
   email: String!
 }
 
+extend type Query {
+  me: User
+}
+
 extend type Mutation {
   register(input: Register!): AccountResponse
   login(input: Login!): AccountResponse
-  me(): User
 }
 
