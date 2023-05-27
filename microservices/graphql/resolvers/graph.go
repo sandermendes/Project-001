@@ -28,17 +28,16 @@ func (s *Resolver) Mutation() generated.MutationResolver {
 	return &Server{s}
 }
 
+func (s *Resolver) Query() generated.QueryResolver {
+	return &Server{s}
+}
+
 // func (s *Server) Account() generated.AccountResolver {
 // 	// return nil
 
 // 	return &resolvers.AccountResolver{
 // 		Resolver: &resolvers.Resolver{},
 // 	}
-// }
-
-// func (s *Server) Query() generated.QueryResolver {
-// 	return nil
-// 	// return &resolvers.AccountResolver{}
 // }
 
 // func (s *Server) ToExecutableSchema() graphql.ExecutableSchema {

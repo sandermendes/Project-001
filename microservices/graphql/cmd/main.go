@@ -15,7 +15,7 @@ import (
 
 func main() {
 
-	port, ok := os.LookupEnv("GRAPHQL_SERVICE_PORT")
+	port, ok := os.LookupEnv("GRAPHQL_PUBLIC_SERVICE_PORT")
 	if !ok {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}

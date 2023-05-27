@@ -10,20 +10,10 @@ import (
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-// Mutation returns generated.MutationResolver implementation.
-// func (r *Resolver) Mutation() generated.MutationResolver {
-// 	return &accountResolver{r}
-// }
-
-// Mutation returns generated.MutationResolver implementation.
-// func (r *Resolver) Query() generated.QueryResolver {
-// 	return &queryResolver{r}
-// }
-
 type AccountResolver struct {
-	// server *graphql.Server
 	*Resolver
 }
 
@@ -66,57 +56,23 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 	}
 
 	// Convert result
-	var accountResponse model.AccountResponse
-	if err := utils.Copy(&accountResponse, &login); err != nil {
+	var loginResponse model.AccountResponse
+	if err := utils.Copy(&loginResponse, &login); err != nil {
 		return nil, err
 	}
-	return &accountResponse, nil
+	return &loginResponse, nil
 }
 
-// type queryResolver struct{ *Resolver }
+// Me return info about current user(logged user)
+func (r *Resolver) Me(ctx context.Context) (*model.User, error) {
+	me, err := r.account.Me(ctx, &emptypb.Empty{})
+	if err != nil {
+		return nil, nil
+	}
 
-// // User is the resolver for the users field.
-// func (r *queryResolver) Users(ctx context.Context) ([]*model.User, error) {
-// 	fmt.Println("Listing Users")
-// 	var users []*model.User
-
-// 	err := r.db.Find(&users).Error
-// 	if err != nil {
-// 		return nil, err
-// 	}
-
-// 	return users, nil
-// }
-
-// func getUserConnection(ctx context.Context) (net.Conn, error) {
-// 	user_address, ok := os.LookupEnv("USER_SERVICE_ADDRESS")
-// 	fmt.Println("user_address", user_address)
-// 	if !ok {
-// 		panic(fmt.Sprintf("no address specified for %s", user_address))
-// 	}
-
-// 	conn, err := net.Dial("tcp", user_address)
-// 	if err != nil {
-// 		fmt.Println("getUserConnection", err.Error())
-// 		panic("")
-// 	}
-// 	fmt.Println("conn", conn)
-
-// 	return conn, nil
-
-// 	// var dialOpts []grpc.DialOption
-// 	// dialOpts = append(dialOpts, grpc.WithTransportCredentials(insecure.NewCredentials()))
-
-// 	// userServiceEndpoint, ok := os.LookupEnv("USER_SERVICE_ADDRESS")
-// 	// if !ok {
-// 	// 	logger.Panic(
-// 	// 		"failed to find USER_SERVICE_ADDRESS environment variable",
-// 	// 	)
-// 	// }
-
-// 	// conn, err := grpc.Dial(userServiceEndpoint, dialOpts...)
-// 	// if err != nil {
-// 	// 	return nil, fmt.Errorf("failed to connect to UserService. %s", err.Error())
-// 	// }
-// 	// return userv1.NewUserServiceClient(conn), nil
-// }
+	var meResponse model.User
+	if err := utils.Copy(&meResponse, &me); err != nil {
+		return nil, err
+	}
+	return &meResponse, nil
+}

@@ -31,6 +31,7 @@ type Config struct {
 
 type ResolverRoot interface {
 	Mutation() MutationResolver
+	Query() QueryResolver
 }
 
 type DirectiveRoot struct {
@@ -49,6 +50,13 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
+		Me func(childComplexity int) int
+	}
+
+	User struct {
+		Email     func(childComplexity int) int
+		FirstName func(childComplexity int) int
+		LastName  func(childComplexity int) int
 	}
 }
 
@@ -104,6 +112,34 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.Register(childComplexity, args["input"].(model.Register)), true
+
+	case "Query.me":
+		if e.complexity.Query.Me == nil {
+			break
+		}
+
+		return e.complexity.Query.Me(childComplexity), true
+
+	case "User.email":
+		if e.complexity.User.Email == nil {
+			break
+		}
+
+		return e.complexity.User.Email(childComplexity), true
+
+	case "User.firstName":
+		if e.complexity.User.FirstName == nil {
+			break
+		}
+
+		return e.complexity.User.FirstName(childComplexity), true
+
+	case "User.lastName":
+		if e.complexity.User.LastName == nil {
+			break
+		}
+
+		return e.complexity.User.LastName(childComplexity), true
 
 	}
 	return 0, false
@@ -194,6 +230,16 @@ input Register {
 type AccountResponse {
   token: String
   redirect: String
+}
+
+type User {
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
+extend type Query {
+  me: User
 }
 
 extend type Mutation {
