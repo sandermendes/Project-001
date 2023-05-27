@@ -19,8 +19,15 @@ type AccountResponse {
   redirect: String
 }
 
+type User {
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
 extend type Mutation {
   register(input: Register!): AccountResponse
   login(input: Login!): AccountResponse
+  me(): User
 }
 
