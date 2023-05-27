@@ -54,3 +54,28 @@ func (s *Server) CreateUser(ctx context.Context, input *accountv1.RegisterReques
 		Email:     user.Email,
 	}, nil
 }
+
+func (s *Server) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
+	user, err := s.service.UpdateUser(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userv1.UserResponse{
+		Id:        user.ID.String(),
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+		Email:     user.Email,
+	}, nil
+}
+
+func (s *Server) DeleteUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
+	user, err := s.service.DeleteUser(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	return &userv1.UserResponse{
+		Id: user.ID.String(),
+	}, nil
+}
