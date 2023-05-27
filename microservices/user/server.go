@@ -65,12 +65,13 @@ func (s *Server) CreateUser(ctx context.Context, input *accountv1.RegisterReques
 		return nil, err
 	}
 
-	return &userv1.UserResponse{
-		Id:        user.ID.String(),
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
-		Email:     user.Email,
-	}, nil
+	var userResponse userv1.UserResponse
+	if err = utils.Copy(&userResponse, &user); err != nil {
+		return nil, status.Error(codes.Internal, "fail to return user data")
+	}
+	userResponse.Id = user.ID.String()
+
+	return &userResponse, nil
 }
 
 func (s *Server) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
@@ -79,12 +80,13 @@ func (s *Server) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest
 		return nil, err
 	}
 
-	return &userv1.UserResponse{
-		Id:        user.ID.String(),
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
-		Email:     user.Email,
-	}, nil
+	var userResponse userv1.UserResponse
+	if err = utils.Copy(&userResponse, &user); err != nil {
+		return nil, status.Error(codes.Internal, "fail to return user data")
+	}
+	userResponse.Id = user.ID.String()
+
+	return &userResponse, nil
 }
 
 func (s *Server) DeleteUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
