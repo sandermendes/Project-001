@@ -6,7 +6,6 @@ import (
 	"net"
 
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
-	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/grpc"
@@ -59,19 +58,25 @@ func (s *Server) GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (
 	return &userResponse, nil
 }
 
-func (s *Server) CreateUser(ctx context.Context, input *accountv1.RegisterRequest) (*userv1.UserResponse, error) {
+func (s *Server) CreateUser(ctx context.Context, input *userv1.CreateUserRequest) (*userv1.UserResponse, error) {
 	user, err := s.service.CreateUser(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
-	var userResponse userv1.UserResponse
-	if err = utils.Copy(&userResponse, &user); err != nil {
-		return nil, status.Error(codes.Internal, "fail to return user data")
-	}
-	userResponse.Id = user.ID.String()
+	// var userResponse userv1.UserResponse
+	// if err = utils.Copy(&userResponse, &user); err != nil {
+	// 	return nil, status.Error(codes.Internal, "fail to return user data")
+	// }
+	// userResponse.Id = user.ID.String()
 
-	return &userResponse, nil
+	// return &userResponse, nil
+	return &userv1.UserResponse{
+		Id:        user.ID.String(),
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+		Email:     user.Email,
+	}, nil
 }
 
 func (s *Server) UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*userv1.UserResponse, error) {
