@@ -15,11 +15,10 @@ import (
 
 type Service interface {
 	// GetUsers() error
-
-	GetUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
-	CreateUser(ctx context.Context, input *userv1.CreateUserRequest) (*User, error)
-	UpdateUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
-	DeleteUser(ctx context.Context, input *userv1.UpdateUserRequest) (*User, error)
+	GetUser(context.Context, *userv1.UpdateUserRequest) (*User, error)
+	CreateUser(context.Context, *userv1.CreateUserRequest) (*User, error)
+	UpdateUser(context.Context, *userv1.UpdateUserRequest) (*User, error)
+	DeleteUser(context.Context, *userv1.UpdateUserRequest) (*User, error)
 }
 
 type userService struct {
@@ -46,19 +45,34 @@ func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserReque
 	// TODO: Add some log
 	var findUser User
 
-	if input.GetId() == "" {
-		return nil, status.Error(codes.FailedPrecondition, "need to be included field ID")
-	}
-	userID, _ := uuid.Parse(input.GetId())
-	findUser.ID = userID
+	// Get user by ID
+	if input.GetId() != "" {
+		userID, _ := uuid.Parse(input.GetId())
+		findUser.ID = userID
 
-	// Check if User exists
-	user, err := r.repository.GetUserById(&findUser)
-	if err != nil {
-		return nil, err
+		// Check if User exists
+		user, err := r.repository.GetUserById(&findUser)
+		if err != nil {
+			return nil, status.Error(codes.NotFound, "not found")
+		}
+
+		return user, nil
 	}
 
-	return user, nil
+	// Get user by Email
+	if input.GetEmail() != "" {
+		findUser.Email = input.GetEmail()
+
+		// Check if User exists
+		user, err := r.repository.GetUserById(&findUser)
+		if err != nil {
+			return nil, status.Error(codes.NotFound, "not found")
+		}
+
+		return user, nil
+	}
+
+	return nil, status.Error(codes.FailedPrecondition, "missing search parameters")
 }
 
 func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRequest) (*User, error) {
@@ -67,6 +81,12 @@ func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRe
 
 	if err := utils.Copy(&user, &input); err != nil {
 		return nil, err
+	}
+
+	// Check if User exists
+	userCheck, err := r.repository.GetUserByEmail(&user)
+	if userCheck != nil || err != nil {
+		return nil, status.Error(codes.FailedPrecondition, "email already exists")
 	}
 
 	// Hash submitted password
