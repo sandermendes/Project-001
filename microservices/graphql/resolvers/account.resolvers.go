@@ -6,8 +6,10 @@ package resolvers
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
+	contextkeys "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/context_keys"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -28,7 +30,7 @@ func (r *Resolver) Register(ctx context.Context, input model.Register) (*model.A
 	}
 
 	// Connect to Account Service and try to get some feedback from hin
-	register, err := r.account.Register(ctx, &registerInput)
+	register, err := r.accountConn.Register(ctx, &registerInput)
 	if err != nil {
 		return nil, utils.FmtLogError(err)
 	}
@@ -50,7 +52,7 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 	}
 
 	// Connect to Account Service and try to get some feedback from hin
-	login, err := r.account.Login(ctx, &loginInput)
+	login, err := r.accountConn.Login(ctx, &loginInput)
 	if err != nil {
 		return nil, utils.FmtLogError(err)
 	}
@@ -65,14 +67,25 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 
 // Me return info about current user(logged user)
 func (r *Resolver) Me(ctx context.Context) (*model.User, error) {
-	me, err := r.account.Me(ctx, &emptypb.Empty{})
-	if err != nil {
+	// TODO: Implement some logs
+	userID, ok := ctx.Value(contextkeys.CONTEXT_USER_ID).(string)
+	if !ok {
+		// TODO: Improver error return
 		return nil, nil
+	}
+
+	ctx = contextkeys.SetUserIDToMetadataContext(ctx, userID)
+	me, err := r.accountConn.Me(ctx, &emptypb.Empty{})
+	if err != nil {
+		// TODO: Improver error return
+		return nil, err
 	}
 
 	var meResponse model.User
 	if err := utils.Copy(&meResponse, &me); err != nil {
+		// TODO: Improver error return
 		return nil, err
 	}
+	fmt.Println("Graphql - Resolver - Me", meResponse)
 	return &meResponse, nil
 }

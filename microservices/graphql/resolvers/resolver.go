@@ -10,5 +10,5 @@ import accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/
 
 type Resolver struct {
 	// server *Server
-	account accountv1.AccountServiceClient
+	accountConn accountv1.AccountServiceClient
 }

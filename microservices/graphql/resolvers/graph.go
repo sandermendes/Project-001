@@ -13,14 +13,14 @@ type Server struct {
 }
 
 func NewGraphQLServer() (*Resolver, error) {
-	account, err := serviceConnection.GetAccountConnection()
+	accountConn, err := serviceConnection.GetAccountConnection()
 	if err != nil {
-		// TODO:
+		// TODO: Improve return  error
 		fmt.Println("err", err)
 	}
 
 	return &Resolver{
-		account: account,
+		accountConn: accountConn,
 	}, nil
 }
 

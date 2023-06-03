@@ -10,26 +10,10 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/directives"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/middleware"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/resolvers"
-	"github.com/go-chi/chi"
+	"github.com/gorilla/mux"
 )
-
-var invalidAuthMessage = "{\"message\":\"Invalid auth\"}"
-
-func Middleware() func(http.Handler) http.Handler {
-	fmt.Println("Middleware")
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			auth := r.Header.Get("Authorization")
-			if auth == "" {
-				http.Error(w, invalidAuthMessage, http.StatusForbidden)
-				return
-			}
-			fmt.Println("Middleware - auth", auth)
-			next.ServeHTTP(w, r)
-		})
-	}
-}
 
 func main() {
 
@@ -38,8 +22,8 @@ func main() {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}
 
-	router := chi.NewRouter()
-	router.Use(Middleware())
+	router := mux.NewRouter()
+	router.Use(middleware.AuthMiddleware)
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {
