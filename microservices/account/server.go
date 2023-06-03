@@ -32,10 +32,12 @@ func ListenGRPC(port string) error {
 		return err
 	}
 
-	var opts []grpc.ServerOption
-	opts = append(opts, grpc.UnaryInterceptor(interceptors.Logger))
+	opts := grpc.ChainUnaryInterceptor(
+		interceptors.Logger,
+		interceptors.GetUser,
+	)
 
-	serv := grpc.NewServer(opts...)
+	serv := grpc.NewServer(opts)
 	grpcServer := NewGrpcServer()
 	accountv1.RegisterAccountServiceServer(serv, grpcServer)
 	reflection.Register(serv)
