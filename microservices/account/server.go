@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 
+	middlewareAccount "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/account/middleware"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
@@ -32,9 +33,10 @@ func ListenGRPC(port string) error {
 		return err
 	}
 
+	// Set interceptors
 	opts := grpc.ChainUnaryInterceptor(
 		interceptors.Logger,
-		interceptors.GetUser,
+		middlewareAccount.ParseTokenAndGetUserFromContext,
 	)
 
 	serv := grpc.NewServer(opts)

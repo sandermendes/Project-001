@@ -59,7 +59,6 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 	if userCreated.Email == "" {
 		// TODO:
 	}
-	// fmt.Println("Service - Register - user", user)
 
 	return &accountv1.AccountResponse{
 		Token:    "register-0123456-0123456-01234560123",
@@ -81,6 +80,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	userResponse, err := s.userConn.GetUser(ctx, &findUser)
 	if err != nil {
 		// TODO: Improve error
+		fmt.Println("Error - err: ", err)
 		return nil, status.Error(codes.FailedPrecondition, "email or password is invalid")
 	}
 
