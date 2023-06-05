@@ -10,7 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/directives"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/middleware"
+	middlewareGraphql "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/middleware"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/resolvers"
 	"github.com/gorilla/mux"
 )
@@ -23,7 +23,7 @@ func main() {
 	}
 
 	router := mux.NewRouter()
-	router.Use(middleware.AuthMiddleware)
+	router.Use(middlewareGraphql.AuthMiddleware)
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {
