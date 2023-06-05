@@ -68,6 +68,9 @@ func ValidateToken(token string, publicKey string) (interface{}, error) {
 		return "", nil
 	}
 
+	bearer := "Bearer "
+	token = token[len(bearer):]
+
 	parsedToken, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodRSA); !ok {
 			// TODO: Improve error
@@ -76,9 +79,9 @@ func ValidateToken(token string, publicKey string) (interface{}, error) {
 		return key, nil
 	})
 	if err != nil {
-		fmt.Println("jwt.Parse - err", err)
+		fmt.Println("Error: ", err)
 		// TODO: Improve error
-		return "", nil
+		return "", fmt.Errorf("error: %s", err)
 	}
 
 	claims, ok := parsedToken.Claims.(jwt.MapClaims)
