@@ -84,8 +84,8 @@ func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRe
 	}
 
 	// Check if User exists
-	userCheck, err := r.repository.GetUserByEmail(&user)
-	if userCheck != nil || err != nil {
+	userCheck, _ := r.repository.GetUserByEmail(&user)
+	if userCheck != nil {
 		return nil, status.Error(codes.FailedPrecondition, "email already exists")
 	}
 
