@@ -27,7 +27,9 @@ const (
 	YellowBold  = "\033[33;1m"
 )
 
+// Just simple logger for RPC requests
 func Logger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	startTime := time.Now()
 	var ipAddr string
 	if p, of := peer.FromContext(ctx); of {
 		// fmt.Printf("interceptorLogger - ctx - p.Addr.(*net.TCPAddr).IP.String() %s\n", p.Addr.(*net.TCPAddr).IP.String())
@@ -35,8 +37,13 @@ func Logger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, ha
 		ipAddr = p.Addr.(*net.TCPAddr).IP.String()
 	}
 	fullMethod := strings.Split(info.FullMethod, "/")
-	fmt.Printf(Green+"[%s] "+Reset+"- %s - Method - %s - %s\n", time.Now().Format(time.DateTime), ipAddr, fullMethod[1], fullMethod[2])
-	// fmt.Println("handler", handler)
+	defer func() {
+		since := time.Since(startTime).Round(10000)
+		fmt.Printf(
+			Green+"[%s] "+Reset+"- %s - Method - %s - %s - "+Yellow+"Time:"+Reset+" %s\n",
+			time.Now().Format(time.DateTime), ipAddr, fullMethod[1], fullMethod[2], since,
+		)
+	}()
 
 	resp, err := handler(ctx, req)
 	if err != nil {

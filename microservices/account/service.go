@@ -104,10 +104,11 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 
 func (s *service) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
 	// Extract UserID from context
-	userID, ok := contextkeys.GetUserIDFromContext(ctx)
-	if !ok {
+	userID := contextkeys.GetUserIDFromContext(ctx)
+	if userID == "" {
 		// TODO: Improve error
 		fmt.Println("Error")
+		return nil, status.Error(codes.Unauthenticated, "user not authenticated")
 	}
 
 	userResponse, err := s.userConn.GetUser(ctx, &userv1.UpdateUserRequest{Id: userID})

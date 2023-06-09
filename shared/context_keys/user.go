@@ -12,10 +12,13 @@ func (c contextKey) String() string {
 
 const (
 	// User info
-	CONTEXT_USER_ID = contextKey("user-id")
+	CONTEXT_USER_ID = contextKey("x-user-id")
 )
 
-func GetUserIDFromContext(ctx context.Context) (string, bool) {
+func GetUserIDFromContext(ctx context.Context) string {
 	userID, ok := ctx.Value(CONTEXT_USER_ID).(string)
-	return userID, ok
+	if !ok {
+		return ""
+	}
+	return userID
 }

@@ -6,24 +6,40 @@ import (
 	"net"
 
 	middlewareAccount "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/account/middleware"
+	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/cache"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
 	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
+	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
+// A wrapper for the real grpc.ServerStream
+func LoggingStreamInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+
+	resp, err := handler(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, err
+}
+
 type Server struct {
 	accountv1.UnimplementedAccountServiceServer
 	service Service
+	cache   *redis.Client
 }
 
 func NewGrpcServer() *Server {
 	service := NewService()
+	cache := cache.ConnectCache()
 
 	return &Server{
 		service: service,
+		cache:   cache,
 	}
 }
 
@@ -34,12 +50,18 @@ func ListenGRPC(port string) error {
 	}
 
 	// Set interceptors
-	opts := grpc.ChainUnaryInterceptor(
-		interceptors.Logger,
-		middlewareAccount.ParseTokenAndGetUserFromContext,
-	)
+	opts := []grpc.ServerOption{
+		grpc.ChainUnaryInterceptor(
+			interceptors.Logger,
+			middlewareAccount.ParseTokenAndGetUserFromContext,
+			interceptors.Cache,
+		),
+		// grpc.ChainStreamInterceptor(
+		// 	LoggingStreamInterceptor,
+		// ),
+	}
 
-	serv := grpc.NewServer(opts)
+	serv := grpc.NewServer(opts...)
 	grpcServer := NewGrpcServer()
 	accountv1.RegisterAccountServiceServer(serv, grpcServer)
 	reflection.Register(serv)
@@ -68,10 +90,10 @@ func (s *Server) Login(ctx context.Context, input *accountv1.LoginRequest) (*acc
 
 func (s *Server) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
 	//
-	register, err := s.service.Me(ctx, input)
+	currentUser, err := s.service.Me(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
-	return register, nil
+	return currentUser, nil
 }

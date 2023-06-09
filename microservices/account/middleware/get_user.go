@@ -16,7 +16,7 @@ const METHOD_NAME = 2
 
 func ParseTokenAndGetUserFromContext(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	fullMethod := strings.Split(info.FullMethod, "/")
-	if strings.Contains(fullMethod[METHOD_NAME], "Login") {
+	if strings.Contains(fullMethod[METHOD_NAME], "Login") || strings.Contains(fullMethod[METHOD_NAME], "Register") {
 		resp, err := handler(ctx, req)
 		if err != nil {
 			return nil, err
