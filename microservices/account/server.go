@@ -53,8 +53,8 @@ func ListenGRPC(port string) error {
 	opts := []grpc.ServerOption{
 		grpc.ChainUnaryInterceptor(
 			interceptors.Logger,
-			middlewareAccount.ParseTokenAndGetUserFromContext,
-			interceptors.Cache,
+			middlewareAccount.GetUserFromMetadata,
+			// interceptors.Cache,
 		),
 		// grpc.ChainStreamInterceptor(
 		// 	LoggingStreamInterceptor,
