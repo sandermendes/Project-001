@@ -23,7 +23,6 @@ func main() {
 	}
 
 	router := mux.NewRouter()
-	router.Use(middlewareGraphql.AuthMiddleware)
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {
@@ -40,6 +39,10 @@ func main() {
 			},
 		),
 	)
+
+	// Interceptor on Graphql Level, moved from Account Service
+	server.AroundOperations(middlewareGraphql.Authentication)
+	server.AroundOperations(middlewareGraphql.Cache)
 
 	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", server)
