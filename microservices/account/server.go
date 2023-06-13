@@ -54,7 +54,6 @@ func ListenGRPC(port string) error {
 		grpc.ChainUnaryInterceptor(
 			interceptors.Logger,
 			middlewareAccount.GetUserFromMetadata,
-			// interceptors.Cache,
 		),
 		// grpc.ChainStreamInterceptor(
 		// 	LoggingStreamInterceptor,
