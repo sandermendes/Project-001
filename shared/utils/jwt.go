@@ -6,6 +6,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 const PRIVATE_RSA_PATH = "/workspaces/VitaNexus/private.pem"
@@ -54,18 +56,23 @@ func CreateToken(ttl time.Duration, payload interface{}) (string, error) {
 }
 
 func ValidateToken(token string, publicKey string) (interface{}, error) {
+	if token == "" {
+		fmt.Println("Invalid token received")
+		return nil, status.Error(codes.Unauthenticated, "Invalid token received")
+	}
+
 	publicRsa, err := os.ReadFile(PUBLIC_RSA_PATH)
 	if err != nil {
-		fmt.Println("base64.StdEncoding.DecodeString - err", err)
+		fmt.Println(err)
 		// TODO: Improve error
-		return "", nil
+		return "", err
 	}
 
 	key, err := jwt.ParseRSAPublicKeyFromPEM(publicRsa)
 	if err != nil {
-		fmt.Println("ParseRSAPublicKeyFromPEM - err", err)
+		fmt.Println(err)
 		// TODO: Improve error
-		return "", nil
+		return "", err
 	}
 
 	bearer := "Bearer "
@@ -74,20 +81,21 @@ func ValidateToken(token string, publicKey string) (interface{}, error) {
 	parsedToken, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) {
 		if _, ok := t.Method.(*jwt.SigningMethodRSA); !ok {
 			// TODO: Improve error
-			return nil, nil
+			return nil, fmt.Errorf("error on jwt parse method")
 		}
 		return key, nil
 	})
+	// Check if has some error on token validation
 	if err != nil {
 		fmt.Println("Error: ", err)
 		// TODO: Improve error
-		return "", fmt.Errorf("error: %s", err)
+		return "", err
 	}
 
 	claims, ok := parsedToken.Claims.(jwt.MapClaims)
 	if !ok || !parsedToken.Valid {
 		// TODO: Improve error
-		return "", nil
+		return "", fmt.Errorf("error on parsed claims tokens")
 	}
 
 	return claims["sub"], nil
