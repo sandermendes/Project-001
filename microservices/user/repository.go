@@ -60,6 +60,11 @@ func (r *repository) GetUserByEmail(input *User) (*User, error) {
 }
 
 func (r *repository) CreateUser(input *User) (*User, error) {
+	// Check if email is a valid format
+	if _, err := validation.IsValidEmail(input.Email); err != nil {
+		return nil, status.Error(codes.FailedPrecondition, "email is invalid")
+	}
+
 	var user User
 	if err := utils.Copy(&user, &input); err != nil {
 		return nil, err

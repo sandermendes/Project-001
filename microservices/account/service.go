@@ -12,7 +12,6 @@ import (
 	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	serviceConnection "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/service_connection"
 	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils/validation"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -68,12 +67,6 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 
 func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error) {
 	// TODO: Improve logging
-	_, err := validation.IsValidEmail(input.GetEmail())
-	if err != nil {
-		// TODO: Improve error
-		return nil, err
-	}
-
 	var findUser userv1.UpdateUserRequest
 	findUser.Email = input.GetEmail()
 
