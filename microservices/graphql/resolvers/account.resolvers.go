@@ -7,9 +7,9 @@ package resolvers
 import (
 	"context"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
-	accountv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
+	accountv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 

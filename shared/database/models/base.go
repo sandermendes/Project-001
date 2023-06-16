@@ -1,8 +1,8 @@
 package models
 
 import (
-	gorm_plugin "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database/gorm/plugin"
 	uuid "github.com/google/uuid"
+	gorm_plugin "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database/gorm/plugin"
 )
 
 type Base struct {

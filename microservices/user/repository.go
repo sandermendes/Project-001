@@ -5,9 +5,9 @@ import (
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils/validation"
 	"github.com/google/uuid"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils/validation"
 )
 
 type Repository interface {

@@ -46,7 +46,7 @@ resolver:
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-#  - "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
+#  - "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/internal/gql/model"
 
 # This section declares type mapping between the GraphQL and go type systems
 #
@@ -70,4 +70,4 @@ models:
       - github.com/99designs/gqlgen/graphql.Int64
 #  UInt64:
 #    model:
-#      - github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/custom/scalar.UInt64
+#      - github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/custom/scalar.UInt64

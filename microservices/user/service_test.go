@@ -3,10 +3,10 @@ package user_test
 import (
 	"context"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user"
-	userv1 "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user"
+	userv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
 )
 
 var _ = Describe("User", Ordered, func() {

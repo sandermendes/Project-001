@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	"github.com/99designs/gqlgen/graphql"
-	contextkeys "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/context_keys"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils/validation"
+	contextkeys "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/context_keys"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils/validation"
 	"google.golang.org/grpc/metadata"
 )
 

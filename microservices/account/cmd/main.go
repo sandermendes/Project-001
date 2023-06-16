@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/account"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/account"
 )
 
 // const defaultPort = "8080"

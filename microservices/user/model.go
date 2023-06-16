@@ -1,6 +1,6 @@
 package user
 
-import "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database/models"
+import "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database/models"
 
 type User struct {
 	models.Base

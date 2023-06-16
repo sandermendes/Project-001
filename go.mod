@@ -1,4 +1,4 @@
-module github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main
+module github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main
 
 go 1.20
 

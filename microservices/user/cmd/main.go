@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user"
 )
 
 func main() {

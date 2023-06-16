@@ -1,7 +1,7 @@
 syntax = "proto3";
 package account.v1;
 
-option go_package = "github.com/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1;accountv1";
+option go_package = "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1;accountv1";
 
 message LoginRequest {
     string email = 3;
