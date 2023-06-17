@@ -18,3 +18,12 @@ Use the following command to generate protobufs files, if has some change in *.p
 `
 $ ./generate-protobufs.sh
 `
+
+Main graphql Server
+http://localhost:8080/
+
+Adminer
+http://localhost:8088/
+
+Redis commander
+http://localhost:8081/
