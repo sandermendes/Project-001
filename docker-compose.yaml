@@ -5,31 +5,71 @@ volumes:
   redis-cache:
 
 networks:
-  project001:
-    name: project001
-  project001-cache:
-    name: project001-cache
+  account:
+    name: account
+  user:
+    name: user
+  database:
+    name: database
+  cache:
+    name: cache
 
 services:
+  ################################
+  ######## Microservices #########
+  ################################
   graphql:
     build:
       context: .
       dockerfile: ./microservices/graphql/Dockerfile
+    env_file:
+      - .env
     ports:
-      - 8080:8080
+      - ${GRAPHQL_PUBLIC_SERVICE_PORT}:${GRAPHQL_PUBLIC_SERVICE_PORT}
+    networks:
+      - cache
+      - account
 
+  account:
+    build:
+      context: .
+      dockerfile: ./microservices/account/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - ${ACCOUNT_SERVICE_PORT}:${ACCOUNT_SERVICE_PORT}
+    networks:
+      - account
+      - user
+
+  user:
+    build:
+      context: .
+      dockerfile: ./microservices/user/Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - ${USER_SERVICE_PORT}:${USER_SERVICE_PORT}
+    networks:
+      - user
+      - database
+
+  ################################
+  ########## Resources ###########
+  ################################
   db:
     image: postgres:latest
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
     env_file:
-      # Ensure that the variables in .env match the same variables in devcontainer.json
       - .env
     networks:
-      - project001
+      - database
     ports:
-      - 5432:5432
+      - ${DATABASE_PORT}:${DATABASE_PORT}
 
     # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)
@@ -38,7 +78,7 @@ services:
     image: adminer
     restart: always
     networks:
-      - project001
+      - database
     ports:
       - 8088:8080
 
@@ -46,18 +86,18 @@ services:
     image: redis:7.0.11-alpine
     restart: unless-stopped
     ports:
-      - 6379:6379
+      - ${CACHE_PORT}:${CACHE_PORT}
     # command: redis-server --save 20 1 --loglevel warning
     command: redis-server
     volumes: 
       - redis-cache:/var/lib/redis/data
     networks:
-      - project001-cache
+      - cache
 
   rediscommander:
     image: rediscommander/redis-commander:latest
     restart: always
     networks:
-      - project001-cache
+      - cache
     ports:
       - 8081:8081

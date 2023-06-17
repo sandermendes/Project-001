@@ -42,7 +42,7 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 		if cacheResult != "" {
 			newCacheResponse := []byte(fmt.Sprintf(`{"%s":%s}`, operationName, string(cacheResult)))
 
-			fmt.Println("InterceptorCache - Account - Me - cache - val", cacheResult)
+			fmt.Println("Interceptor from cache", cacheResult)
 
 			// Return from cache
 			return &graphql.Response{
@@ -64,6 +64,8 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 			return graphql.ErrorResponse(ctx, "failed to save data to cache: %s", err.Error())
 		}
 
+		fmt.Println("Interceptor from database", string(serviceData))
+
 		// Return response from service
 		return &graphql.Response{
 			Data: []byte(
@@ -77,7 +79,6 @@ func handleServiceData(ctx context.Context, operationName string, serviceData *g
 	if serviceData == nil {
 		return nil, fmt.Errorf("failed to return data from service")
 	}
-	fmt.Println("responseHandler.Data", string(serviceData.Data))
 
 	// Convert to interface{} to extract only the part with Fields from OperationName
 	var handlerResponse interface{}

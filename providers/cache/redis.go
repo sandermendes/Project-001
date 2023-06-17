@@ -1,12 +1,20 @@
 package cache
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/redis/go-redis/v9"
 )
 
 func ConnectCache() *redis.Client {
+	port, ok := os.LookupEnv("CACHE_PORT")
+	if !ok {
+		panic(fmt.Sprintf("No cache port specified for %s", port))
+	}
+
 	client := redis.NewClient(&redis.Options{
-		Addr: "redis:6379",
+		Addr: "redis:"+port,
 		DB:   0,
 	})
 

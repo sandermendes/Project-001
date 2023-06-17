@@ -10,11 +10,13 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-const PRIVATE_RSA_PATH = "/workspaces/VitaNexus/private.pem"
-const PUBLIC_RSA_PATH = "/workspaces/VitaNexus/public.crt"
-
 func CreateToken(ttl time.Duration, payload interface{}) (string, error) {
-	privateRsa, err := os.ReadFile(PRIVATE_RSA_PATH)
+	privateRsaPath, ok := os.LookupEnv("PRIVATE_RSA_PATH")
+	if !ok {
+		panic(fmt.Sprintf("No private rsa path specified for %s", privateRsaPath))
+	}
+
+	privateRsa, err := os.ReadFile(privateRsaPath)
 	if err != nil {
 		fmt.Println("base64.StdEncoding.DecodeString - err", err)
 		// TODO: Improve error
@@ -61,7 +63,12 @@ func ValidateToken(token string, publicKey string) (interface{}, error) {
 		return nil, status.Error(codes.Unauthenticated, "Invalid token received")
 	}
 
-	publicRsa, err := os.ReadFile(PUBLIC_RSA_PATH)
+	publicRsaPath, ok := os.LookupEnv("PUBLIC_RSA_PATH")
+	if !ok {
+		panic(fmt.Sprintf("No public rsa path specified for %s", publicRsaPath))
+	}
+
+	publicRsa, err := os.ReadFile(publicRsaPath)
 	if err != nil {
 		fmt.Println(err)
 		// TODO: Improve error
