@@ -6,6 +6,7 @@ package resolvers
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
 	accountv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
@@ -30,7 +31,7 @@ func (r *Resolver) Register(ctx context.Context, input model.Register) (*model.A
 	// Connect to Account Service and try to get some feedback from hin
 	register, err := r.accountConn.Register(ctx, &registerInput)
 	if err != nil {
-		return nil, utils.FmtLogError(err)
+		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
 	// Convert result
@@ -52,7 +53,7 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 	// Connect to Account Service and try to get some feedback from hin
 	login, err := r.accountConn.Login(ctx, &loginInput)
 	if err != nil {
-		return nil, utils.FmtLogError(err)
+		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
 	// Convert result
@@ -70,7 +71,7 @@ func (r *Resolver) Me(ctx context.Context) (*model.User, error) {
 	me, err := r.accountConn.Me(ctx, &emptypb.Empty{})
 	if err != nil {
 		// TODO: Improver error return
-		return nil, err
+		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
 	var meResponse model.User

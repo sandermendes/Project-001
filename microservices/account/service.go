@@ -52,7 +52,7 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 	// Call userService function CreateUser
 	userCreated, err := s.userConn.CreateUser(ctx, &user)
 	if err != nil {
-		return nil, utils.FmtLogError(err)
+		return nil, status.Error(codes.Internal, utils.FmtLogError(err))
 	}
 
 	if userCreated.Email == "" {
@@ -83,7 +83,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 		return nil, status.Error(codes.FailedPrecondition, "email or password is invalid")
 	}
 
-	token, err := utils.CreateToken(1*time.Hour, userResponse.Id)
+	token, err := utils.CreateToken(1*time.Hour, userResponse.GetId())
 	if err != nil {
 		// TODO: Improve error
 		return nil, status.Error(codes.Internal, "internal error generating token")
