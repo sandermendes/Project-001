@@ -12,7 +12,7 @@
 6. **gRPC**: A high-performance, language-agnostic framework for building distributed systems with efficient communication.
 7. **Protobuf**: A language-agnostic data serialization format for structured data communication.
 
-## Screenshot
+## Project structure
 ![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-2023-06-14-1843.png)
 
 ## Architecture Overview
