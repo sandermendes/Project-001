@@ -6,6 +6,7 @@ FROM mcr.microsoft.com/devcontainers/go:0-1.20-bullseye
 
 # [Optional] Uncomment the next lines to use go get to install anything else you need
 USER vscode
+# USER root
 
 # Enforce SSH Url
 RUN git config --global --add url."git@github.com:".insteadOf "https://github.com/"

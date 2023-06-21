@@ -5,10 +5,17 @@ volumes:
   redis-cache:
 
 networks:
+  ################################
+  ######## Microservices #########
+  ################################
   account:
     name: account
   user:
     name: user
+
+  ################################
+  ########## Resources ###########
+  ################################
   database:
     name: database
   cache:
@@ -19,39 +26,47 @@ services:
   ######## Microservices #########
   ################################
   graphql:
+    container_name: GraphQL_Main_Service
     build:
       context: .
       dockerfile: ./microservices/graphql/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
     env_file:
       - .env
     ports:
       - ${GRAPHQL_PUBLIC_SERVICE_PORT}:${GRAPHQL_PUBLIC_SERVICE_PORT}
     networks:
+      - database
       - cache
       - account
 
   account:
+    container_name: Account_Service
     build:
       context: .
       dockerfile: ./microservices/account/Dockerfile
     env_file:
       - .env
-    ports:
-      - ${ACCOUNT_SERVICE_PORT}:${ACCOUNT_SERVICE_PORT}
+    expose:
+      - ${ACCOUNT_SERVICE_PORT}
     networks:
       - account
       - user
 
   user:
+    container_name: User_Service
     build:
       context: .
       dockerfile: ./microservices/user/Dockerfile
     depends_on:
-      - db
+      postgres:
+        condition: service_healthy
     env_file:
       - .env
-    ports:
-      - ${USER_SERVICE_PORT}:${USER_SERVICE_PORT}
+    expose:
+      - ${USER_SERVICE_PORT}
     networks:
       - user
       - database
@@ -59,7 +74,7 @@ services:
   ################################
   ########## Resources ###########
   ################################
-  db:
+  postgres:
     image: postgres:latest
     restart: unless-stopped
     volumes:
@@ -70,9 +85,11 @@ services:
       - database
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
-
-    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      # interval: 5s
+      # timeout: 5s
+      # retries: 5
 
   adminer:
     image: adminer
@@ -81,13 +98,15 @@ services:
       - database
     ports:
       - 8088:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   redis:
     image: redis:7.0.11-alpine
     restart: unless-stopped
     ports:
-      - ${CACHE_PORT}:${CACHE_PORT}
-    # command: redis-server --save 20 1 --loglevel warning
+      - ${REDIS_PORT}:${REDIS_PORT}
     command: redis-server
     volumes: 
       - redis-cache:/var/lib/redis/data
@@ -97,6 +116,10 @@ services:
   rediscommander:
     image: rediscommander/redis-commander:latest
     restart: always
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOSTS=Local:${CACHE_ADDRESS}
     networks:
       - cache
     ports:

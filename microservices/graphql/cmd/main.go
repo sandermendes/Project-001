@@ -34,7 +34,7 @@ func main() {
 	}
 	store := gormstore.NewOptions(dbConn, gormstore.Options{
 		TableName: "sessions",
-	}, []byte("sessionKey"))
+	}, []byte(sessionKey))
 
 	router := mux.NewRouter()
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))

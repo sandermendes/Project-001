@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -13,9 +14,14 @@ func NewConnection() (*gorm.DB, error) {
 	// 	"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 	// 	host, port, username, db, password,
 	// )
+	databaseHost, ok := os.LookupEnv("DATABASE_HOSTNAME")
+	if !ok {
+		panic(fmt.Sprintf("No database host specified for %s", databaseHost))
+	}
+
 	dsn := fmt.Sprintf(
 		"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
-		"db", "5432", "postgres", "postgres", "postgres",
+		databaseHost, "5432", "postgres", "postgres", "postgres",
 	)
 
 	dbConn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{

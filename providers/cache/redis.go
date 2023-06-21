@@ -8,13 +8,13 @@ import (
 )
 
 func ConnectCache() *redis.Client {
-	port, ok := os.LookupEnv("CACHE_PORT")
+	cacheAddress, ok := os.LookupEnv("CACHE_ADDRESS")
 	if !ok {
-		panic(fmt.Sprintf("No cache port specified for %s", port))
+		panic(fmt.Sprintf("No cache address specified for %s", cacheAddress))
 	}
 
 	client := redis.NewClient(&redis.Options{
-		Addr: "redis:"+port,
+		Addr: cacheAddress,
 		DB:   0,
 	})
 
