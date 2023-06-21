@@ -13,6 +13,8 @@ import (
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
 	middlewareGraphql "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/middleware"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/resolvers"
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/database"
+	"github.com/wader/gormstore/v2"
 )
 
 func main() {
@@ -21,14 +23,28 @@ func main() {
 	if !ok {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}
+	sessionKey, ok := os.LookupEnv("SESSION_KEY")
+	if !ok {
+		panic(fmt.Sprintf("No session key specified for %s", sessionKey))
+	}
+
+	dbConn, err := database.NewConnection()
+	if err != nil {
+		panic(err)
+	}
+	store := gormstore.NewOptions(dbConn, gormstore.Options{
+		TableName: "sessions",
+	}, []byte("sessionKey"))
 
 	router := mux.NewRouter()
+	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {
 		panic(err)
 	}
 
+	// Create New GraphQL Server
 	server := handler.NewDefaultServer(
 		generated.NewExecutableSchema(
 			generated.Config{

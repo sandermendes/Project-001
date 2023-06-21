@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/helpers"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/model"
 	accountv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
@@ -44,6 +45,20 @@ func (r *Resolver) Register(ctx context.Context, input model.Register) (*model.A
 
 // Login is the resolver for check user credentials.
 func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.AccountResponse, error) {
+	session := helpers.GetSession(ctx, "appSession")
+	if session == nil {
+		return nil, fmt.Errorf("fail to get session data")
+	}
+
+	// Check if already have session UserID
+	if session.Values["userID"] != nil {
+		// TODO: Improve session return
+		return &model.AccountResponse{
+			Token:    "already logged",
+			Redirect: "/main",
+		}, nil
+	}
+
 	// Covert to protobuf to
 	var loginInput accountv1.LoginRequest
 	if err := utils.Copy(&loginInput, &input); err != nil {
@@ -56,12 +71,34 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
+	subInfo, err := utils.ValidateToken(login.Token, "")
+	if err != nil {
+		// TODO: Improve error return
+		fmt.Println(err)
+		return nil, fmt.Errorf("error on parse login token data")
+	}
+
+	if subInfo == nil {
+		return nil, fmt.Errorf("fail to retrive login token data")
+	}
+
+	// Set session userID
+	session.Values["userID"] = subInfo.(string)
+	if err := helpers.SaveSession(ctx, session); err != nil {
+		return nil, fmt.Errorf("failed to save session, with error: %s", err)
+	}
+
 	// Convert result
 	var loginResponse model.AccountResponse
 	if err := utils.Copy(&loginResponse, &login); err != nil {
 		return nil, err
 	}
-	return &loginResponse, nil
+	// return &loginResponse, nil
+	// TODO: Improve session return
+	return &model.AccountResponse{
+		Token:    "logged",
+		Redirect: "/main",
+	}, nil
 }
 
 // Me return info about current user(logged user)
