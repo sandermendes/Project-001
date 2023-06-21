@@ -37,7 +37,7 @@ services:
   ################################
   ########## Resources ###########
   ################################
-  db:
+  postgres:
     image: postgres:latest
     restart: unless-stopped
     volumes:

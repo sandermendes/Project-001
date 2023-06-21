@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "GraphQL",
+            "type": "shell",
+            "command": "go run microservices/graphql/cmd/*",
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "panel": "dedicated",
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+        ,
+        {
+            "label": "Account",
+            "type": "shell",
+            "command": "go run microservices/account/cmd/*",
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "panel": "dedicated",
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+        ,
+        {
+            
+            "label": "User",
+            "type": "shell",
+            "command": "go run microservices/user/cmd/*",
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "panel": "dedicated",
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}
