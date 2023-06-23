@@ -101,7 +101,7 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 	}, nil
 }
 
-// Me return info about current user(logged user)
+// Logout delete de user current session
 func (r *Resolver) Logout(ctx context.Context) (*bool, error) {
 	vTrue := true
 	vFalse := false
@@ -119,6 +119,25 @@ func (r *Resolver) Logout(ctx context.Context) (*bool, error) {
 	}
 
 	// not logged in
+	return &vFalse, nil
+}
+
+// IsAuthed check if user is loggedin
+func (r *Resolver) IsAuthed(ctx context.Context) (*bool, error) {
+	vTrue := true
+	vFalse := false
+
+	session := helpers.GetSession(ctx, "appSession")
+	if session == nil {
+		return nil, fmt.Errorf("fail to get session data")
+	}
+
+	// Check if already have session UserID
+	if session.Values["userID"] != nil {
+		// TODO: Improve session return
+		return &vTrue, nil
+	}
+
 	return &vFalse, nil
 }
 

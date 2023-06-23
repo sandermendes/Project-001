@@ -51,7 +51,8 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Me func(childComplexity int) int
+		IsAuthed func(childComplexity int) int
+		Me       func(childComplexity int) int
 	}
 
 	User struct {
@@ -120,6 +121,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.Register(childComplexity, args["input"].(model.Register)), true
+
+	case "Query.isAuthed":
+		if e.complexity.Query.IsAuthed == nil {
+			break
+		}
+
+		return e.complexity.Query.IsAuthed(childComplexity), true
 
 	case "Query.me":
 		if e.complexity.Query.Me == nil {
@@ -247,6 +255,7 @@ type User {
 }
 
 extend type Query {
+  isAuthed: Boolean
   me: User
 }
 

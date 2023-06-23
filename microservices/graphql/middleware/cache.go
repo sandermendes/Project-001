@@ -23,7 +23,8 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 		gContext := graphql.GetOperationContext(ctx)
 		operationName := gContext.OperationName
 
-		if validation.Contains(operationName, "Login", "Register", "Logout") {
+		// Exclude from Cache check
+		if validation.Contains(operationName, "Login", "Register", "Logout", "IsAuthed") {
 			return handler(ctx)
 		}
 
