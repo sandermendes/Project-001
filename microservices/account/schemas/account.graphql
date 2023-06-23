@@ -32,5 +32,6 @@ extend type Query {
 extend type Mutation {
   register(input: Register!): AccountResponse
   login(input: Login!): AccountResponse
+  logout: Boolean
 }
 

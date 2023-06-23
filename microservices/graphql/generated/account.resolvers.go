@@ -154,7 +154,7 @@ func (ec *executionContext) _Query_me(ctx context.Context, field graphql.Collect
 	}
 	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalOUser2ᚖgithubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐUser(ctx, field.Selections, res)
+	return ec.marshalOUser2ᚖgithubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -682,24 +682,24 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
+func (ec *executionContext) unmarshalNLogin2githubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐLogin(ctx context.Context, v interface{}) (model.Login, error) {
 	res, err := ec.unmarshalInputLogin(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNRegister2githubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐRegister(ctx context.Context, v interface{}) (model.Register, error) {
+func (ec *executionContext) unmarshalNRegister2githubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐRegister(ctx context.Context, v interface{}) (model.Register, error) {
 	res, err := ec.unmarshalInputRegister(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOAccountResponse2ᚖgithubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx context.Context, sel ast.SelectionSet, v *model.AccountResponse) graphql.Marshaler {
+func (ec *executionContext) marshalOAccountResponse2ᚖgithubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx context.Context, sel ast.SelectionSet, v *model.AccountResponse) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AccountResponse(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

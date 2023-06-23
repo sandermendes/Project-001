@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -35,6 +36,10 @@ func main() {
 	store := gormstore.NewOptions(dbConn, gormstore.Options{
 		TableName: "sessions",
 	}, []byte(sessionKey))
+
+	// Setup to clean expired sessions
+	quit := make(chan struct{})
+	go store.PeriodicCleanup(1*time.Hour, quit)
 
 	router := mux.NewRouter()
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))

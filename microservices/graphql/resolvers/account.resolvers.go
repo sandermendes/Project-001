@@ -102,6 +102,27 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 }
 
 // Me return info about current user(logged user)
+func (r *Resolver) Logout(ctx context.Context) (*bool, error) {
+	vTrue := true
+	vFalse := false
+	// TODO: Implement some logs
+
+	//
+	session := helpers.DeleteSession(ctx, "appSession")
+	if session == nil {
+		return &vFalse, fmt.Errorf("fail to clean session")
+	}
+
+	// check if logged out
+	if !session.IsNew {
+		return &vTrue, nil
+	}
+
+	// not logged in
+	return &vFalse, nil
+}
+
+// Me return info about current user(logged user)
 func (r *Resolver) Me(ctx context.Context) (*model.User, error) {
 	// TODO: Implement some logs
 

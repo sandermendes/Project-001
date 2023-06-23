@@ -4,6 +4,7 @@ package generated
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strconv"
 
@@ -17,6 +18,7 @@ import (
 type MutationResolver interface {
 	Register(ctx context.Context, input model.Register) (*model.AccountResponse, error)
 	Login(ctx context.Context, input model.Login) (*model.AccountResponse, error)
+	Logout(ctx context.Context) (*bool, error)
 }
 
 // endregion ************************** generated!.gotpl **************************
@@ -29,7 +31,7 @@ func (ec *executionContext) field_Mutation_login_args(ctx context.Context, rawAr
 	var arg0 model.Login
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐLogin(ctx, tmp)
+		arg0, err = ec.unmarshalNLogin2githubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐLogin(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -44,7 +46,7 @@ func (ec *executionContext) field_Mutation_register_args(ctx context.Context, ra
 	var arg0 model.Register
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNRegister2githubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐRegister(ctx, tmp)
+		arg0, err = ec.unmarshalNRegister2githubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐRegister(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -86,7 +88,7 @@ func (ec *executionContext) _Mutation_register(ctx context.Context, field graphq
 	}
 	res := resTmp.(*model.AccountResponse)
 	fc.Result = res
-	return ec.marshalOAccountResponse2ᚖgithubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx, field.Selections, res)
+	return ec.marshalOAccountResponse2ᚖgithubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_register(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -144,7 +146,7 @@ func (ec *executionContext) _Mutation_login(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.AccountResponse)
 	fc.Result = res
-	return ec.marshalOAccountResponse2ᚖgithubᚗcomᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx, field.Selections, res)
+	return ec.marshalOAccountResponse2ᚖgithubᚗcomᚋsandermendesᚋGoᚑGolangᚑGormᚑPostgresᚑGqlgenᚑGraphqlᚋmainᚋmicroservicesᚋgraphqlᚋmodelᚐAccountResponse(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_login(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -173,6 +175,47 @@ func (ec *executionContext) fieldContext_Mutation_login(ctx context.Context, fie
 	if fc.Args, err = ec.field_Mutation_login_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
 		ec.Error(ctx, err)
 		return
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _Mutation_logout(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Mutation_logout(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().Logout(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*bool)
+	fc.Result = res
+	return ec.marshalOBoolean2ᚖbool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_Mutation_logout(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		IsMethod:   true,
+		IsResolver: true,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Boolean does not have child fields")
+		},
 	}
 	return fc, nil
 }
@@ -218,6 +261,12 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_login(ctx, field)
+			})
+
+		case "logout":
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_logout(ctx, field)
 			})
 
 		default:

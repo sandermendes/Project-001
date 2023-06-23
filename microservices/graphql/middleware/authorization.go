@@ -13,35 +13,16 @@ func Authentication(ctx context.Context, next graphql.OperationHandler) graphql.
 	handler := next(ctx)
 
 	return func(ctx context.Context) *graphql.Response {
-		// gContext := graphql.GetOperationContext(ctx)
-		// // Skip flows from validate authentication
-		// if validation.Contains(gContext.OperationName, "Login", "Register") {
-		// 	return handler(ctx)
-		// }
-
-		// Get authorization from Header
-		// authorization := gContext.Headers.Get("Authorization")
-		// if authorization == "" {
-		// 	return graphql.ErrorResponse(ctx, "Invalid token provided")
-		// }
-
-		// // Check for token validation
-		// subInfo, err := utils.ValidateToken(authorization, "")
-		// if err != nil {
-		// 	// TODO: Improve error return
-		// 	fmt.Println(err)
-		// 	return graphql.ErrorResponse(ctx, err.Error())
-		// }
-
+		// GetSession
 		session := helpers.GetSession(ctx, "appSession")
 		if session == nil {
 			return graphql.ErrorResponse(ctx, "fail to get session data")
 		}
-		// fmt.Println("Graphql - Authentication - session", session)
 
+		// Extract UserID from session
 		sessionUserID := session.Values["userID"]
-		// fmt.Println("Graphql - Authentication - sessionUserID", sessionUserID)
 
+		// Ckeck if have some value
 		if sessionUserID != nil {
 
 			// Set to metadata, UserId extracted from token

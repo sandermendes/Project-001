@@ -8,6 +8,7 @@ import (
 	"github.com/wader/gormstore/v2"
 )
 
+// Create a Context with HTTP
 func InjectHTTPMiddleware(gormstore *gormstore.Store) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

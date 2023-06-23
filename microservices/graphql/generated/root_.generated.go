@@ -46,6 +46,7 @@ type ComplexityRoot struct {
 
 	Mutation struct {
 		Login    func(childComplexity int, input model.Login) int
+		Logout   func(childComplexity int) int
 		Register func(childComplexity int, input model.Register) int
 	}
 
@@ -100,6 +101,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.Login(childComplexity, args["input"].(model.Login)), true
+
+	case "Mutation.logout":
+		if e.complexity.Mutation.Logout == nil {
+			break
+		}
+
+		return e.complexity.Mutation.Logout(childComplexity), true
 
 	case "Mutation.register":
 		if e.complexity.Mutation.Register == nil {
@@ -245,6 +253,7 @@ extend type Query {
 extend type Mutation {
   register(input: Register!): AccountResponse
   login(input: Login!): AccountResponse
+  logout: Boolean
 }
 
 `, BuiltIn: false},

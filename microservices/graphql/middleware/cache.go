@@ -23,7 +23,7 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 		gContext := graphql.GetOperationContext(ctx)
 		operationName := gContext.OperationName
 
-		if validation.Contains(operationName, "Login", "Register") {
+		if validation.Contains(operationName, "Login", "Register", "Logout") {
 			return handler(ctx)
 		}
 
@@ -82,7 +82,10 @@ func handleServiceData(ctx context.Context, operationName string, serviceData *g
 
 	// Convert to interface{} to extract only the part with Fields from OperationName
 	var handlerResponse interface{}
-	_ = json.Unmarshal([]byte(string(serviceData.Data)), &handlerResponse)
+	err := json.Unmarshal([]byte(string(serviceData.Data)), &handlerResponse)
+	if err != nil {
+		return nil, fmt.Errorf("failed to convert response")
+	}
 	mResponse := handlerResponse.(map[string]interface{})
 	fieldsResponse := mResponse[strings.ToLower(operationName)]
 
