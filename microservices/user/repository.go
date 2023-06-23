@@ -1,6 +1,8 @@
 package user
 
 import (
+	"strings"
+
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"gorm.io/gorm"
@@ -49,7 +51,7 @@ func (r *repository) GetUserByEmail(input *User) (*User, error) {
 	}
 
 	var user User
-	user.Email = input.Email
+	user.Email = strings.ToLower(input.Email)
 
 	// Search for userId
 	if err := r.db.Where(&user).First(&user).Scan(&user).Error; err != nil {

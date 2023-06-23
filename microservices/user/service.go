@@ -3,6 +3,7 @@ package user
 import (
 	"context"
 	"log"
+	"strings"
 
 	"github.com/google/uuid"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/encrypt"
@@ -76,6 +77,7 @@ func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserReque
 }
 
 func (r *userService) CreateUser(ctx context.Context, input *userv1.CreateUserRequest) (*User, error) {
+	input.Email = strings.ToLower(input.GetEmail())
 	// TODO: Add some log
 	var user User
 
