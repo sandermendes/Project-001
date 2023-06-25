@@ -13,8 +13,7 @@
             "runOptions": {
                 "runOn": "folderOpen"
             }
-        }
-        ,
+        },
         {
             "label": "Account",
             "type": "shell",
@@ -27,8 +26,7 @@
             "runOptions": {
                 "runOn": "folderOpen"
             }
-        }
-        ,
+        },
         {
             
             "label": "User",
@@ -42,6 +40,34 @@
             "runOptions": {
                 "runOn": "folderOpen"
             }
-        }
+        }/*,
+        {
+            
+            "label": "Front-Account",
+            "type": "shell",
+            "command": "cd frontend/accounts-auth && yarn start",
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "panel": "dedicated",
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            
+            "label": "Front-User",
+            "type": "shell",
+            "command": "cd frontend/accounts-user && yarn start",
+            "group": "build",
+            "presentation": {
+                "group": "buildGroup",
+                "panel": "dedicated",
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        } */
     ]
 }
