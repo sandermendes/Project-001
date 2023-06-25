@@ -12,6 +12,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.10.0
 	github.com/onsi/gomega v1.27.8
 	github.com/redis/go-redis/v9 v9.0.5
+	github.com/rs/cors v1.9.0
 	github.com/vektah/gqlparser/v2 v2.5.1
 	github.com/wader/gormstore/v2 v2.0.3
 	golang.org/x/crypto v0.6.0
