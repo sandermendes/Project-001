@@ -20,7 +20,7 @@ import (
 type Service interface {
 	Register(ctx context.Context, input *accountv1.RegisterRequest) (*accountv1.AccountResponse, error)
 	Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error)
-	Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error)
+	Profile(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error)
 }
 
 type service struct {
@@ -95,7 +95,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	}, nil
 }
 
-func (s *service) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
+func (s *service) Profile(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
 	// Extract UserID from context
 	userID := contextkeys.GetUserIDFromContext(ctx)
 	if userID == "" {
@@ -109,11 +109,7 @@ func (s *service) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserRes
 		// TODO: Improve error
 		return nil, status.Error(codes.NotFound, "information about current user not found")
 	}
+	userResponse.Password = nil
 
-	return &userv1.UserResponse{
-		Id:        userResponse.GetId(),
-		FirstName: userResponse.GetFirstName(),
-		LastName:  userResponse.GetLastName(),
-		Email:     userResponse.GetEmail(),
-	}, nil
+	return userResponse, nil
 }

@@ -78,18 +78,18 @@ func (s *Server) Register(ctx context.Context, input *accountv1.RegisterRequest)
 }
 
 func (s *Server) Login(ctx context.Context, input *accountv1.LoginRequest) (*accountv1.AccountResponse, error) {
-	//
-	register, err := s.service.Login(ctx, input)
+	// Call Login from service
+	login, err := s.service.Login(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
-	return register, nil
+	return login, nil
 }
 
-func (s *Server) Me(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
+func (s *Server) Profile(ctx context.Context, input *emptypb.Empty) (*userv1.UserResponse, error) {
 	//
-	currentUser, err := s.service.Me(ctx, input)
+	currentUser, err := s.service.Profile(ctx, input)
 	if err != nil {
 		return nil, err
 	}
