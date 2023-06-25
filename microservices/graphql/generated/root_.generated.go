@@ -52,13 +52,14 @@ type ComplexityRoot struct {
 
 	Query struct {
 		IsAuthed func(childComplexity int) int
-		Me       func(childComplexity int) int
+		Profile  func(childComplexity int) int
 	}
 
 	User struct {
 		Email     func(childComplexity int) int
 		FirstName func(childComplexity int) int
 		LastName  func(childComplexity int) int
+		NickName  func(childComplexity int) int
 	}
 }
 
@@ -129,12 +130,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.IsAuthed(childComplexity), true
 
-	case "Query.me":
-		if e.complexity.Query.Me == nil {
+	case "Query.profile":
+		if e.complexity.Query.Profile == nil {
 			break
 		}
 
-		return e.complexity.Query.Me(childComplexity), true
+		return e.complexity.Query.Profile(childComplexity), true
 
 	case "User.email":
 		if e.complexity.User.Email == nil {
@@ -156,6 +157,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.User.LastName(childComplexity), true
+
+	case "User.nickName":
+		if e.complexity.User.NickName == nil {
+			break
+		}
+
+		return e.complexity.User.NickName(childComplexity), true
 
 	}
 	return 0, false
@@ -227,7 +235,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "../../account/schemas/account.graphql", Input: `# GraphQL schema example
+	{Name: "../schemas/account.graphql", Input: `# GraphQL schema example
 #
 # https://gqlgen.com/getting-started/
 
@@ -252,11 +260,12 @@ type User {
   firstName: String!
   lastName: String!
   email: String!
+  nickName: String
 }
 
 extend type Query {
   isAuthed: Boolean
-  me: User
+  profile: User
 }
 
 extend type Mutation {

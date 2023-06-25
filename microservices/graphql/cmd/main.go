@@ -10,6 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/directives"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
 	middlewareGraphql "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/middleware"
@@ -36,6 +37,8 @@ func main() {
 	store := gormstore.NewOptions(dbConn, gormstore.Options{
 		TableName: "sessions",
 	}, []byte(sessionKey))
+	store.SessionOpts.HttpOnly = true
+	store.SessionOpts.SameSite = http.SameSiteStrictMode
 
 	// Setup to clean expired sessions
 	quit := make(chan struct{})
@@ -43,6 +46,29 @@ func main() {
 
 	router := mux.NewRouter()
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))
+	router.Use(cors.New(
+		cors.Options{
+			AllowedOrigins: []string{
+				"http://localhost:4000",
+				"http://localhost:4050",
+			},
+			AllowedMethods: []string{
+				//http methods for your app
+				// http.MethodGet,
+				http.MethodPost,
+				// http.MethodPut,
+				// http.MethodPatch,
+				// http.MethodDelete,
+				// http.MethodOptions,
+				// http.MethodHead,
+			},
+			AllowCredentials: true,
+			// Debug:            true,
+			// 	AllowedHeaders: []string{
+			// 		"*", //or you can your header key values which you are using in your application
+			// 	},
+		},
+	).Handler)
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {

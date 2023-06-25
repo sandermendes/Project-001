@@ -142,19 +142,19 @@ func (r *Resolver) IsAuthed(ctx context.Context) (*bool, error) {
 }
 
 // Me return info about current user(logged user)
-func (r *Resolver) Me(ctx context.Context) (*model.User, error) {
+func (r *Resolver) Profile(ctx context.Context) (*model.User, error) {
 	// TODO: Implement some logs
 
-	me, err := r.accountConn.Me(ctx, &emptypb.Empty{})
+	profile, err := r.accountConn.Profile(ctx, &emptypb.Empty{})
 	if err != nil {
 		// TODO: Improver error return
 		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
-	var meResponse model.User
-	if err := utils.Copy(&meResponse, &me); err != nil {
+	var profileResponse model.User
+	if err := utils.Copy(&profileResponse, &profile); err != nil {
 		// TODO: Improver error return
 		return nil, err
 	}
-	return &meResponse, nil
+	return &profileResponse, nil
 }

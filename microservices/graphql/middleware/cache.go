@@ -41,7 +41,12 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 		// If cache exists return from it
 		cacheResult, _ := cacheService.Get(ctx, "UserId:"+userID).Result()
 		if cacheResult != "" {
-			newCacheResponse := []byte(fmt.Sprintf(`{"%s":%s}`, operationName, string(cacheResult)))
+			newCacheResponse := []byte(
+				fmt.Sprintf(`{"%s":%s}`,
+					strings.ToLower(operationName),
+					string(cacheResult),
+				),
+			)
 
 			fmt.Println("Interceptor from cache", cacheResult)
 
@@ -65,12 +70,16 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 			return graphql.ErrorResponse(ctx, "failed to save data to cache: %s", err.Error())
 		}
 
-		fmt.Println("Interceptor from database", string(serviceData))
+		fmt.Println("Interceptor from service", string(serviceData))
 
 		// Return response from service
 		return &graphql.Response{
 			Data: []byte(
-				fmt.Sprintf(`{"%s":%s}`, operationName, string(serviceData)),
+				fmt.Sprintf(
+					`{"%s":%s}`,
+					strings.ToLower(operationName),
+					string(serviceData),
+				),
 			),
 		}
 	}
