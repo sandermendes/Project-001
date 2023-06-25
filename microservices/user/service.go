@@ -65,7 +65,7 @@ func (r *userService) GetUser(ctx context.Context, input *userv1.UpdateUserReque
 		findUser.Email = input.GetEmail()
 
 		// Check if User exists
-		user, err := r.repository.GetUserById(&findUser)
+		user, err := r.repository.GetUserByEmail(&findUser)
 		if err != nil {
 			return nil, status.Error(codes.NotFound, "not found")
 		}
