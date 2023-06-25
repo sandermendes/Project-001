@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	AccountService_Register_FullMethodName = "/account.v1.AccountService/Register"
 	AccountService_Login_FullMethodName    = "/account.v1.AccountService/Login"
-	AccountService_Me_FullMethodName       = "/account.v1.AccountService/Me"
+	AccountService_Profile_FullMethodName  = "/account.v1.AccountService/Profile"
 )
 
 // AccountServiceClient is the client API for AccountService service.
@@ -32,7 +32,7 @@ const (
 type AccountServiceClient interface {
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*AccountResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*AccountResponse, error)
-	Me(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error)
+	Profile(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error)
 }
 
 type accountServiceClient struct {
@@ -61,9 +61,9 @@ func (c *accountServiceClient) Login(ctx context.Context, in *LoginRequest, opts
 	return out, nil
 }
 
-func (c *accountServiceClient) Me(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error) {
+func (c *accountServiceClient) Profile(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*v1.UserResponse, error) {
 	out := new(v1.UserResponse)
-	err := c.cc.Invoke(ctx, AccountService_Me_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, AccountService_Profile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *accountServiceClient) Me(ctx context.Context, in *emptypb.Empty, opts .
 type AccountServiceServer interface {
 	Register(context.Context, *RegisterRequest) (*AccountResponse, error)
 	Login(context.Context, *LoginRequest) (*AccountResponse, error)
-	Me(context.Context, *emptypb.Empty) (*v1.UserResponse, error)
+	Profile(context.Context, *emptypb.Empty) (*v1.UserResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -90,8 +90,8 @@ func (UnimplementedAccountServiceServer) Register(context.Context, *RegisterRequ
 func (UnimplementedAccountServiceServer) Login(context.Context, *LoginRequest) (*AccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
-func (UnimplementedAccountServiceServer) Me(context.Context, *emptypb.Empty) (*v1.UserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Me not implemented")
+func (UnimplementedAccountServiceServer) Profile(context.Context, *emptypb.Empty) (*v1.UserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Profile not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
@@ -142,20 +142,20 @@ func _AccountService_Login_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_Me_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AccountService_Profile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountServiceServer).Me(ctx, in)
+		return srv.(AccountServiceServer).Profile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AccountService_Me_FullMethodName,
+		FullMethod: AccountService_Profile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).Me(ctx, req.(*emptypb.Empty))
+		return srv.(AccountServiceServer).Profile(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -176,8 +176,8 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AccountService_Login_Handler,
 		},
 		{
-			MethodName: "Me",
-			Handler:    _AccountService_Me_Handler,
+			MethodName: "Profile",
+			Handler:    _AccountService_Profile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

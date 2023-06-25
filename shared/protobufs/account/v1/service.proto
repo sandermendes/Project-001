@@ -12,5 +12,5 @@ import "user/v1/user.proto";
 service AccountService {
     rpc Register(account.v1.RegisterRequest) returns (account.v1.AccountResponse) {}
     rpc Login(account.v1.LoginRequest) returns (account.v1.AccountResponse) {}
-    rpc Me(google.protobuf.Empty) returns (user.v1.UserResponse) {}
+    rpc Profile(google.protobuf.Empty) returns (user.v1.UserResponse) {}
 }
