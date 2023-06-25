@@ -25,3 +25,6 @@ yarn-error.log*
 # Local
 .env
 .env.test
+
+# Certificates
+/*.pem
