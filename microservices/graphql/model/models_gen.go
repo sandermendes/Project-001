@@ -20,8 +20,11 @@ type Register struct {
 }
 
 type User struct {
-	FirstName string `json:"firstName" `
-	LastName  string `json:"lastName" `
-	Email     string `json:"email" `
-	NickName  string `json:"nickName,omitempty" `
+	FirstName  string `json:"firstName" `
+	LastName   string `json:"lastName" `
+	Email      string `json:"email" `
+	NickName   string `json:"nickName,omitempty" `
+	ProfilePic string `json:"profilePic,omitempty" `
+	BirthDate  string `json:"birthDate,omitempty" `
+	Gender     string `json:"gender,omitempty" `
 }

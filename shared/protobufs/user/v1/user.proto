@@ -11,7 +11,10 @@ message CreateUserRequest {
     string password = 4;
 
     // additional fields
-    string nick_name = 5;
+    optional string nick_name = 5;
+    optional string profilePic = 6;
+    optional string birthDate = 7;
+    optional string gender = 8;
 }
 
 message UpdateUserRequest {
@@ -23,7 +26,10 @@ message UpdateUserRequest {
     optional string password = 5;
 
     // additional fields
-    string nick_name = 6;
+    optional string nick_name = 6;
+    optional string profilePic = 7;
+    optional string birthDate = 8;
+    optional string gender = 9;
 }
 
 message UserResponse {
@@ -35,5 +41,8 @@ message UserResponse {
     optional string password = 5;
 
     // additional fields
-    string nick_name = 6;
+    optional string nick_name = 6;
+    optional string profilePic = 7;
+    optional string birthDate = 8;
+    optional string gender = 9;
 }

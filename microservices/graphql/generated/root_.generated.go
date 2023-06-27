@@ -56,10 +56,13 @@ type ComplexityRoot struct {
 	}
 
 	User struct {
-		Email     func(childComplexity int) int
-		FirstName func(childComplexity int) int
-		LastName  func(childComplexity int) int
-		NickName  func(childComplexity int) int
+		BirthDate  func(childComplexity int) int
+		Email      func(childComplexity int) int
+		FirstName  func(childComplexity int) int
+		Gender     func(childComplexity int) int
+		LastName   func(childComplexity int) int
+		NickName   func(childComplexity int) int
+		ProfilePic func(childComplexity int) int
 	}
 }
 
@@ -137,6 +140,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Profile(childComplexity), true
 
+	case "User.birthDate":
+		if e.complexity.User.BirthDate == nil {
+			break
+		}
+
+		return e.complexity.User.BirthDate(childComplexity), true
+
 	case "User.email":
 		if e.complexity.User.Email == nil {
 			break
@@ -151,6 +161,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.User.FirstName(childComplexity), true
 
+	case "User.gender":
+		if e.complexity.User.Gender == nil {
+			break
+		}
+
+		return e.complexity.User.Gender(childComplexity), true
+
 	case "User.lastName":
 		if e.complexity.User.LastName == nil {
 			break
@@ -164,6 +181,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.User.NickName(childComplexity), true
+
+	case "User.profilePic":
+		if e.complexity.User.ProfilePic == nil {
+			break
+		}
+
+		return e.complexity.User.ProfilePic(childComplexity), true
 
 	}
 	return 0, false
@@ -261,6 +285,9 @@ type User {
   lastName: String!
   email: String!
   nickName: String
+  profilePic: String
+  birthDate: String
+  gender: String
 }
 
 extend type Query {

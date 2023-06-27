@@ -24,6 +24,9 @@ type User {
   lastName: String!
   email: String!
   nickName: String
+  profilePic: String
+  birthDate: String
+  gender: String
 }
 
 extend type Query {

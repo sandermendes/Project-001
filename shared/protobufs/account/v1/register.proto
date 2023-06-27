@@ -11,5 +11,8 @@ message RegisterRequest {
     string password = 4;
 
     // additional fields
-    string nick_name = 5;
+    optional string nick_name = 5;
+    optional string profilePic = 6;
+    optional string birthDate = 7;
+    optional string gender = 8;
 }

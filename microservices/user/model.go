@@ -12,5 +12,8 @@ type User struct {
 	Password  string `json:"password" gorm:"not null"`
 
 	// Additional info
-	NickName string `json:"nickName" gorm:"column:nick_name"`
+	NickName   string `json:"nickName" gorm:"column:nick_name"`
+	ProfilePic string `json:"profilePic" gorm:"column:profile_pic"`
+	BirthDate  uint64 `json:"birthDate" gorm:"column:birth_date;type:bigint"`
+	Gender     uint   `json:"gender" gorm:"column:gender;type:smallint"`
 }
