@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/encrypt"
@@ -28,7 +29,13 @@ type service struct {
 }
 
 func NewService() Service {
-	userConn, err := serviceConnection.GetUserConnection()
+	userAddress, ok := os.LookupEnv("USER_SERVICE_ADDRESS")
+	if !ok {
+		fmt.Println("USER_SERVICE_ADDRESS - ok", ok)
+		panic(fmt.Sprintf("No url specified for %s", userAddress))
+	}
+
+	userConn, err := serviceConnection.GetUserConnection(userAddress)
 	if err != nil {
 		log.Fatalf("failed to connect to userService: %v", err)
 	}

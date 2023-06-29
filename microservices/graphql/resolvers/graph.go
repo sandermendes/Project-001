@@ -2,6 +2,7 @@ package resolvers
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
 	serviceConnection "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/service_connection"
@@ -13,7 +14,13 @@ type Server struct {
 }
 
 func NewGraphQLServer() (*Resolver, error) {
-	accountConn, err := serviceConnection.GetAccountConnection()
+	accountAddress, ok := os.LookupEnv("ACCOUNT_SERVICE_ADDRESS")
+	if !ok {
+		fmt.Println("ACCOUNT_SERVICE_ADDRESS - ok", ok)
+		panic(fmt.Sprintf("No url specified for %s", accountAddress))
+	}
+
+	accountConn, err := serviceConnection.GetAccountConnection(accountAddress)
 	if err != nil {
 		// TODO: Improve return  error
 		fmt.Println("err", err)
