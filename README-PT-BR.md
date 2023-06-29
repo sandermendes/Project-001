@@ -65,6 +65,13 @@ $ docker-compose up -d --build
 ```
 Observação: Execute este comando no terminal do host.
 
+## Teste do Serviço GraphQL ::TODO::
+
+## Teste do Serviço de Conta ::TODO::
+
+## Teste do Serviço de Usuário
+![User Service Test](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Screenshot%20from%202023-06-29%2019-47-16.png)
+
 Esse comando iniciará os serviços necessários e configurará o ambiente de desenvolvimento dentro de um contêiner Docker.
 
 Sinta-se à vontade para explorar o código e fazer quaisquer melhorias ou modificações para atender às suas necessidades!
