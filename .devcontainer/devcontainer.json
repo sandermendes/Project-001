@@ -41,9 +41,7 @@
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
-	"remoteUser": "vscode"
-	// ,
-	// "postCreateCommand": "apk update && apk add --no-cache openssl && openssl genrsa -out /workspaces/${localWorkspaceFolderBasename}/private.pem 2048 && openssl rsa -in /workspaces/${localWorkspaceFolderBasename}/private.pem -outform PEM -pubout -out /workspaces/${localWorkspaceFolderBasename}/public.pem"
-	,
-	"postCreateCommand": "openssl genrsa -out /workspaces/${localWorkspaceFolderBasename}/private.pem 2048 && openssl rsa -in /workspaces/${localWorkspaceFolderBasename}/private.pem -outform PEM -pubout -out /workspaces/${localWorkspaceFolderBasename}/public.pem && sudo apt -qq autoremove openssl"
+	"remoteUser": "vscode",
+	// "postCreateCommand": "openssl genrsa -out /workspaces/${localWorkspaceFolderBasename}/private.pem 2048 && openssl rsa -in /workspaces/${localWorkspaceFolderBasename}/private.pem -outform PEM -pubout -out /workspaces/${localWorkspaceFolderBasename}/public.pem && sudo apt -qq autoremove openssl"
+	"postCreateCommand": "openssl genrsa -out /workspaces/${localWorkspaceFolderBasename}/private.pem 2048 && openssl rsa -in /workspaces/${localWorkspaceFolderBasename}/private.pem -outform PEM -pubout -out /workspaces/${localWorkspaceFolderBasename}/public.pem"
 }
