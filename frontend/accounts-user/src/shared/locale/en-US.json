@@ -1,0 +1,54 @@
+{
+    "common": {
+        "language": "Language",
+        "darkMode": "Dark Mode",
+        "new": "New",
+        "new1": "New",
+        "myAccountVitaNexus": "My Account from {{brandName}}",
+        "accountLogout": "Logout from account",
+        "privacy": "Privacy",
+        "about": "About",
+        "cancel": "Cancel",
+        "save": "Save",
+        "learnMore": "Learn more"
+    },
+    "gender": {
+        "female": "Female",
+        "male": "Male",
+        "undefined": "Undefined"
+    },
+    "Loading": {
+        "title": "Loading"
+    },
+    "Routes": {
+        "home": "Home",
+        "userInfo": "User Information"
+    },
+    "Home": {
+        "mainTitle": "Home",
+        "title": "Hello, {{firstName}} {{ lastName }}",
+        "info": "Manage your information, privacy and security so to {{appTitle}} meets your needs.",
+        "infoLink": "Learn more about {{appTitle}} Account"
+    },
+    "UserInfo": {
+        "mainTitle": "User Info",
+        "title": "Personal Information",
+        "info": "Basic information, such as your name and photo, used in {{appTitle}} services",
+        "subInfo1": "Some information may be visible to others using {{appTitle}} services.",
+        "subInfo1AriaLabel": "Learn more about what information can be visible to others when you use {{appTitle}} services",
+        "subInfo1ProfilePic": "Picture",
+        "subInfo1FirstName": "First Name",
+        "subInfo1FirstNameInfo": "Changes made to your name will affect your entire {{appTitle}} Account. ",
+        "subInfo1LastName": "Last Name",
+        "subInfo1LastNameInfo": "Changes made to your name will affect your entire {{appTitle}} Account. ",
+        "subInfo1Nick": "Nick",
+        "subInfo1BirthDate": "Birth Date",
+        "subInfo1BirthDateInfo": "Your date of birth can be used for account security and personalization.\n  in {{appTitle}} services. If this {{appTitle}} Account is for a company or organization, use the\n  date of birth of the person managing the account. ",
+        "subInfo1Gender": "Gender",
+        "subInfo1GenderInfo": "Your gender can be used for personalization in the {{appTitle}} Services, including how we\n we refer to you. ",
+        "subInfo1GenderInfoAriaLabel": "Learn more about changing informed gender",
+
+        "subInfo2": "Contact information",
+        "subInfo2Email": "Email"
+    }
+}
