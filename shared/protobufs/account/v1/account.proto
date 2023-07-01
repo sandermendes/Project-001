@@ -4,6 +4,5 @@ package account.v1;
 option go_package = "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1;accountv1";
 
 message AccountResponse {
-    string token = 1;
-    string redirect = 2;
+    string user_id = 1;
 }

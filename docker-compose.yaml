@@ -8,6 +8,8 @@ networks:
   ################################
   ######## Microservices #########
   ################################
+  graphql:
+    name: graphql
   account:
     name: account
   user:
@@ -38,9 +40,10 @@ services:
     ports:
       - ${GRAPHQL_PUBLIC_SERVICE_PORT}:${GRAPHQL_PUBLIC_SERVICE_PORT}
     networks:
+      - graphql
+      - account
       - database
       - cache
-      - account
 
   account:
     container_name: Account_Service
@@ -70,6 +73,30 @@ services:
     networks:
       - user
       - database
+
+  account_auth:
+    container_name: AccountAuthentication
+    build:
+      context: .
+      dockerfile: ./frontend/accounts-auth/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 4050:4050
+    networks:
+      - graphql
+
+  account_user:
+    container_name: AccountUser
+    build:
+      context: .
+      dockerfile: ./frontend/accounts-user/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 4000:4000
+    networks:
+      - graphql
 
   ################################
   ########## Resources ###########

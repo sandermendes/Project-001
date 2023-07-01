@@ -21,7 +21,7 @@ FROM alpine:3.18
 
 WORKDIR /usr/bin
 
-COPY --from=builder /go/src .
+COPY --from=builder /go/src/main ./
 
 EXPOSE ${USER_SERVICE_PORT}
 

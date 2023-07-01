@@ -71,19 +71,19 @@ func (r *Resolver) Login(ctx context.Context, input model.Login) (*model.Account
 		return nil, fmt.Errorf(utils.FmtLogError(err))
 	}
 
-	subInfo, err := utils.ValidateToken(login.Token, "")
-	if err != nil {
-		// TODO: Improve error return
-		fmt.Println(err)
-		return nil, fmt.Errorf("error on parse login token data")
-	}
+	// subInfo, err := utils.ValidateToken(login.Token, "")
+	// if err != nil {
+	// 	// TODO: Improve error return
+	// 	fmt.Println(err)
+	// 	return nil, fmt.Errorf("error on parse login token data")
+	// }
 
-	if subInfo == nil {
-		return nil, fmt.Errorf("fail to retrive login token data")
+	if login.UserId == "" {
+		return nil, fmt.Errorf("fail to retrive login data")
 	}
 
 	// Set session userID
-	session.Values["userID"] = subInfo.(string)
+	session.Values["userID"] = login.UserId
 	if err := helpers.SaveSession(ctx, session); err != nil {
 		return nil, fmt.Errorf("failed to save session, with error: %s", err)
 	}

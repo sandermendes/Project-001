@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/encrypt"
 	contextkeys "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/context_keys"
@@ -67,8 +66,9 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 	}
 
 	return &accountv1.AccountResponse{
-		Token:    "register-0123456-0123456-01234560123",
-		Redirect: "/test/redirect",
+		UserId: "NewUser",
+		// Token:    "register-0123456-0123456-01234560123",
+		// Redirect: "/test/redirect",
 	}, nil
 }
 
@@ -90,15 +90,14 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 		return nil, status.Error(codes.FailedPrecondition, "email or password is invalid")
 	}
 
-	token, err := utils.CreateToken(1*time.Hour, userResponse.GetId())
-	if err != nil {
-		// TODO: Improve error
-		return nil, status.Error(codes.Internal, "internal error generating token")
-	}
+	// token, err := utils.CreateToken(1*time.Hour, userResponse.GetId())
+	// if err != nil {
+	// 	// TODO: Improve error
+	// 	return nil, status.Error(codes.Internal, "internal error generating token")
+	// }
 
 	return &accountv1.AccountResponse{
-		Token:    token,
-		Redirect: "/test/redirect",
+		UserId: userResponse.GetId(),
 	}, nil
 }
 
