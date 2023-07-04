@@ -1,0 +1,18 @@
+{
+	"common": {
+		"title": "Sign In",
+		"fields": {
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter your email"
+			},
+			"password": {
+				"label": "Password",
+				"placeholder": "Enter your password"
+			}
+		},
+		"forgotEmail": "Forgot your email?",
+		"enter": "Enter",
+		"about": "About"
+	}
+}

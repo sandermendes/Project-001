@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    FormControl,
-    FormHelperText,
-    Grid,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    Link,
-    OutlinedInput,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useMutation, useQuery } from '@apollo/client';
 import { useSearchParams } from 'react-router-dom';
@@ -22,8 +10,11 @@ import { IIsAuthedData, ILogin, ILoginData } from './@types';
 import { redirectToUserAccount } from '../../../shared/utils/url';
 import { CHECK_AUTH } from './graphql/check.graphql';
 import { ACCOUNTS_URL, USER_ACCOUNT_URL } from '../../../shared/constants/url';
+import { TranslatedString } from '../../../shared/providers/translate';
 
 function SignIn() {
+    const nameSpace = ['translation']
+    
     const [searchParams] = useSearchParams();
     const [showScreen, setShowScreen] = useState(false);
     const [loadingSign, setLoadingSign] = useState(false);
@@ -95,11 +86,11 @@ function SignIn() {
     };
 
     return showScreen ? (
-        <BaseSign title="Fazer Login" width="480px" loading={loadingSign}>
+        <BaseSign title={<TranslatedString message={"common.title"} />} width="480px" loading={loadingSign}>
             <form onSubmit={onSubmit} style={{ width: '100%' }}>
                 <Grid container style={{ marginTop: '20px' }}>
                     <TextField
-                        label="Email ou telefone"
+                        label={<TranslatedString message={"common.fields.email.label"} />}
                         name="email"
                         variant="outlined"
                         style={{ width: '100%', marginBottom: '20px' }}
@@ -107,13 +98,18 @@ function SignIn() {
                         value={values.email}
                         onChange={handleInputChange}
                         disabled={loadingSign}
+                        inputProps={{
+                            autoComplete: 'username',
+                        }}
                     />
                     <FormControl variant="outlined" style={{ width: '100%' }} disabled={loadingSign}>
-                        <InputLabel htmlFor="password">Senha</InputLabel>
+                        <InputLabel htmlFor="password">
+                            {<TranslatedString nameSpace={nameSpace} message={"common.fields.password.label"} />}
+                        </InputLabel>
                         <OutlinedInput
                             id="password"
                             name="password"
-                            label="Senha"
+                            label={<TranslatedString nameSpace={nameSpace} message={"common.fields.password.label"} />}
                             autoComplete="current-password"
                             aria-describedby="password-helper-text"
                             type={values.showPassword ? 'text' : 'password'}
@@ -137,13 +133,13 @@ function SignIn() {
                 <Grid container>
                     <Typography>
                         <Link href="#" underline="none" color="primary">
-                            Esqueceu seu e-mail?
+                            <TranslatedString message={"common.forgotEmail"} />
                         </Link>
                     </Typography>
                 </Grid>
                 <Grid container justifyContent="space-between" style={{ marginTop: '20px', justifyContent: 'flex-end' }}>
                     <Button type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>
-                        Entrar
+                        <TranslatedString message={"common.enter"} />
                     </Button>
                 </Grid>
             </form>

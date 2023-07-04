@@ -3,6 +3,6 @@ import React from 'react';
 export interface IBaseSignInterface {
     width?: string;
     loading?: boolean;
-    title?: string;
+    title?: React.ReactNode;
     children?: React.ReactNode;
 }

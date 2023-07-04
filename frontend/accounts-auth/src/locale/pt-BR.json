@@ -1,0 +1,18 @@
+{
+	"common": {
+		"title": "Fazer login",
+		"fields": {
+			"email": {
+				"label": "Email",
+				"placeholder": "Digite seu email"
+			},
+			"password": {
+				"label": "Senha",
+				"placeholder": "Digite sua senha"
+			}
+		},
+		"forgotEmail": "Esqueceu seu e-mail?",
+		"enter": "Entrar",
+		"about": "Sobre"
+	}
+}
