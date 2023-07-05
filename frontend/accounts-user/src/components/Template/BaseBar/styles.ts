@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import { Typography, IconButton } from '@mui/material';
 
 export const LogoText = styled(Typography)(() => ({
   alignItems: 'center',
@@ -7,3 +7,8 @@ export const LogoText = styled(Typography)(() => ({
 }));
 
 export const LogoRoot = styled('div')();
+
+export const AccountButton = styled(IconButton)(({ theme }) => ({
+  marginRight: theme.spacing(1),
+  color: 'inherit',
+}));

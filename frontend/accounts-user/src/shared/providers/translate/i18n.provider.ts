@@ -1,14 +1,17 @@
 import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 
-import { enUS, ptBR } from '../../locale';
+import * as locale from '../../locale';
 
 const resources = {
   'en-US': {
-    translation: enUS,
+    translation: locale.enUS,
   },
   'pt-BR': {
-    translation: ptBR,
+    translation: locale.ptBR,
+  },
+  'es-ES': {
+    translation: locale.esES,
   },
 };
 

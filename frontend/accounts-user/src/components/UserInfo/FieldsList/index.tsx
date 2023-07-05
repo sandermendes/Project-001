@@ -43,6 +43,7 @@ function ListItemLink({ field, value, divider, to }: ListItemLinkProps) {
 
 function FieldsList({ fieldItems }: FieldsListProps) {
   const { profile } = useContext(SessionContext);
+  console.log("FieldsList - profile", profile)
 
   return (
     <Grid item>
