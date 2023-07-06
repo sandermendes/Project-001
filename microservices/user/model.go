@@ -8,7 +8,7 @@ type User struct {
 	// Basic info
 	FirstName string `json:"firstName" gorm:"column:first_name"`
 	LastName  string `json:"lastName" gorm:"column:last_name"`
-	Email     string `json:"email" gorm:"not null"`
+	Email     string `json:"email" gorm:"not null;unique"`
 	Password  string `json:"password" gorm:"not null"`
 
 	// Additional info
