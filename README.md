@@ -11,9 +11,19 @@
 5. **GraphQL**: A modern query language and runtime for APIs, enabling efficient and flexible data retrieval.
 6. **gRPC**: A high-performance, language-agnostic framework for building distributed systems with efficient communication.
 7. **Protobuf**: A language-agnostic data serialization format for structured data communication.
+<br/>
+<br/>
+---
+## Buy me a coffee
+<br/>
+Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee, so I can dedicate more time on open-source projects like this :)
+
+<a href="https://www.buymeacoffee.com/sandermendes" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+<br/>
+<br/>
 
 ## Project structure
-![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-2023-06-14-1843.png)
+![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-2023-07-6-0945.png)
 
 ## Architecture Overview
 
