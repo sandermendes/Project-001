@@ -4,14 +4,26 @@ import { initReactI18next, useTranslation } from 'react-i18next';
 import * as locale from '../../locale';
 
 const resources = {
+  'de-DE': {
+    translation: locale.deDE,
+  },
   'en-US': {
     translation: locale.enUS,
+  },
+  'es-ES': {
+    translation: locale.esES,
+  },
+  'fr-FR': {
+    translation: locale.frFR,
   },
   'pt-BR': {
     translation: locale.ptBR,
   },
-  'es-ES': {
-    translation: locale.esES,
+  'ru-RU': {
+    translation: locale.ruRU,
+  },
+  'zh-CN': {
+    translation: locale.zhCN,
   },
 };
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Popover, styled } from '@mui/material';
-import { AccountCircle as AccountCircleIcon } from '@mui/icons-material';
+// import { AccountCircle as AccountCircleIcon } from '@mui/icons-material';
 
 import * as S from './styles';
 import AccountMenu from './AccountMenu';
@@ -30,7 +30,15 @@ function RightBar() {
     return (
         <>
             <S.AccountButton aria-describedby={id} onClick={handleClick}>
-                <AccountCircleIcon sx={{ width: '44px', height: '44px' }}/>
+                {/* <AccountCircleIcon sx={{ width: '44px', height: '44px' }}/> */}
+                <img alt="Profile" 
+                    style={{ 
+                        borderRadius: '50%', 
+                        borderColor: 'white', 
+                        borderStyle: 'solid', 
+                        width: '45px'
+                    }} src="https://randomuser.me/api/portraits/med/women/75.jpg"
+                />
             </S.AccountButton>
             <FloatingArea
                 id={id}

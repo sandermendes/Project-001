@@ -1,0 +1,54 @@
+{
+    "common": {
+        "language": "语言",
+        "darkMode": "暗模式",
+        "new": "新建",
+        "new1": "新建",
+        "myAccountVitaNexus": "{{brandName}}的我的账户",
+        "accountLogout": "退出账户",
+        "privacy": "隐私",
+        "about": "关于",
+        "cancel": "取消",
+        "save": "保存",
+        "learnMore": "了解更多"
+    },
+    "gender": {
+        "female": "女性",
+        "male": "男性",
+        "undefined": "未定义"
+    },
+    "Loading": {
+        "title": "加载中"
+    },
+    "Routes": {
+        "home": "首页",
+        "userInfo": "用户信息"
+    },
+    "Home": {
+        "mainTitle": "首页",
+        "title": "你好，{{firstName}} {{lastName}}",
+        "info": "管理你的信息、隐私和安全，以满足{{appTitle}}的需求。",
+        "infoLink": "了解更多关于{{appTitle}}账户"
+    },
+    "UserInfo": {
+        "mainTitle": "用户信息",
+        "title": "个人信息",
+        "info": "基本信息，如姓名和照片，用于{{appTitle}}服务",
+        "subInfo1": "某些信息可能对使用{{appTitle}}服务的其他人可见。",
+        "subInfo1AriaLabel": "了解更多关于使用{{appTitle}}服务时可能对其他人可见的信息",
+        "subInfo1ProfilePic": "照片",
+        "subInfo1FirstName": "名字",
+        "subInfo1FirstNameInfo": "更改您的姓名将影响整个{{appTitle}}账户。",
+        "subInfo1LastName": "姓氏",
+        "subInfo1LastNameInfo": "更改您的姓氏将影响整个{{appTitle}}账户。",
+        "subInfo1Nick": "昵称",
+        "subInfo1BirthDate": "出生日期",
+        "subInfo1BirthDateInfo": "您的出生日期可用于账户安全和个性化设置。如果此{{appTitle}}账户是为公司或组织而设，请使用负责账户的人的出生日期。",
+        "subInfo1Gender": "性别",
+        "subInfo1GenderInfo": "您的性别可用于{{appTitle}}服务的个性化设置，包括如何称呼您。",
+        "subInfo1GenderInfoAriaLabel": "了解更多关于更改已知性别的信息",
+
+        "subInfo2": "联系信息",
+        "subInfo2Email": "电子邮件"
+    }
+}

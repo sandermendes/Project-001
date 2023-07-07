@@ -1,0 +1,54 @@
+{
+    "common": {
+        "language": "Sprache",
+        "darkMode": "Dunkler Modus",
+        "new": "Neu",
+        "new1": "Neu",
+        "myAccountVitaNexus": "Mein Konto von {{brandName}}",
+        "accountLogout": "Abmelden vom Konto",
+        "privacy": "Datenschutz",
+        "about": "Über",
+        "cancel": "Abbrechen",
+        "save": "Speichern",
+        "learnMore": "Mehr erfahren"
+    },
+    "gender": {
+        "female": "Weiblich",
+        "male": "Männlich",
+        "undefined": "Nicht definiert"
+    },
+    "Loading": {
+        "title": "Wird geladen"
+    },
+    "Routes": {
+        "home": "Startseite",
+        "userInfo": "Benutzerinformationen"
+    },
+    "Home": {
+        "mainTitle": "Startseite",
+        "title": "Hallo, {{firstName}} {{lastName}}",
+        "info": "Verwalten Sie Ihre Informationen, Privatsphäre und Sicherheit, damit {{appTitle}} Ihren Bedürfnissen entspricht.",
+        "infoLink": "Mehr über das {{appTitle}}-Konto erfahren"
+    },
+    "UserInfo": {
+        "mainTitle": "Benutzerinformationen",
+        "title": "Persönliche Informationen",
+        "info": "Grundlegende Informationen wie Ihr Name und Foto, die in den {{appTitle}}-Diensten verwendet werden",
+        "subInfo1": "Einige Informationen können für andere sichtbar sein, die die {{appTitle}}-Dienste nutzen.",
+        "subInfo1AriaLabel": "Erfahren Sie mehr darüber, welche Informationen für andere sichtbar sein können, wenn Sie die {{appTitle}}-Dienste nutzen",
+        "subInfo1ProfilePic": "Bild",
+        "subInfo1FirstName": "Vorname",
+        "subInfo1FirstNameInfo": "Änderungen an Ihrem Namen wirken sich auf Ihr gesamtes {{appTitle}}-Konto aus.",
+        "subInfo1LastName": "Nachname",
+        "subInfo1LastNameInfo": "Änderungen an Ihrem Nachnamen wirken sich auf Ihr gesamtes {{appTitle}}-Konto aus.",
+        "subInfo1Nick": "Spitzname",
+        "subInfo1BirthDate": "Geburtsdatum",
+        "subInfo1BirthDateInfo": "Ihr Geburtsdatum kann für die Kontosicherheit und Personalisierung in den {{appTitle}}-Diensten verwendet werden. Wenn dieses {{appTitle}}-Konto für ein Unternehmen oder eine Organisation bestimmt ist, verwenden Sie das Geburtsdatum der Person, die das Konto verwaltet.",
+        "subInfo1Gender": "Geschlecht",
+        "subInfo1GenderInfo": "Ihr Geschlecht kann für die Personalisierung in den {{appTitle}}-Diensten verwendet werden, einschließlich der Anredeform.",
+        "subInfo1GenderInfoAriaLabel": "Erfahren Sie mehr über die Änderung des informierten Geschlechts",
+
+        "subInfo2": "Kontaktinformationen",
+        "subInfo2Email": "E-Mail"
+    }
+}

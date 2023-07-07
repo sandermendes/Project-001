@@ -1,6 +1,6 @@
 import React from 'react';
 import PageHeader from '../../components/PageHeader';
-import { TranslatedString, translatedString } from '../../shared/providers/translate';
+import { TranslatedString /*, translatedString */ } from '../../shared/providers/translate';
 import { APP_TITLE } from '../../shared/constants/title';
 import CardListField from '../../components/UserInfo/CardListField';
 import { IUserInfos, Type } from '../../components/UserInfo/CardListField/@types';
@@ -15,7 +15,7 @@ export const userInfos: IUserInfos = [
         <TranslatedString nameSpace={nameSpace} message="UserInfo.subInfo1" appTitle={APP_TITLE} />{' '}
         <a
           href="https://support.localhost/accounts/answer/6304920?hl=pt-BR"
-          aria-label={translatedString(nameSpace, 'UserInfo.subInfo1AriaLabel', APP_TITLE)}
+          /* aria-label={translatedString(nameSpace, 'UserInfo.subInfo1AriaLabel', APP_TITLE)} */
         >
           <TranslatedString nameSpace={nameSpace} message="common.learnMore" />
         </a>

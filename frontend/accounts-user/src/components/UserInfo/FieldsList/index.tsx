@@ -15,6 +15,7 @@ function ListItemLink({ field, value, divider, to }: ListItemLinkProps) {
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const convertValue = (type: string, value: any) => {
+    console.log("ListItemLink - type", type);
     if (type === 'birthDate') return dayjs(value).format('DD/MM/YYYY');
     return value;
   };
@@ -43,7 +44,6 @@ function ListItemLink({ field, value, divider, to }: ListItemLinkProps) {
 
 function FieldsList({ fieldItems }: FieldsListProps) {
   const { profile } = useContext(SessionContext);
-  console.log("FieldsList - profile", profile)
 
   return (
     <Grid item>
