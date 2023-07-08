@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"strings"
 
@@ -34,6 +35,16 @@ func NewService() Service {
 
 	// Execute migrations
 	db.AutoMigrate(&User{})
+	seedUser := User{
+		FirstName: "Jane",
+		LastName:  "Doe",
+		Email:     "janedoe@acme.corp",
+		Password:  "password",
+	}
+
+	if err := db.Create(&seedUser).Error; err != nil {
+		fmt.Println(fmt.Errorf("failed to seed database: %s", err))
+	}
 
 	return &userService{
 		repository: &repository{
