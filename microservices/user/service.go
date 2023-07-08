@@ -39,7 +39,7 @@ func NewService() Service {
 		FirstName: "Jane",
 		LastName:  "Doe",
 		Email:     "janedoe@acme.corp",
-		Password:  "password",
+		Password:  "123456",
 	}
 
 	if err := db.Create(&seedUser).Error; err != nil {
