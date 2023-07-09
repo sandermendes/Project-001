@@ -19,7 +19,7 @@ const apolloClient = new ApolloClient({
 });
 
 root.render(
-  <TranslateProvider language="pt-BR">
+  <TranslateProvider>
     <ApolloProvider client={apolloClient}>
       <CssBaseline />
       <ThemeProvider theme={theme}>

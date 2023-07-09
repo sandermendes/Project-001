@@ -1,7 +1,8 @@
-import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 import * as locale from '../../locale';
+import i18next from 'i18next';
 
 const resources = {
   'de-DE': {
@@ -27,10 +28,26 @@ const resources = {
   },
 };
 
-export const i18nInit = (language: string) =>
-  i18n.use(initReactI18next).init({
+const detection = {
+  order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+
+  lookupQuerystring: 'lng',
+  lookupCookie: 'lng',
+  lookupLocalStorage: 'lng',
+
+  caches: ['localStorage', 'cookie'],
+
+  cookieDomain: 'localhost',
+
+  htmlTag: document.documentElement,
+
+  cookieOptions: { path: '/', sameSite: 'strict' },
+};
+
+export const i18nInit = () =>
+  i18next.use(LanguageDetector).use(initReactI18next).init({
     resources,
-    lng: language || 'en-US',
+    detection,
     fallbackLng: 'en-US',
   });
 

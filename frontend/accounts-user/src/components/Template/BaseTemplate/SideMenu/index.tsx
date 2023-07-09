@@ -11,7 +11,10 @@ export const drawerWidth = 280;
 const paperProps = {
   width: drawerWidth,
   flexShrink: 0,
-  ['& .MuiDrawer-paper']: { width: drawerWidth, boxSizing: 'border-box' },
+  '& .MuiDrawer-paper': { 
+    width: drawerWidth, 
+    boxSizing: 'border-box'
+  },
 };
 
 function ListItemLink(props: IListItemLinkProps) {

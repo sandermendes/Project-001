@@ -6,7 +6,7 @@ export const LogoText = styled(Typography)(() => ({
   display: 'flex',
 }));
 
-export const LogoRoot = styled('div')();
+export const LogoRoot = styled('div')(() => ({}));
 
 export const AccountButton = styled(IconButton)(({ theme }) => ({
   marginRight: theme.spacing(1),

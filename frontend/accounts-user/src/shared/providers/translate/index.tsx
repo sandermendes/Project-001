@@ -2,12 +2,11 @@ import React from 'react';
 import { i18nInit, translateString } from './i18n.provider';
 
 export interface ITranslateProviderInterface {
-  language: string;
   children?: React.ReactNode;
 }
 
 export const TranslateProvider = (props: ITranslateProviderInterface) => {
-  i18nInit(props.language);
+  i18nInit();
 
   return <>{props.children}</>;
 };

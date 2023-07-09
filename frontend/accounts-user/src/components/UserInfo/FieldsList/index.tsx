@@ -15,7 +15,6 @@ function ListItemLink({ field, value, divider, to }: ListItemLinkProps) {
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   const convertValue = (type: string, value: any) => {
-    console.log("ListItemLink - type", type);
     if (type === 'birthDate') return dayjs(value).format('DD/MM/YYYY');
     return value;
   };
