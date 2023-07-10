@@ -10,7 +10,8 @@
         "about": "О нас",
         "cancel": "Отмена",
         "save": "Сохранить",
-        "learnMore": "Узнать больше"
+        "learnMore": "Узнать больше",
+        "changeField": "Изменять"
     },
     "gender": {
         "female": "Женский",

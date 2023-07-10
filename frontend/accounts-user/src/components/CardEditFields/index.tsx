@@ -8,8 +8,11 @@ import { useMutation } from '@apollo/client';
 import { PROFILE /*, PROFILE_UPDATE */ } from '../../graphql/User';
 import { useNavigate } from 'react-router-dom';
 import { IProfileUpdate } from '../../@types/profile';
+import { TranslatedString } from '../../../src/shared/providers/translate';
 
 function CardEditFields({ field }: ICardEditFieldsProps) {
+  const nameSpace = ['translation', 'common'];
+
   const navigate = useNavigate();
   const { profile, setProfile } = useContext(SessionContext);
   const [value, setValue] = useState(profile[field.name]);
@@ -51,15 +54,15 @@ function CardEditFields({ field }: ICardEditFieldsProps) {
       <S.PaperRoot variant="outlined">
         <form onSubmit={onSubmit}>
           <Typography variant="h6" noWrap color="primary">
-            Alterar {field.properties.field}
+          {<TranslatedString message="common.changeField" />} {field.properties.field}
           </Typography>
           <Field {...field} value={value} onChange={handleInputChange} />
           <Grid container direction="row" justifyContent="flex-end">
             <Button color="primary" onClick={() => navigate('/u/user-info')}>
-              Cancelar
+              {<TranslatedString message="common.cancel" />}
             </Button>
             <Button color="primary" type="submit" variant="contained" disableElevation disabled={loading} style={{ marginLeft: 20 }}>
-              Salvar
+              {<TranslatedString message="common.save" />}
             </Button>
             <Button></Button>
           </Grid>

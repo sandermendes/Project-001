@@ -4,13 +4,14 @@
         "darkMode": "暗模式",
         "new": "新建",
         "new1": "新建",
-        "myAccountVitaNexus": "{{brandName}}的我的账户",
+        "myAccountVitaNexus": "{{brandName}} 的我的账户",
         "accountLogout": "退出账户",
         "privacy": "隐私",
         "about": "关于",
         "cancel": "取消",
         "save": "保存",
-        "learnMore": "了解更多"
+        "learnMore": "了解更多",
+        "changeField": "改变"
     },
     "gender": {
         "female": "女性",

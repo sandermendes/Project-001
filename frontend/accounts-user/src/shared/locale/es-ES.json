@@ -10,7 +10,8 @@
         "about": "Acerca de",
         "cancel": "Cancelar",
         "save": "Guardar",
-        "learnMore": "Más información"
+        "learnMore": "Más información",
+        "changeField": "Cambiar"
     },
     "gender": {
         "female": "Femenino",

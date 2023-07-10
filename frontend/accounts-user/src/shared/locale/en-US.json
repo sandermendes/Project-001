@@ -10,7 +10,8 @@
         "about": "About",
         "cancel": "Cancel",
         "save": "Save",
-        "learnMore": "Learn more"
+        "learnMore": "Learn more",
+        "changeField": "Change"
     },
     "gender": {
         "female": "Female",
