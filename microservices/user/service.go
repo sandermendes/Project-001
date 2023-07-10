@@ -35,11 +35,14 @@ func NewService() Service {
 
 	// Execute migrations
 	db.AutoMigrate(&User{})
+
+	// Hash submitted password
+	passwordHash, _ := encrypt.GenHash("123456", 14)
 	seedUser := User{
 		FirstName: "Jane",
 		LastName:  "Doe",
 		Email:     "janedoe@acme.corp",
-		Password:  "123456",
+		Password:  passwordHash,
 	}
 
 	if err := db.Create(&seedUser).Error; err != nil {
