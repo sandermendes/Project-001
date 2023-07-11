@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"strings"
@@ -13,6 +14,7 @@ import (
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"gorm.io/gorm"
 )
 
 type Service interface {
@@ -36,17 +38,20 @@ func NewService() Service {
 	// Execute migrations
 	db.AutoMigrate(&User{})
 
-	// Hash submitted password
-	passwordHash, _ := encrypt.GenHash("123456", 14)
-	seedUser := User{
-		FirstName: "Jane",
-		LastName:  "Doe",
-		Email:     "janedoe@acme.corp",
-		Password:  passwordHash,
-	}
-
-	if err := db.Create(&seedUser).Error; err != nil {
-		fmt.Println(fmt.Errorf("failed to seed database: %s", err))
+	if err = db.AutoMigrate(&User{}); err == nil && db.Migrator().HasTable(&User{}) {
+		if err := db.First(&User{Email: "janedoe@acme.corp"}).Error; errors.Is(err, gorm.ErrRecordNotFound) {
+			// Hash submitted password
+			passwordHash, _ := encrypt.GenHash("123456", 14)
+			seedUser := User{
+				FirstName: "Jane",
+				LastName:  "Doe",
+				Email:     "janedoe@acme.corp",
+				Password:  passwordHash,
+			}
+			if err := db.Create(&seedUser).Error; err != nil {
+				fmt.Println(fmt.Errorf("failed to seed database: %s", err))
+			}
+		}
 	}
 
 	return &userService{
