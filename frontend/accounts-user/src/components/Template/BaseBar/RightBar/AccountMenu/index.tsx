@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Divider, FormControl, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import { TranslatedString } from '../../../../../shared/providers/translate';
 import { SessionContext } from '../../../../../contexts/SessionContext';
+import { useMutation } from '@apollo/client';
+import { LOGOUT } from './graphql/logout.graphql';
 
 const MenuArea = styled('div')(({ theme }) => ({
     width: '100%',
@@ -33,6 +35,26 @@ function ColumnGrid(props: IGridInterface) {
 
 function AccountMenu() {
     const { profile } = useContext(SessionContext);
+    const [disable, setDisable] = useState<boolean>(false)
+
+    const [logOut] = useMutation(LOGOUT, {
+        update(_, { data }) {
+            if (data?.logout) {
+                console.log("useMutation LOGOUT");
+                window.location.reload();
+            }
+        },
+        onError() {
+            setDisable(false);
+        },
+    });
+
+    const onClick = async (event: React.SyntheticEvent) => {
+        setDisable(true);
+        setTimeout(async () => {
+            await logOut();
+        }, 2000);
+    };
 
     return (
         <MenuArea>
@@ -55,7 +77,7 @@ function AccountMenu() {
             </LineGrid>
             <Divider />
             <ColumnGrid style={{ padding: '20px' }}>
-                <Button variant='outlined' disableRipple href="" target="_blank" rel="noopener">
+                <Button onClick={onClick} variant='outlined' disableRipple href="" target="_blank" rel="noopener" disabled={disable}>
                     <TranslatedString message="common.accountLogout" />
                 </Button>
             </ColumnGrid>
