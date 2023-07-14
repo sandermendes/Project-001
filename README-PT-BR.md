@@ -11,7 +11,6 @@
 5. **GraphQL**: Uma linguagem de consulta moderna e tempo de execução para APIs, permitindo a recuperação de dados eficiente e flexível.
 6. **gRPC**: Um framework de alto desempenho e agnóstico de linguagem para construir sistemas distribuídos com comunicação eficiente.
 7. **Protobuf**: Um formato de serialização de dados agnóstico de linguagem para comunicação estruturada de dados.
-
 ---
 ## Me compra um café
 
@@ -35,6 +34,26 @@ O projeto é composto pelos seguintes componentes:
 4. **Banco de Dados**: Armazena informações do usuário e fornece armazenamento persistente para o sistema. O serviço de Usuário interage com o banco de dados para armazenar e recuperar dados do usuário.
 
 O fluxo de dados começa com uma solicitação GraphQL chegando ao serviço GraphQL. A solicitação é encaminhada para o serviço de Conta, que lida com a autenticação e autorização. Uma vez autenticado e autorizado, o serviço de Conta se comunica com o serviço de Usuário para realizar operações relacionadas ao usuário. O serviço de Usuário interage com o banco de dados para armazenar ou recuperar dados do usuário conforme necessário. A resposta segue o caminho inverso, com o serviço de Usuário fornecendo a resposta ao serviço de Conta, que retorna a resposta ao serviço GraphQL para entrega final ao cliente.
+
+## Página de Login
+
+Acesse a página de login na url: [http://localhost:4050/](http://localhost:4050/)
+
+Este sistema de login funciona de forma semelhante ao Google Single Sign-On, permitindo um login único para todos os aplicativos. Utiliza um Cookie Session gerado pelo servidor, respeitando o domínio com o uso do coringa "\*". Por exemplo, um cookie gerado com "\*.example.com" permitirá que solicitações de app-test.example.com compartilhem a mesma informação de login com o domínio principal. Isso proporciona uma experiência de login única, integrada e consistente em diferentes aplicativos dentro do mesmo domínio.
+Ao acessar a url, após processamento, a mesma irá incluir um parametro redirect_uri, que depois do sucesso na autenticação, irá redirecionar o usuário para a uri que está no parametro redirect_uri, se nenhuma for informada, o mesmo incluirá a uri que redireciona para o aplicativo padrão, configurações do usuário, eg:
+```
+http://localhost:4050/signin/v1/identifier?redirect_uri=http%3A%2F%2Flocalhost%3A4000
+```
+Dados para test de login:
+```
+Email:
+janedoe@acme.corp
+
+Senha:
+123456
+```
+
+![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-Login-Page-2023-07-14%2010-27-06.png)
 
 ## Geração de Arquivos Protobuf
 

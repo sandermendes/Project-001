@@ -11,7 +11,6 @@
 5. **GraphQL**: A modern query language and runtime for APIs, enabling efficient and flexible data retrieval.
 6. **gRPC**: A high-performance, language-agnostic framework for building distributed systems with efficient communication.
 7. **Protobuf**: A language-agnostic data serialization format for structured data communication.
-
 ---
 ## Buy me a coffee
 
@@ -36,6 +35,28 @@ The project consists of the following components:
 
 The data flow starts with a GraphQL request coming into the GraphQL service. The request is then forwarded to the Account service, which handles authentication and authorization. Once authenticated and authorized, the Account service communicates with the User service to perform user-related operations. The User service interacts with the database to store or retrieve user data as needed. The response follows the reverse path, with the User service providing the response to the Account service, which returns the response to the GraphQL service for final delivery to the client.
 
+## Login Page
+Access Login Page at url: [http://localhost:4050/](http://localhost:4050/)
+
+This login system functions similarly to Google Single Sign-On, allowing for a single sign-in across all applications. It uses a server-generated Cookie Session that respects the domain using the wildcard "\*". For example, a cookie generated with "\*.example.com" will allow requests from app-test.example.com to share the same login information with the main domain. This provides a seamless, integrated, and consistent login experience across different applications within the same domain.
+
+When accessing the URL, after processing, it will include a parameter called "redirect_uri". Upon successful authentication, the user will be redirected to the URI specified in the "redirect_uri" parameter. If no URI is provided, it will default to the URI that redirects to the default application user settings, e.g.:
+
+```
+http://localhost:4050/signin/v1/identifier?redirect_uri=http%3A%2F%2Flocalhost%3A4000
+```
+Login test data:
+```
+Email:
+janedoe@acme.corp
+
+Password:
+123456
+```
+
+![Sander Mendes App Project-001](https://raw.githubusercontent.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/assets/Project-001-Login-Page-2023-07-14%2010-27-06.png)
+
+---
 ## Generating Protobuf Files
 
 To generate Protobuf files, run the following command if there have been changes in the *.proto files:
