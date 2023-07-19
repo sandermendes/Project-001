@@ -2,6 +2,14 @@
 	"common": {
 		"title": "Sign In",
 		"fields": {
+			"firstName": {
+				"label": "First name",
+				"placeholder": "Enter your first name"
+			},
+			"lastName": {
+				"label": "Last name",
+				"placeholder": "Enter your last name"
+			},
 			"email": {
 				"label": "Email",
 				"placeholder": "Enter your email"
@@ -9,10 +17,17 @@
 			"password": {
 				"label": "Password",
 				"placeholder": "Enter your password"
+			},
+			"confirm": {
+				"label": "Confirm password",
+				"placeholder": "Confirm your password"
 			}
 		},
 		"forgotEmail": "Forgot your email?",
+		"createAccount": "Create account",
 		"enter": "Enter",
-		"about": "About"
+		"about": "About",
+		"prev": "Previous",
+		"next": "Next"
 	}
 }

@@ -38,6 +38,8 @@ export const HeaderPaper = styled(Paper)(({ theme }) => ({
     height: 'auto',
     minHeight: '500px',
     width: '100%',
+    overflowY: 'auto',
+    overflow: 'hidden',
     [theme.breakpoints.up('sm')]: {
         padding: '25px 50px',
         position: 'relative',

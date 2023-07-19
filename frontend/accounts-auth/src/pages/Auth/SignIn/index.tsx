@@ -11,10 +11,9 @@ import { redirectToUserAccount } from '../../../shared/utils/url';
 import { CHECK_AUTH } from './graphql/check.graphql';
 import { ACCOUNTS_URL, USER_ACCOUNT_URL } from '../../../shared/constants/url';
 import { TranslatedString } from '../../../shared/providers/translate';
+import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
 
 function SignIn() {
-    const nameSpace = ['translation']
-    
     const [searchParams] = useSearchParams();
     const [showScreen, setShowScreen] = useState(false);
     const [loadingSign, setLoadingSign] = useState(false);
@@ -40,9 +39,11 @@ function SignIn() {
     }, [loadingQueryCheckAuth, data, searchParams]);
 
     useEffect(() => {
+        console.log("[showScreen, searchParams]")
         if (!searchParams.get('redirect_uri')) {
-            const redirectUri = `?redirect_uri=${encodeURIComponent(searchParams.get('redirect_uri') ?? USER_ACCOUNT_URL)}`;
-            window.location.replace(`${ACCOUNTS_URL}${redirectUri}`);
+            console.log("if [showScreen, searchParams]")
+            const redirectUri = `redirect_uri=${encodeURIComponent(searchParams.get('redirect_uri') ?? USER_ACCOUNT_URL)}`;
+            window.location.replace(`${ACCOUNTS_URL}/signin/v1/authentication?${redirectUri}`);
         }
     }, [showScreen, searchParams]);
 
@@ -104,12 +105,12 @@ function SignIn() {
                     />
                     <FormControl variant="outlined" style={{ width: '100%' }} disabled={loadingSign}>
                         <InputLabel htmlFor="password">
-                            {<TranslatedString nameSpace={nameSpace} message={"common.fields.password.label"} />}
+                            {<TranslatedString message={"common.fields.password.label"} />}
                         </InputLabel>
                         <OutlinedInput
                             id="password"
                             name="password"
-                            label={<TranslatedString nameSpace={nameSpace} message={"common.fields.password.label"} />}
+                            label={<TranslatedString message={"common.fields.password.label"} />}
                             autoComplete="current-password"
                             aria-describedby="password-helper-text"
                             type={values.showPassword ? 'text' : 'password'}
@@ -137,7 +138,10 @@ function SignIn() {
                         </Link>
                     </Typography>
                 </Grid>
-                <Grid container justifyContent="space-between" style={{ marginTop: '20px', justifyContent: 'flex-end' }}>
+                <Grid container justifyContent="space-between" style={{ marginTop: '20px' }}>
+                    <Button href={SIGNUP_V1_PATH} type="submit" variant="text" color="primary" disableElevation style={{ left: '-8px' }}>
+                        <TranslatedString message={"common.createAccount"} />
+                    </Button>
                     <Button type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>
                         <TranslatedString message={"common.enter"} />
                     </Button>
