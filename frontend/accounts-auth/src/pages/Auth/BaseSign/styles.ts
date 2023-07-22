@@ -22,6 +22,7 @@ export const Root = styled('div')(({ theme }) => ({
 
 export const MainGrid = styled(Grid)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
+        margin: '0 auto',
         width: '480px',
     },
     [theme.breakpoints.down('sm')]: {
@@ -30,7 +31,6 @@ export const MainGrid = styled(Grid)(({ theme }) => ({
         flexDirection: 'column',
         width: 'unset',
     },
-    margin: '0 auto',
     zIndex: 2,
 }));
 

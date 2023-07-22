@@ -1,94 +1,74 @@
-  /*
-  .page {
-    position: absolute;
-    left: 15px;
-    right: 15px;
-  } */
+.next-enter {
+  position: absolute;
+  opacity: 1;
+  left: 100%;
+  padding: 0 50px;
+  transform: translate3d(-100%, 0, 0);
+  transition: opacity 500ms, transform 500ms;
+}
+    
+/* .next-enter-active {
+  position: absolute;
+  opacity: 1;
+  left: 100%;
+  transform: translate3d(-100%, 0, 0);
+  transition: opacity 800ms, transform 800ms;
+} */
   
-  .page-enter {
-    opacity: 0;
-    /* transform: translateX(100%); */
-  }
-  
-  .page-enter-active {
-    opacity: 1;
-    /* transform: translateX(0%); */
-    animation: enterFromRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
+.next-exit {
+  position: absolute;
+  opacity: 1;
+  left: 0;
+  transform: translate3d(100%, 0, 0);
+  transition: opacity 500ms, transform 500ms;
+  z-index: 100;
+}
 
-  .page-exit {
-    opacity: 1;
-    /* transform: translateX(0%); */
-    animation: leaveToRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-  
-  .page-exit-active {
-    opacity: 0;
-    /* transform: translateX(-100%); */
-    animation: enterFromRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-  }
-
-  /* .page-enter-active,
-  .page-exit-active {
-    transition: opacity 500ms, transform 300ms;
-  } */
-
-/* 
 .next-exit-active {
-    animation: leaveToLeft 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 0;
+  position: absolute;
+  opacity: 1;
+  left: 0;
+  transform: translate3d(100%, 0, 0);
+  transition: opacity 500ms, transform 500ms;
+  z-index: 100;
+}
+
+.prev-enter {
+  position: absolute;
+  opacity: 1;
+  left: -100%;
+  padding: 0 50px;
+  transform: translate3d(100%, 0, 0);
+  transition: opacity 500ms, transform 500ms;
 }
   
-.next-enter-active {
-    animation: enterFromRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 1;
+/* .prev-enter-active {
+  opacity: 1;
+  left: -100%;
+  width: 378px;
+  transform: translate3d(100%, 0, 0);
+  transition: opacity 800ms, transform 800ms;
+} */
+  
+.prev-exit {
+  transform: translate3d(100%, 0, 0);
 }
   
 .prev-exit-active {
-    animation: leaveToRight 500ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 1;
+  position: absolute;
+  transform: translate3d(100%, 0, 0);
 }
-  
-.prev-enter-active {
-    animation: enterFromLeft 3000ms both cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 0;
+
+@media (max-width: 599px) {
+  .prev-enter-active,
+  .next-enter-active {
+    padding: 0 40px!important;
+  }
 }
-*/
-  
-@keyframes leaveToLeft {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-25%);
-      filter: brightness(0.5);
-    }
-}
-  
-@keyframes enterFromLeft {
-    from {
-      transform: translateX(-25%);
-      filter: brightness(0.5);
-    }
-    to {
-      transform: translateX(0);
-    }
-}
-  
-@keyframes leaveToRight {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(100%);
-    }
-}
-  
-@keyframes enterFromRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
+
+@media (max-width: 450px) {
+  .prev-enter-active,
+  .next-enter-active {
+    padding: 0 24px!important;
+  }
 }

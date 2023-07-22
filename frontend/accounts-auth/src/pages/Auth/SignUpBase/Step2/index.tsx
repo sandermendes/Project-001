@@ -1,7 +1,7 @@
 import { /* useEffect, */ useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useMutation, useQuery } from "@apollo/client";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 
 import { IIsAuthedData, ILogin, ILoginData } from "../@types";
 import { redirectToUserAccount } from "../../../../shared/utils/url";
@@ -9,10 +9,12 @@ import { TranslatedString } from "../../../../shared/providers/translate";
 import { SIGN_IN } from "../graphql/signIn.graphql";
 import { CHECK_AUTH } from "../graphql/check.graphql";
 import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
+import { StepFormProps } from "..";
 
 function Step2() {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { handleBack } = useOutletContext<StepFormProps>();
 
     const [showScreen, setShowScreen] = useState(true);
     const [loadingSign, setLoadingSign] = useState(false);
@@ -110,11 +112,14 @@ function Step2() {
                 />
             </Grid>
             <Grid container justifyContent="space-between" style={{ marginTop: '20px' }}>
-                <Button onClick={() => navigate(`${SIGNUP_V1_PATH}/step1`)} type="submit" variant="outlined" color="primary" disableElevation disabled={loadingSign}>
+                <Button onClick={() => {
+                    handleBack();
+                    navigate(`${SIGNUP_V1_PATH}/step1`)
+                }} type="submit" variant="outlined" color="primary" disableElevation disabled={loadingSign}>
                     <TranslatedString message={"common.prev"} />
                 </Button>
                 <Button type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>
-                    <TranslatedString message={"common.next"} />
+                    <TranslatedString message={"common.finish"} />
                 </Button>
             </Grid>
         </form>

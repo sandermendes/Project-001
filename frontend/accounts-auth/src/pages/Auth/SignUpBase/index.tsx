@@ -3,8 +3,14 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import BaseSign from '../BaseSign';
 import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "../../../styles.css"
+import { TranslatedString } from '../../../../src/shared/providers/translate';
+
+export interface StepFormProps {
+    handleNext: () => void;
+    handleBack: () => void;
+}
 
 function SignUpBase() {
     console.log("SignUpBase")
@@ -12,6 +18,9 @@ function SignUpBase() {
     const navigate = useNavigate();
 
     const [loadingSign, setLoadingSign] = useState(false);
+    const [activeStep, setActiveStep] = useState<number>(0);
+    const [directionStep, setDirectionStep] = useState<"prev" | "next">("next");
+
     // const location = useLocation();
 
     useEffect(() => {
@@ -22,13 +31,28 @@ function SignUpBase() {
         }
     }, [navigate, location]);
 
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setDirectionStep((prevValue) => prevValue = "next")
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+        setDirectionStep((prevValue) => prevValue = "prev")
+    };
+
+    const stepFormProps: StepFormProps = {
+        handleNext,
+        handleBack,
+    }
+
     return (
-        <BaseSign title={/* <TranslatedString message={"common.title"} /> */ "Create account"} width="480px" loading={loadingSign}>
-            <SwitchTransition /* component={Main} */>
-                <CSSTransition key={location.pathname} timeout={450} classNames="page" unmountOnExit>
-                    <Outlet />
+        <BaseSign title={<TranslatedString message={"common.createAccount"} />} width="480px" loading={loadingSign}>
+            <TransitionGroup>
+                <CSSTransition key={location.pathname} timeout={{ enter: 500, exit: 500 }} classNames={directionStep}>
+                    <Outlet context={{...stepFormProps}} />
                 </CSSTransition>
-            </SwitchTransition>
+            </TransitionGroup>
         </BaseSign>
     );
 }

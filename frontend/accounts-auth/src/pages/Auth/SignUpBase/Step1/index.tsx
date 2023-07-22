@@ -1,7 +1,7 @@
 import { /*useEffect, */ useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useMutation /*, useQuery */ } from "@apollo/client";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 
 import { /* IIsAuthedData, */ ILogin, ILoginData } from "../@types";
 import { redirectToUserAccount } from "../../../../../src/shared/utils/url";
@@ -9,10 +9,13 @@ import { TranslatedString } from "../../../../../src/shared/providers/translate"
 import { SIGN_IN } from "../graphql/signIn.graphql";
 // import { CHECK_AUTH } from "../graphql/check.graphql";
 import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
+import { StepFormProps } from "../index";
 
-function Step1() {
+function Step1(props: any) {
+    console.log("Step1 - props", props)
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const { handleNext } = useOutletContext<StepFormProps>();
 
     const [showScreen, setShowScreen] = useState(true);
     const [loadingSign, setLoadingSign] = useState(false);
@@ -100,7 +103,10 @@ function Step1() {
                 />
             </Grid>
             <Grid container justifyContent="space-between" style={{ marginTop: '20px', justifyContent: 'flex-end' }}>
-                <Button onClick={() => navigate(`${SIGNUP_V1_PATH}/step2`)} type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>
+                <Button onClick={() => {
+                    handleNext();
+                    navigate(`${SIGNUP_V1_PATH}/step2`);
+                }} type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>
                     <TranslatedString message={"common.next"} />
                 </Button>
             </Grid>
