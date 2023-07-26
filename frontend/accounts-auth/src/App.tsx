@@ -17,7 +17,6 @@ export const getRedirectUri = () => {
 
 const CustomRedirectNavigate = (props: { children?: React.ReactNode }) => {
     const redirectUri = getRedirectUri();
-    console.log("redirectUri", redirectUri)
     return <Navigate replace to={`${SIGNIN_PATH}${redirectUri}`} />;
 };
 

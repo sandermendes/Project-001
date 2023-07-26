@@ -1,6 +1,8 @@
 {
 	"common": {
 		"title": "Fazer login",
+		"pageSignInTitle": "Entrar em Project001",
+		"pageSignUpTitle": "Criar uma conta em Project001",
 		"fields": {
 			"email": {
 				"label": "Email",
@@ -12,7 +14,11 @@
 			}
 		},
 		"forgotEmail": "Esqueceu seu e-mail?",
+		"createAccount": "Criar uma conta",
 		"enter": "Entrar",
-		"about": "Sobre"
+		"about": "Sobre",
+		"prev": "Anterior",
+		"next": "Proxima",
+		"finish": "Concluir"
 	}
 }

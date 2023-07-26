@@ -5,45 +5,79 @@ import BaseSign from '../BaseSign';
 import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "../../../styles.css"
-import { TranslatedString } from '../../../../src/shared/providers/translate';
+import { TranslatedString, translatedString } from '../../../../src/shared/providers/translate';
+import { ISignUp, ISignUpData, SignUp, StepFormProps } from './@types';
+import { useMutation } from '@apollo/client';
+import { SIGN_UP } from './graphql/signUp.graphql';
 
-export interface StepFormProps {
-    handleNext: () => void;
-    handleBack: () => void;
+const initialSignUp: SignUp = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirm: "",
 }
 
 function SignUpBase() {
-    console.log("SignUpBase")
     const location = useLocation();
     const navigate = useNavigate();
 
     const [loadingSign, setLoadingSign] = useState(false);
-    const [activeStep, setActiveStep] = useState<number>(0);
+    const [signUpData, setSignUpData] = useState<SignUp>(initialSignUp);
     const [directionStep, setDirectionStep] = useState<"prev" | "next">("next");
 
-    // const location = useLocation();
+    document.title = translatedString("common.pageSignUpTitle") as string
 
     useEffect(() => {
-        console.log("SignUpBase - location", location)
         if (location.pathname === SIGNUP_V1_PATH) {
-            // window.location.replace(`${SIGNUP_V1_PATH}/step1`);
             navigate(`${SIGNUP_V1_PATH}/step1`)
         }
     }, [navigate, location]);
 
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSignUpData({
+            ...signUpData,
+            [event.target.name]: event.target.value,
+        });
+    };
+
     const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setDirectionStep((prevValue) => prevValue = "next")
+        setDirectionStep((prevValue) => prevValue = "next");
     };
 
     const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-        setDirectionStep((prevValue) => prevValue = "prev")
+        setDirectionStep((prevValue) => prevValue = "prev");
     };
+
+    const handleFinish = async () => {
+        setLoadingSign(true);
+
+        await signUp();
+    };
+
+    const [signUp] = useMutation<ISignUpData, ISignUp>(SIGN_UP, {
+        update(_, { data }) {
+            if (data?.token !== "") {
+                /* TODO: Some redirect after success registration */
+            }
+        },
+        onError() {
+            /* TODO: Handle with returning erros */
+            /*  console.log('error?.graphQLErrors[0].extensions', error?.graphQLErrors[0].extensions?.response); */
+            setTimeout(() => {
+                setLoadingSign(false);
+            }, 2000);
+        },
+        variables: signUpData,
+    });
 
     const stepFormProps: StepFormProps = {
         handleNext,
         handleBack,
+        handleFinish,
+        handleInputChange,
+        setSignUpData,
+        signUpData,
     }
 
     return (

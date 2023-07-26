@@ -15,4 +15,4 @@ export const TranslateProvider = (props: ITranslateProviderInterface) => {
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export const TranslatedString = ({ message, ...rest }: any) => <>{translateString(message, { ...rest })}</>;
 
-export const translatedString = (nameSpace: string[], message: string, ...rest: string[]) => translateString(message, { ...rest });
+export const translatedString = (message: string, ...rest: string[]) => translateString(message, { ...rest });

@@ -1,6 +1,8 @@
 {
 	"common": {
 		"title": "Sign In",
+		"pageSignInTitle": "Login at Project001",
+		"pageSignUpTitle": "Create a Project001 Account",
 		"fields": {
 			"firstName": {
 				"label": "First name",

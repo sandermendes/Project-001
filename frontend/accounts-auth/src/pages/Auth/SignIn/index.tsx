@@ -10,7 +10,7 @@ import { IIsAuthedData, ILogin, ILoginData } from './@types';
 import { redirectToUserAccount } from '../../../shared/utils/url';
 import { CHECK_AUTH } from './graphql/check.graphql';
 import { ACCOUNTS_URL, USER_ACCOUNT_URL } from '../../../shared/constants/url';
-import { TranslatedString } from '../../../shared/providers/translate';
+import { TranslatedString, translatedString } from '../../../shared/providers/translate';
 import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
 
 function SignIn() {
@@ -24,9 +24,7 @@ function SignIn() {
     });
     const { loading: loadingQueryCheckAuth, data } = useQuery<IIsAuthedData>(CHECK_AUTH);
 
-    useEffect(() => {
-        document.title = 'Fazer login na Conta do Project001';
-    }, []);
+    document.title = translatedString("common.pageSignInTitle") as string
 
     useEffect(() => {
         if (!loadingQueryCheckAuth) {
@@ -56,6 +54,7 @@ function SignIn() {
             }
         },
         onError(/* error */) {
+            /* TODO: Implement error handler */
             /*  console.log('error?.graphQLErrors[0].extensions', error?.graphQLErrors[0].extensions?.response); */
             setTimeout(() => {
                 setLoadingSign(false);
