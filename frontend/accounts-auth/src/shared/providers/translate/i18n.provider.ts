@@ -1,24 +1,41 @@
-import i18n from 'i18next';
+import i18next from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
+import LanguageDetector, { DetectorOptions } from 'i18next-browser-languagedetector';
 
-import { enUS, ptBR, esES } from '../../../locale';
+import * as locale from '../../../locale';
 
 const resources = {
   'en-US': {
-    translation: enUS,
+    translation: locale.enUS,
   },
   'pt-BR': {
-    translation: ptBR,
+    translation: locale.ptBR,
   },
   'es-ES': {
-    translation: esES,
+    translation: locale.esES,
   },
 };
 
-export const i18nInit = (language: string) =>
-  i18n.use(initReactI18next).init({
+const detection: DetectorOptions = {
+  order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+
+  lookupQuerystring: 'lng',
+  lookupCookie: 'lng',
+  lookupLocalStorage: 'lng',
+
+  caches: ['localStorage', 'cookie'],
+
+  cookieDomain: 'localhost',
+
+  htmlTag: document.documentElement,
+
+  cookieOptions: { path: '/', sameSite: 'strict' },
+};
+
+export const i18nInit = () =>
+  i18next.use(LanguageDetector).use(initReactI18next).init({
     resources,
-    lng: language || 'en-US',
+    detection,
     fallbackLng: 'en-US',
   });
 

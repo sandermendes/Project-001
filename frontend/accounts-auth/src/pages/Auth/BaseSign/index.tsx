@@ -13,10 +13,9 @@ const brandName = 'Project001';
 function BaseSign(props: IBaseSignInterface) {
     const { i18n } = useTranslation()
 
-    const [language, setLanguage] = useState('en-US');
+    const [language, ] = useState(i18n.language);
 
     const handleLanguage = (event: SelectChangeEvent<unknown>) => {
-        setLanguage(event.target.value as string);
         i18n.changeLanguage(event.target.value as string);
     };
 

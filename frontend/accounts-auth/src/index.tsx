@@ -18,7 +18,7 @@ const apolloClient = new ApolloClient({
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-    <TranslateProvider language="en-US" >
+    <TranslateProvider>
         <ApolloProvider client={apolloClient}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
