@@ -6,15 +6,26 @@
 		"fields": {
 			"firstName": {
 				"label": "First name",
-				"placeholder": "Enter your first name"
+				"placeholder": "Enter your first name",
+				"errors": {
+					"nonEmpty": "First name cannot be empty",
+					"min": "First name needs to be more than 4 characters"
+				}
 			},
 			"lastName": {
-				"label": "Last name",
-				"placeholder": "Enter your last name"
+				"label": "Last name (Optional)",
+				"placeholder": "Enter your last name",
+				"errors": {
+					"min": "Last name needs to be more than 4 characters"
+				}
 			},
 			"email": {
 				"label": "Email",
-				"placeholder": "Enter your email"
+				"placeholder": "Enter your email",
+				"errors": {
+					"nonEmpty": "Email cannot be empty",
+					"invalid": "Email typed is invalid"
+				}
 			},
 			"password": {
 				"label": "Password",

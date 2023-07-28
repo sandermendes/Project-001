@@ -1,19 +1,41 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString } from "../../../../../src/shared/providers/translate";
+import { TranslatedString, translatedString } from "../../../../../src/shared/providers/translate";
 import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
 import { StepFormProps } from "../@types";
+import { z } from "zod";
 
-function Step1() {
+const Step1: React.FC = () => {
+    const schema = z.object({
+        firstName: z
+            .string()
+            .nonempty({ message: translatedString("common.fields.firstName.errors.nonEmpty") })
+            .min(4, { message: translatedString("common.fields.firstName.errors.min") }),
+        lastName: z
+            .string()
+            .optional(),
+    }).partial();
+
     const navigate = useNavigate();
     const { handleNext, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
     const [loadingSign, setLoadingSign] = useState(false);
 
+    const [errors, setErrors] = useState<z.infer<typeof schema>>()
+
     const onNextClick = async () => {
-        handleNext();
-        navigate(`${SIGNUP_V1_PATH}/step2`);
+        try {
+            setErrors({})
+            schema.parse(signUpData);
+
+            handleNext();
+            navigate(`${SIGNUP_V1_PATH}/step2`);    
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                setErrors({ [err.issues[0].path[0]]: err.issues[0].message })
+            }
+        }
     }
 
     return (
@@ -23,19 +45,23 @@ function Step1() {
                     label={<TranslatedString message={"common.fields.firstName.label"} />}
                     name="firstName"
                     variant="outlined"
-                    style={{ width: '100%', marginBottom: '20px' }}
+                    style={{ width: '100%', ...(Boolean(errors?.firstName) ? {} : { marginBottom: '20px' }) }}
                     value={signUpData?.firstName}
                     onChange={handleInputChange}
                     disabled={loadingSign}
+                    error={Boolean(errors?.firstName)}
+                    helperText={errors?.firstName}
                 />
                 <TextField
                     label={<TranslatedString message={"common.fields.lastName.label"} />}
                     name="lastName"
                     variant="outlined"
-                    style={{ width: '100%', marginBottom: '20px' }}
+                    style={{ width: '100%' }}
                     value={signUpData?.lastName}
                     onChange={handleInputChange}
                     disabled={loadingSign}
+                    error={Boolean(errors?.lastName)}
+                    helperText={errors?.lastName}
                 />
             </Grid>
             <Grid container justifyContent="space-between" style={{ marginTop: '20px', justifyContent: 'flex-end' }}>

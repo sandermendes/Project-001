@@ -4,6 +4,21 @@
 		"pageSignInTitle": "Entrar em Project001",
 		"pageSignUpTitle": "Criar uma conta em Project001",
 		"fields": {
+			"firstName": {
+				"label": "Primeiro nome",
+				"placeholder": "Digite o primeiro nome",
+				"errors": {
+					"nonEmpty": "Primeiro nome não pode ser vazio",
+					"min": "Primeiro nome precisa ter mais de 4 letras"
+				}
+			},
+			"lastName": {
+				"label": "Último nome (Opcional)",
+				"placeholder": "Digite seu último nome",
+				"errors": {
+					"min": "Último nome precisa ter mais de 4 letras"
+				}
+			},
 			"email": {
 				"label": "Email",
 				"placeholder": "Digite seu email"
@@ -11,6 +26,10 @@
 			"password": {
 				"label": "Senha",
 				"placeholder": "Digite sua senha"
+			},
+			"confirm": {
+				"label": "Confirmar senha",
+				"placeholder": "Confirmar senha"
 			}
 		},
 		"forgotEmail": "Esqueceu seu e-mail?",

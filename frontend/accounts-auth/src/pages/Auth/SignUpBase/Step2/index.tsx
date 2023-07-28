@@ -1,18 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString } from "../../../../shared/providers/translate";
+import { TranslatedString, translatedString } from "../../../../shared/providers/translate";
 import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { z } from "zod";
 
 function Step2() {
+    const schema = z.object({
+        email: z
+            .string()
+            .nonempty({ message: translatedString("common.fields.email.errors.nonEmpty") })
+            .email({ message: translatedString("common.fields.email.errors.invalid") }),
+        password: z
+            .string()
+            .nonempty(),
+        confirm: z
+            .string()
+            .nonempty(),
+    })
+    .partial()
+    .refine((data) => data.password === data.confirm, {
+        message: "Pass not match",
+        path: ["password", "confirm"],
+    });
+
     const navigate = useNavigate();
     const { handleBack, handleFinish, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
 
     const [loadingSign, setLoadingSign] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
+
+    const [errors, setErrors] = useState<z.infer<typeof schema>>()
 
     const handleClickShowPassword = () => {
         setShowPassword((prevValue) => prevValue = !prevValue);
@@ -28,7 +49,26 @@ function Step2() {
     }
     
     const onFinishClick = async () => {
-        handleFinish();
+        try {
+            setErrors({})
+            schema.parse(signUpData);
+
+            handleFinish();
+        } catch (err) {
+            if (err instanceof z.ZodError) {
+                /* TODO: Improve this error handling */
+                err.issues.map((issue) => {
+                    return issue.path.map((path) => {
+                        return setErrors((prevValue) => {
+                            if (prevValue && Object.keys(prevValue).find((key) => key === path))
+                                return { ...prevValue };
+
+                            return { ...prevValue, [path]: issue.message };
+                        });
+                    });
+                });
+            }
+        }
     }
     
     return (
@@ -39,11 +79,13 @@ function Step2() {
                     id="email"
                     name="email"
                     variant="outlined"
-                    style={{ width: '100%', marginBottom: '20px' }}
+                    style={{ width: '100%', ...(Boolean(errors?.email) ? {} : { marginBottom: '20px' }) }}
                     value={signUpData?.email}
                     onChange={handleInputChange}
                     disabled={loadingSign}
                     autoComplete="new-email"
+                    error={Boolean(errors?.email)}
+                    helperText={errors?.email}
                     />
                 <FormControl variant="outlined" style={{ width: '100%' }} disabled={loadingSign}>
                     <InputLabel htmlFor="password">
@@ -53,9 +95,9 @@ function Step2() {
                         id="password"
                         name="password"
                         label={<TranslatedString message={"common.fields.password.label"} />}
-                        aria-describedby="password-helper-text"
+                        aria-describedby="password-error-text"
                         type={showPassword ? 'text' : 'password'}
-                        style={{ width: '100%', marginBottom: '20px' }}
+                        style={{ width: '100%' }}
                         value={signUpData?.password}
                         onChange={handleInputChange}
                         autoComplete="new-password"
@@ -70,8 +112,17 @@ function Step2() {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        error={Boolean(errors?.password)}
                     />
-                    <FormHelperText id="password-helper-text"></FormHelperText>
+                    <FormHelperText
+                        id="password-error-text" 
+                        error={Boolean(errors?.password)}
+                        style={{ 
+                            ...(Boolean(errors?.password) ? {} : { marginBottom: '20px' }) 
+                        }}
+                        >
+                        {errors?.password}
+                    </FormHelperText>
                 </FormControl>
                 <FormControl variant="outlined" style={{ width: '100%' }} disabled={loadingSign}>
                     <InputLabel htmlFor="confirm">
@@ -97,8 +148,14 @@ function Step2() {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        error={Boolean(errors?.confirm)}
                     />
-                    <FormHelperText id="password-helper-text"></FormHelperText>
+                    <FormHelperText
+                        id="confirm-helper-text"
+                        error={Boolean(errors?.confirm)}
+                    >
+                        {errors?.confirm}
+                    </FormHelperText>
                 </FormControl>
             </Grid>
             <Grid container justifyContent="space-between" style={{ marginTop: '20px' }}>

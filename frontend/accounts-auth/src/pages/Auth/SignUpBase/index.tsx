@@ -9,6 +9,7 @@ import { TranslatedString, translatedString } from '../../../../src/shared/provi
 import { ISignUp, ISignUpData, SignUp, StepFormProps } from './@types';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from './graphql/signUp.graphql';
+import * as validate from '../../../../src/shared/utils/validate';
 
 const initialSignUp: SignUp = {
     firstName: "",
@@ -33,6 +34,14 @@ function SignUpBase() {
             navigate(`${SIGNUP_V1_PATH}/step1`)
         }
     }, [navigate, location]);
+
+    useEffect(() => {
+        if (validate.isObjEmpty(signUpData)) {
+            if (location.pathname !== `${SIGNUP_V1_PATH}/step1`) {
+                navigate(`${SIGNUP_V1_PATH}/step1`)
+            }    
+        }
+    }, [signUpData, location, navigate])
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSignUpData({
