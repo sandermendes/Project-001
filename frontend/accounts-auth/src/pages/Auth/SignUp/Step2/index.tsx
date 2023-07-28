@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
@@ -30,7 +30,7 @@ function Step2() {
     const navigate = useNavigate();
     const { handleBack, handleFinish, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
 
-    const [loadingSign, setLoadingSign] = useState<boolean>(false);
+    const [loadingSign, ] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const [errors, setErrors] = useState<z.infer<typeof schema>>()

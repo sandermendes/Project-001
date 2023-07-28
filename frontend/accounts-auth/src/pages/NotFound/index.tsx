@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import BaseSign from '../Auth/BaseSign';
 import { styled } from '@mui/material/styles';
 import ErrorLogo from '../../assets/images/error-not-found.gif';

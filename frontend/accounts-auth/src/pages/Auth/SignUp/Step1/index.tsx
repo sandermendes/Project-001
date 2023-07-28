@@ -20,7 +20,7 @@ const Step1: React.FC = () => {
 
     const navigate = useNavigate();
     const { handleNext, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
-    const [loadingSign, setLoadingSign] = useState(false);
+    const [loadingSign, ] = useState(false);
 
     const [errors, setErrors] = useState<z.infer<typeof schema>>()
 
