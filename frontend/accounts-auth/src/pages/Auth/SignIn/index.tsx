@@ -37,7 +37,6 @@ function SignIn() {
     }, [loadingQueryCheckAuth, data, searchParams]);
 
     useEffect(() => {
-        console.log("[showScreen, searchParams]")
         if (!searchParams.get('redirect_uri')) {
             console.log("if [showScreen, searchParams]")
             const redirectUri = `redirect_uri=${encodeURIComponent(searchParams.get('redirect_uri') ?? USER_ACCOUNT_URL)}`;
