@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import BaseSign from '../BaseSign';
-import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
+import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from '../../../shared/constants/paths';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import "../../../styles.css"
-import { TranslatedString, translatedString } from '../../../../src/shared/providers/translate';
+import { TranslatedString, translatedString } from '../../../shared/providers/translate';
 import { ISignUp, ISignUpData, SignUp, StepFormProps } from './@types';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from './graphql/signUp.graphql';
-import * as validate from '../../../../src/shared/utils/validate';
+import * as validate from '../../../shared/utils/validate';
 
 const initialSignUp: SignUp = {
     firstName: "",
@@ -31,14 +31,14 @@ function SignUpBase() {
 
     useEffect(() => {
         if (location.pathname === SIGNUP_V1_PATH) {
-            navigate(`${SIGNUP_V1_PATH}/step1`)
+            navigate(`${SIGNUP_V1_PATH}/${SIGNUP_STEP1_PATH}`)
         }
     }, [navigate, location]);
 
     useEffect(() => {
         if (validate.isObjEmpty(signUpData)) {
-            if (location.pathname !== `${SIGNUP_V1_PATH}/step1`) {
-                navigate(`${SIGNUP_V1_PATH}/step1`)
+            if (location.pathname !== `${SIGNUP_V1_PATH}/${SIGNUP_STEP1_PATH}`) {
+                navigate(`${SIGNUP_V1_PATH}/${SIGNUP_STEP1_PATH}`)
             }    
         }
     }, [signUpData, location, navigate])

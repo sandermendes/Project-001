@@ -3,11 +3,11 @@ import { BrowserRouter, Navigate, Route, Routes, useSearchParams } from 'react-r
 
 import { USER_ACCOUNT_URL } from './shared/constants/url';
 import SignIn from './pages/Auth/SignIn';
-import SignUpBase from './pages/Auth/SignUpBase';
+import SignUpBase from './pages/Auth/SignUp';
 import NotFound from './pages/NotFound';
 import { SIGNIN_PATH, SIGNUP_V1_PATH } from './shared/constants/paths';
-import Step1 from './pages/Auth/SignUpBase/Step1';
-import Step2 from './pages/Auth/SignUpBase/Step2';
+import Step1 from './pages/Auth/SignUp/Step1';
+import Step2 from './pages/Auth/SignUp/Step2';
 
 export const getRedirectUri = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

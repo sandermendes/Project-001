@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString, translatedString } from "../../../../../src/shared/providers/translate";
-import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
+import { TranslatedString, translatedString } from "../../../../shared/providers/translate";
+import { SIGNUP_STEP2_PATH, SIGNUP_V1_PATH } from "../../../../shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { z } from "zod";
 
@@ -30,7 +30,7 @@ const Step1: React.FC = () => {
             schema.parse(signUpData);
 
             handleNext();
-            navigate(`${SIGNUP_V1_PATH}/step2`);    
+            navigate(`${SIGNUP_V1_PATH}/${SIGNUP_STEP2_PATH}`);
         } catch (err) {
             if (err instanceof z.ZodError) {
                 setErrors({ [err.issues[0].path[0]]: err.issues[0].message })

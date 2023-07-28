@@ -3,7 +3,11 @@
 		"title": "Sign In",
 		"pageSignInTitle": "Login at Project001",
 		"pageSignUpTitle": "Create a Project001 Account",
+		"pageNotFound": "Error 404 (Not found)!!1",
 		"fields": {
+			"common": {
+				"passwordNotMatch": "Password not match"
+			},
 			"firstName": {
 				"label": "First name",
 				"placeholder": "Enter your first name",
@@ -29,11 +33,17 @@
 			},
 			"password": {
 				"label": "Password",
-				"placeholder": "Enter your password"
+				"placeholder": "Enter your password",
+				"errors": {
+					"nonEmpty": "Password cannot be empty"
+				}
 			},
 			"confirm": {
 				"label": "Confirm password",
-				"placeholder": "Confirm your password"
+				"placeholder": "Confirm your password",
+				"errors": {
+					"nonEmpty": "Confirm password cannot be empty"
+				}
 			}
 		},
 		"forgotEmail": "Forgot your email?",

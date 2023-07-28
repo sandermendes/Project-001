@@ -3,7 +3,7 @@ import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, 
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 import { TranslatedString, translatedString } from "../../../../shared/providers/translate";
-import { SIGNUP_V1_PATH } from "../../../../../src/shared/constants/paths";
+import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from "../../../../shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { z } from "zod";
@@ -16,14 +16,14 @@ function Step2() {
             .email({ message: translatedString("common.fields.email.errors.invalid") }),
         password: z
             .string()
-            .nonempty(),
+            .nonempty({ message: translatedString("common.fields.password.errors.nonEmpty") }),
         confirm: z
             .string()
-            .nonempty(),
+            .nonempty({ message: translatedString("common.fields.confirm.errors.nonEmpty") }),
     })
     .partial()
     .refine((data) => data.password === data.confirm, {
-        message: "Pass not match",
+        message: translatedString("common.fields.common.passwordNotMatch"),
         path: ["password", "confirm"],
     });
 
@@ -45,7 +45,7 @@ function Step2() {
 
     const onBackClick = () => {
         handleBack();
-        navigate(`${SIGNUP_V1_PATH}/step1`)
+        navigate(`${SIGNUP_V1_PATH}/${SIGNUP_STEP1_PATH}`)
     }
     
     const onFinishClick = async () => {

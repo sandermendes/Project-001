@@ -3,7 +3,11 @@
 		"title": "Fazer login",
 		"pageSignInTitle": "Entrar em Project001",
 		"pageSignUpTitle": "Criar uma conta em Project001",
+		"pageNotFound": "Erro 404 (Não encontrado)!!1",
 		"fields": {
+			"common": {
+				"passwordNotMatch": "Senhas não são iguais"
+			},
 			"firstName": {
 				"label": "Primeiro nome",
 				"placeholder": "Digite o primeiro nome",
@@ -25,11 +29,17 @@
 			},
 			"password": {
 				"label": "Senha",
-				"placeholder": "Digite sua senha"
+				"placeholder": "Digite sua senha",
+				"errors": {
+					"nonEmpty": "Senha não pode ser vazia"
+				}
 			},
 			"confirm": {
 				"label": "Confirmar senha",
-				"placeholder": "Confirmar senha"
+				"placeholder": "Confirmar senha",
+				"errors": {
+					"nonEmpty": "Confirmar senha não pode ser vazia"
+				}
 			}
 		},
 		"forgotEmail": "Esqueceu seu e-mail?",
