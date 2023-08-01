@@ -1,18 +1,58 @@
 {
-	"common": {
-		"title": "Iniciar sesión",
-		"fields": {
-			"email": {
-				"label": "Correo electrónico",
-				"placeholder": "Ingrese su correo electrónico"
-			},
-			"password": {
-				"label": "Contraseña",
-				"placeholder": "Ingrese su contraseña"
-			}
-		},
-		"forgotEmail": "¿Has olvidaste tu correo electrónico?",
-		"enter": "Ingresar",
-		"about": "Acerca de"
-	}
+    "common": {
+        "title": "Iniciar sesión",
+        "pageSignInTitle": "Iniciar sesión en Proyecto001",
+        "pageSignUpTitle": "Crear una cuenta en Proyecto001",
+        "pageComplete": "El registro está completo. Por favor, sigue las instrucciones enviadas a tu correo electrónico para activar tu cuenta.",
+        "pageNotFound": "Error 404 (No encontrado)!!1",
+        "fields": {
+            "common": {
+                "passwordNotMatch": "Las contraseñas no coinciden"
+            },
+            "firstName": {
+                "label": "Nombre",
+                "placeholder": "Ingresa tu nombre",
+                "errors": {
+                    "nonEmpty": "El nombre no puede estar vacío",
+                    "min": "El nombre debe tener más de 4 caracteres"
+                }
+            },
+            "lastName": {
+                "label": "Apellido (Opcional)",
+                "placeholder": "Ingresa tu apellido",
+                "errors": {
+                    "min": "El apellido debe tener más de 4 caracteres"
+                }
+            },
+            "email": {
+                "label": "Correo electrónico",
+                "placeholder": "Ingresa tu correo electrónico",
+                "errors": {
+                    "nonEmpty": "El correo electrónico no puede estar vacío",
+                    "invalid": "El correo electrónico ingresado no es válido"
+                }
+            },
+            "password": {
+                "label": "Contraseña",
+                "placeholder": "Ingresa tu contraseña",
+                "errors": {
+                    "nonEmpty": "La contraseña no puede estar vacía"
+                }
+            },
+            "confirm": {
+                "label": "Confirmar contraseña",
+                "placeholder": "Confirma tu contraseña",
+                "errors": {
+                    "nonEmpty": "La confirmación de contraseña no puede estar vacía"
+                }
+            }
+        },
+        "forgotEmail": "¿Olvidaste tu correo electrónico?",
+        "createAccount": "Crear cuenta",
+        "enter": "Entrar",
+        "about": "Acerca de",
+        "prev": "Anterior",
+        "next": "Siguiente",
+        "finish": "Finalizar"
+    }
 }

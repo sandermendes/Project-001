@@ -1,0 +1,58 @@
+{
+    "common": {
+        "title": "登录",
+        "pageSignInTitle": "登录 Project001",
+        "pageSignUpTitle": "创建 Project001 帐户",
+        "pageComplete": "注册已完成。请按照发送到您邮箱的指示激活您的账户。",
+        "pageNotFound": "错误 404（未找到）!!1",
+        "fields": {
+            "common": {
+                "passwordNotMatch": "密码不匹配"
+            },
+            "firstName": {
+                "label": "名字",
+                "placeholder": "输入您的名字",
+                "errors": {
+                    "nonEmpty": "名字不能为空",
+                    "min": "名字必须超过 4 个字符"
+                }
+            },
+            "lastName": {
+                "label": "姓氏（可选）",
+                "placeholder": "输入您的姓氏",
+                "errors": {
+                    "min": "姓氏必须超过 4 个字符"
+                }
+            },
+            "email": {
+                "label": "电子邮件",
+                "placeholder": "输入您的电子邮件",
+                "errors": {
+                    "nonEmpty": "电子邮件不能为空",
+                    "invalid": "输入的电子邮件无效"
+                }
+            },
+            "password": {
+                "label": "密码",
+                "placeholder": "输入您的密码",
+                "errors": {
+                    "nonEmpty": "密码不能为空"
+                }
+            },
+            "confirm": {
+                "label": "确认密码",
+                "placeholder": "确认您的密码",
+                "errors": {
+                    "nonEmpty": "确认密码不能为空"
+                }
+            }
+        },
+        "forgotEmail": "忘记您的电子邮件？",
+        "createAccount": "创建帐户",
+        "enter": "进入",
+        "about": "关于",
+        "prev": "上一页",
+        "next": "下一页",
+        "finish": "完成"
+    }
+}

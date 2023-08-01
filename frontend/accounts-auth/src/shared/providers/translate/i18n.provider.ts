@@ -2,17 +2,29 @@ import i18next from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import LanguageDetector, { DetectorOptions } from 'i18next-browser-languagedetector';
 
-import * as locale from '../../../locale';
+import * as locale from 'src/locale';
 
 const resources = {
+  'de-DE': {
+    translation: locale.deDE,
+  },
   'en-US': {
     translation: locale.enUS,
+  },
+  'es-ES': {
+    translation: locale.esES,
+  },
+  'fr-FR': {
+    translation: locale.frFR,
   },
   'pt-BR': {
     translation: locale.ptBR,
   },
-  'es-ES': {
-    translation: locale.esES,
+  'ru-RU': {
+    translation: locale.ruRU,
+  },
+  'zh-CN': {
+    translation: locale.zhCN,
   },
 };
 

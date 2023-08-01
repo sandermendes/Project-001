@@ -3,6 +3,7 @@
 		"title": "Sign In",
 		"pageSignInTitle": "Login at Project001",
 		"pageSignUpTitle": "Create a Project001 Account",
+		"pageComplete": "Registration is complete. Please follow the instructions sent to your email to activate your account.",
 		"pageNotFound": "Error 404 (Not found)!!1",
 		"fields": {
 			"common": {

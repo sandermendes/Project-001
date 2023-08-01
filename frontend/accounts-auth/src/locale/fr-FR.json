@@ -1,0 +1,58 @@
+{
+    "common": {
+        "title": "Se connecter",
+        "pageSignInTitle": "Connexion à Projet001",
+        "pageSignUpTitle": "Créer un compte Projet001",
+        "pageComplete": "L'inscription est terminée. Veuillez suivre les instructions envoyées à votre adresse e-mail pour activer votre compte.",
+        "pageNotFound": "Erreur 404 (Non trouvé) !!1",
+        "fields": {
+            "common": {
+                "passwordNotMatch": "Les mots de passe ne correspondent pas"
+            },
+            "firstName": {
+                "label": "Prénom",
+                "placeholder": "Entrez votre prénom",
+                "errors": {
+                    "nonEmpty": "Le prénom ne peut pas être vide",
+                    "min": "Le prénom doit comporter plus de 4 caractères"
+                }
+            },
+            "lastName": {
+                "label": "Nom de famille (Facultatif)",
+                "placeholder": "Entrez votre nom de famille",
+                "errors": {
+                    "min": "Le nom de famille doit comporter plus de 4 caractères"
+                }
+            },
+            "email": {
+                "label": "E-mail",
+                "placeholder": "Entrez votre adresse e-mail",
+                "errors": {
+                    "nonEmpty": "L'adresse e-mail ne peut pas être vide",
+                    "invalid": "L'adresse e-mail saisie est invalide"
+                }
+            },
+            "password": {
+                "label": "Mot de passe",
+                "placeholder": "Entrez votre mot de passe",
+                "errors": {
+                    "nonEmpty": "Le mot de passe ne peut pas être vide"
+                }
+            },
+            "confirm": {
+                "label": "Confirmer le mot de passe",
+                "placeholder": "Confirmez votre mot de passe",
+                "errors": {
+                    "nonEmpty": "La confirmation du mot de passe ne peut pas être vide"
+                }
+            }
+        },
+        "forgotEmail": "Mot de passe oublié ?",
+        "createAccount": "Créer un compte",
+        "enter": "Entrer",
+        "about": "À propos",
+        "prev": "Précédent",
+        "next": "Suivant",
+        "finish": "Terminer"
+    }
+}

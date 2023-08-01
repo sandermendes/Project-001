@@ -3,6 +3,7 @@
 		"title": "Fazer login",
 		"pageSignInTitle": "Entrar em Project001",
 		"pageSignUpTitle": "Criar uma conta em Project001",
+		"pageComplete": "O registro foi concluído. Por favor, siga as instruções enviadas para o seu e-mail para ativar a sua conta.",
 		"pageNotFound": "Erro 404 (Não encontrado)!!1",
 		"fields": {
 			"common": {
@@ -25,7 +26,11 @@
 			},
 			"email": {
 				"label": "Email",
-				"placeholder": "Digite seu email"
+				"placeholder": "Digite seu email",
+				"errors": {
+					"nonEmpty": "Email não pode ser vazio",
+					"invalid": "Email digitado não é valido"
+				}
 			},
 			"password": {
 				"label": "Senha",

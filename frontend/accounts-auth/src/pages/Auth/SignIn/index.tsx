@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, Link, OutlinedInput, TextField, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useMutation, useQuery } from '@apollo/client';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import BaseSign from '../BaseSign';
 import { SIGN_IN } from './graphql/signIn.graphql';
 import { IIsAuthedData, ILogin, ILoginData } from './@types';
-import { redirectToUserAccount } from '../../../shared/utils/url';
+import { redirectToUserAccount } from 'src/shared/utils/url';
 import { CHECK_AUTH } from './graphql/check.graphql';
-import { ACCOUNTS_URL, USER_ACCOUNT_URL } from '../../../shared/constants/url';
-import { TranslatedString, translatedString } from '../../../shared/providers/translate';
-import { SIGNUP_V1_PATH } from '../../../../src/shared/constants/paths';
+import { ACCOUNTS_URL, USER_ACCOUNT_URL } from 'src/shared/constants/url';
+import { TranslatedString, translatedString } from 'src/shared/providers/translate';
+import { SIGNUP_V1_PATH } from 'src/shared/constants/paths';
 
 function SignIn() {
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [showScreen, setShowScreen] = useState(false);
     const [loadingSign, setLoadingSign] = useState(false);
@@ -25,6 +26,10 @@ function SignIn() {
     const { loading: loadingQueryCheckAuth, data } = useQuery<IIsAuthedData>(CHECK_AUTH);
 
     document.title = translatedString("common.pageSignInTitle") as string
+
+    useLayoutEffect(() => {
+        console.log("SignIn - values", values)
+    }, [values])
 
     useEffect(() => {
         if (!loadingQueryCheckAuth) {
@@ -77,6 +82,13 @@ function SignIn() {
         event.preventDefault();
     };
 
+    const onCreateAccountClick = () => {
+        setLoadingSign(true)
+        setTimeout(() => {
+            navigate(SIGNUP_V1_PATH);
+        }, 1500)
+    }
+
     const onSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
         setLoadingSign(true);
@@ -93,12 +105,13 @@ function SignIn() {
                         name="email"
                         variant="outlined"
                         style={{ width: '100%', marginBottom: '20px' }}
-                        autoComplete="username"
+                        autoComplete="email"
                         value={values.email}
                         onChange={handleInputChange}
                         disabled={loadingSign}
+                        InputLabelProps={ values.email ? { shrink: true } : {} }
                         inputProps={{
-                            autoComplete: 'username',
+                            autoComplete: 'email'
                         }}
                     />
                     <FormControl variant="outlined" style={{ width: '100%' }} disabled={loadingSign}>
@@ -114,6 +127,9 @@ function SignIn() {
                             type={values.showPassword ? 'text' : 'password'}
                             value={values.password}
                             onChange={handleInputChange}
+                            inputProps={{
+                                autoComplete: 'current-password',
+                            }}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -137,7 +153,7 @@ function SignIn() {
                     </Typography>
                 </Grid>
                 <Grid container justifyContent="space-between" style={{ marginTop: '20px' }}>
-                    <Button href={SIGNUP_V1_PATH} type="submit" variant="text" color="primary" disableElevation style={{ left: '-8px' }}>
+                    <Button onClick={onCreateAccountClick} variant="text" color="primary" disableElevation style={{ left: '-8px' }}>
                         <TranslatedString message={"common.createAccount"} />
                     </Button>
                     <Button type="submit" variant="contained" color="primary" disableElevation disabled={loadingSign}>

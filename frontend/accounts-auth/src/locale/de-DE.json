@@ -1,0 +1,58 @@
+{
+    "common": {
+        "title": "Anmelden",
+        "pageSignInTitle": "Anmelden bei Projekt001",
+        "pageSignUpTitle": "Ein Projekt001-Konto erstellen",
+		"pageComplete": "Die Registrierung ist abgeschlossen. Bitte folgen Sie den Anweisungen, die an Ihre E-Mail gesendet wurden, um Ihr Konto zu aktivieren.",
+        "pageNotFound": "Fehler 404 (Nicht gefunden)!!1",
+        "fields": {
+            "common": {
+                "passwordNotMatch": "Passwörter stimmen nicht überein"
+            },
+            "firstName": {
+                "label": "Vorname",
+                "placeholder": "Geben Sie Ihren Vornamen ein",
+                "errors": {
+                    "nonEmpty": "Der Vorname darf nicht leer sein",
+                    "min": "Der Vorname muss mehr als 4 Zeichen enthalten"
+                }
+            },
+            "lastName": {
+                "label": "Nachname (optional)",
+                "placeholder": "Geben Sie Ihren Nachnamen ein",
+                "errors": {
+                    "min": "Der Nachname muss mehr als 4 Zeichen enthalten"
+                }
+            },
+            "email": {
+                "label": "E-Mail",
+                "placeholder": "Geben Sie Ihre E-Mail-Adresse ein",
+                "errors": {
+                    "nonEmpty": "Die E-Mail-Adresse darf nicht leer sein",
+                    "invalid": "Die eingegebene E-Mail-Adresse ist ungültig"
+                }
+            },
+            "password": {
+                "label": "Passwort",
+                "placeholder": "Geben Sie Ihr Passwort ein",
+                "errors": {
+                    "nonEmpty": "Das Passwort darf nicht leer sein"
+                }
+            },
+            "confirm": {
+                "label": "Passwort bestätigen",
+                "placeholder": "Bestätigen Sie Ihr Passwort",
+                "errors": {
+                    "nonEmpty": "Die Passwortbestätigung darf nicht leer sein"
+                }
+            }
+        },
+        "forgotEmail": "Passwort vergessen?",
+        "createAccount": "Konto erstellen",
+        "enter": "Eingeben",
+        "about": "Über",
+        "prev": "Zurück",
+        "next": "Weiter",
+        "finish": "Abschließen"
+    }
+}

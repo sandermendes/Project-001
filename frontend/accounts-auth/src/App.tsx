@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound';
 import { SIGNIN_PATH, SIGNUP_V1_PATH } from './shared/constants/paths';
 import Step1 from './pages/Auth/SignUp/Step1';
 import Step2 from './pages/Auth/SignUp/Step2';
+import Complete from './pages/Auth/SignUp/complete';
 
 export const getRedirectUri = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -28,6 +29,7 @@ function AnimatedSwitch() {
             <Route path={SIGNUP_V1_PATH} element={<SignUpBase />}>
                 <Route path="step1" element={<Step1 />}/>
                 <Route path="step2" element={<Step2 />}/>
+                <Route path="complete" element={<Complete />}/>
             </Route>
             <Route path="*" element={<NotFound />} />
         </Routes>

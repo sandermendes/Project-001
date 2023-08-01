@@ -17,9 +17,11 @@ export interface SignUp {
     email: string;
     password: string;
     confirm: string;
+    complete: boolean;
 }
 
 export interface StepFormProps {
+    errors?: any;
     handleNext: () => void;
     handleBack: () => void;
     handleFinish: () => void;
@@ -36,6 +38,8 @@ export interface ISignUp {
 }
 
 export interface ISignUpData {
-    token: string;
-    redirect: string;
+    register: {
+        token: string;
+        redirect: string;
+    }
 }

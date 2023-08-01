@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString, translatedString } from "../../../../shared/providers/translate";
-import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from "../../../../shared/constants/paths";
+import { TranslatedString, translatedString } from "src/shared/providers/translate";
+import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from "src/shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { z } from "zod";
@@ -28,12 +28,18 @@ function Step2() {
     });
 
     const navigate = useNavigate();
-    const { handleBack, handleFinish, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
+    const { handleBack, handleFinish, errors: signUpErrors, signUpData, handleInputChange } = useOutletContext<StepFormProps>();
 
-    const [loadingSign, ] = useState<boolean>(false);
+    const [loadingSign, setLoadingSign] = useState<boolean>(false);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-
     const [errors, setErrors] = useState<z.infer<typeof schema>>()
+
+    useEffect(() => {
+        if (signUpErrors) {
+            setErrors({ email: signUpErrors })
+            setLoadingSign(false)
+        }
+    }, [signUpErrors])
 
     const handleClickShowPassword = () => {
         setShowPassword((prevValue) => prevValue = !prevValue);
@@ -49,12 +55,14 @@ function Step2() {
     }
     
     const onFinishClick = async () => {
+        setLoadingSign(true)
         try {
             setErrors({})
             schema.parse(signUpData);
 
             handleFinish();
         } catch (err) {
+            setLoadingSign(false)
             if (err instanceof z.ZodError) {
                 /* TODO: Improve this error handling */
                 err.issues.map((issue) => {
