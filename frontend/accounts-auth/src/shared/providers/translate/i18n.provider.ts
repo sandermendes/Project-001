@@ -2,7 +2,7 @@ import i18next from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import LanguageDetector, { DetectorOptions } from 'i18next-browser-languagedetector';
 
-import * as locale from 'src/locale';
+import * as locale from '@/locale';
 
 const resources = {
   'de-DE': {

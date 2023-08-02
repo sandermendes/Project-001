@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import { ReactComponent as RegistrationComplete } from 'src/assets/images/registration-complete.svg';
-import { TranslatedString } from "src/shared/providers/translate";
+import { ReactComponent as RegistrationComplete } from '@/assets/images/registration-complete.svg';
+import { TranslatedString } from "@/shared/providers/translate";
 
 function Complete() {
     return (

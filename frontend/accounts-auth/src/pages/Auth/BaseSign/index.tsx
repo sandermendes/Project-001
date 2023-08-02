@@ -3,11 +3,11 @@ import { Grid, LinearProgress, MenuItem, Link, SelectChangeEvent } from '@mui/ma
 import { useTranslation } from 'react-i18next';
 
 import * as S from './styles';
-import Languages from 'src/shared/constants/languages';
+import Languages from '@/shared/constants/languages';
 import { IBaseSignInterface } from './interfaces/baseSign.interface';
-import { ReactComponent as ProjectLogo } from 'src/assets/images/main-logo.svg';
-import { TranslatedString } from 'src/shared/providers/translate';
-import { brandName } from 'src/shared/constants/app';
+import { ReactComponent as ProjectLogo } from '@/assets/images/main-logo.svg';
+import { TranslatedString } from '@/shared/providers/translate';
+import { brandName } from '@/shared/constants/app';
 
 function BaseSign(props: IBaseSignInterface) {
     const { i18n } = useTranslation()
@@ -15,10 +15,8 @@ function BaseSign(props: IBaseSignInterface) {
     const [language, setLanguage] = useState(i18n.language);
 
     const handleLanguage = (event: SelectChangeEvent<unknown>) => {
-        setLanguage((prevValue) => {
-            i18n.changeLanguage(event.target.value as string);
-            return prevValue = event.target.value as string
-        })
+        i18n.changeLanguage(event.target.value as string);
+        setLanguage(event.target.value as string);
     };
 
     return (

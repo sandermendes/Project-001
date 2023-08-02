@@ -21,7 +21,7 @@ export interface SignUp {
 }
 
 export interface StepFormProps {
-    errors?: any;
+    errors?: string | null;
     handleNext: () => void;
     handleBack: () => void;
     handleFinish: () => void;
@@ -37,9 +37,11 @@ export interface ISignUp {
     password: string;
 }
 
+interface ISignUpDataRegister {
+    token: string;
+    redirect: string;
+}
+
 export interface ISignUpData {
-    register: {
-        token: string;
-        redirect: string;
-    }
+    register: ISignUpDataRegister
 }

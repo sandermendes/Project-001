@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString, translatedString } from "src/shared/providers/translate";
-import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from "src/shared/constants/paths";
+import { TranslatedString, translatedString } from "@/shared/providers/translate";
+import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from "@/shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { z } from "zod";
@@ -87,7 +87,7 @@ function Step2() {
                     id="email"
                     name="email"
                     variant="outlined"
-                    style={{ width: '100%', ...(Boolean(errors?.email) ? {} : { marginBottom: '20px' }) }}
+                    style={{ width: '100%', ...(errors?.email ? {} : { marginBottom: '20px' }) }}
                     value={signUpData?.email}
                     onChange={handleInputChange}
                     disabled={loadingSign}
@@ -126,7 +126,7 @@ function Step2() {
                         id="password-error-text" 
                         error={Boolean(errors?.password)}
                         style={{ 
-                            ...(Boolean(errors?.password) ? {} : { marginBottom: '20px' }) 
+                            ...(errors?.password ? {} : { marginBottom: '20px' }) 
                         }}
                         >
                         {errors?.password}

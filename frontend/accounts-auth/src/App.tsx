@@ -1,22 +1,15 @@
-import React from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useSearchParams } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import { USER_ACCOUNT_URL } from './shared/constants/url';
-import SignIn from './pages/Auth/SignIn';
-import SignUpBase from './pages/Auth/SignUp';
-import NotFound from './pages/NotFound';
-import { SIGNIN_PATH, SIGNUP_V1_PATH } from './shared/constants/paths';
-import Step1 from './pages/Auth/SignUp/Step1';
-import Step2 from './pages/Auth/SignUp/Step2';
-import Complete from './pages/Auth/SignUp/complete';
+import { getRedirectUri } from '@/shared/constants/url';
+import SignIn from '@/pages/Auth/SignIn';
+import SignUpBase from '@/pages/Auth/SignUp';
+import NotFound from '@/pages/NotFound';
+import { SIGNIN_PATH, SIGNUP_V1_PATH } from '@/shared/constants/paths';
+import Step1 from '@/pages/Auth/SignUp/Step1';
+import Step2 from '@/pages/Auth/SignUp/Step2';
+import Complete from '@/pages/Auth/SignUp/complete';
 
-export const getRedirectUri = () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [searchParams] = useSearchParams();
-    return `?redirect_uri=${encodeURIComponent(searchParams.get('redirect_uri') ?? USER_ACCOUNT_URL)}`;
-};
-
-const CustomRedirectNavigate = (props: { children?: React.ReactNode }) => {
+const CustomRedirectNavigate = () => {
     const redirectUri = getRedirectUri();
     return <Navigate replace to={`${SIGNIN_PATH}${redirectUri}`} />;
 };

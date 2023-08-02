@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Button, Grid, TextField } from "@mui/material";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-import { TranslatedString, translatedString } from "src/shared/providers/translate";
-import { SIGNUP_STEP2_PATH, SIGNUP_V1_PATH } from "src/shared/constants/paths";
+import { TranslatedString, translatedString } from "@/shared/providers/translate";
+import { SIGNUP_STEP2_PATH, SIGNUP_V1_PATH } from "@/shared/constants/paths";
 import { StepFormProps } from "../@types";
 import { z } from "zod";
 
@@ -45,7 +45,7 @@ const Step1: React.FC = () => {
                     label={<TranslatedString message={"common.fields.firstName.label"} />}
                     name="firstName"
                     variant="outlined"
-                    style={{ width: '100%', ...(Boolean(errors?.firstName) ? {} : { marginBottom: '20px' }) }}
+                    style={{ width: '100%', ...(errors?.firstName ? {} : { marginBottom: '20px' }) }}
                     value={signUpData?.firstName}
                     onChange={handleInputChange}
                     disabled={loadingSign}

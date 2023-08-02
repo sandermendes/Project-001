@@ -1,7 +1,7 @@
 import BaseSign from '../Auth/BaseSign';
 import { styled } from '@mui/material/styles';
-import ErrorLogo from 'src/assets/images/error-not-found.gif';
-import { translatedString } from 'src/shared/providers/translate';
+import ErrorLogo from '@/assets/images/error-not-found.gif';
+import { translatedString } from '@/shared/providers/translate';
 
 const Root = styled('div')(() => ({
     display: 'flex',

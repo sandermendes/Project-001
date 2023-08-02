@@ -7,11 +7,11 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import BaseSign from '../BaseSign';
 import { SIGN_IN } from './graphql/signIn.graphql';
 import { IIsAuthedData, ILogin, ILoginData } from './@types';
-import { redirectToUserAccount } from 'src/shared/utils/url';
+import { redirectToUserAccount } from '@/shared/utils/url';
 import { CHECK_AUTH } from './graphql/check.graphql';
-import { ACCOUNTS_URL, USER_ACCOUNT_URL } from 'src/shared/constants/url';
-import { TranslatedString, translatedString } from 'src/shared/providers/translate';
-import { SIGNUP_V1_PATH } from 'src/shared/constants/paths';
+import { ACCOUNTS_URL, USER_ACCOUNT_URL } from '@/shared/constants/url';
+import { TranslatedString, translatedString } from '@/shared/providers/translate';
+import { SIGNUP_V1_PATH } from '@/shared/constants/paths';
 
 function SignIn() {
     const navigate = useNavigate();

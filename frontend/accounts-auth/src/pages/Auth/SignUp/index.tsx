@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import BaseSign from '../BaseSign';
-import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from 'src/shared/constants/paths';
+import { SIGNUP_STEP1_PATH, SIGNUP_V1_PATH } from '@/shared/constants/paths';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import "src/styles.css"
-import { TranslatedString, translatedString } from 'src/shared/providers/translate';
+import "@/styles.css"
+import { TranslatedString, translatedString } from '@/shared/providers/translate';
 import { ISignUp, ISignUpData, SignUp, StepFormProps } from './@types';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from './graphql/signUp.graphql';
-import * as validate from 'src/shared/utils/validate';
+import * as validate from '@/shared/utils/validate';
 
 const initialSignUp: SignUp = {
     firstName: "",
@@ -53,11 +53,11 @@ function SignUpBase() {
     };
 
     const handleNext = () => {
-        setDirectionStep((prevValue) => prevValue = "next");
+        setDirectionStep("next");
     };
 
     const handleBack = () => {
-        setDirectionStep((prevValue) => prevValue = "prev");
+        setDirectionStep("prev");
     };
 
     const handleFinish = async () => {
@@ -69,11 +69,11 @@ function SignUpBase() {
 
     const [signUp] = useMutation<ISignUpData, ISignUp>(SIGN_UP, {
         update(_, { data }) {
-            if (Object(data?.register).hasOwnProperty("token")) {
+            /* TODO: Fix data return from backend */
+            if (data?.register?.token === "") {
                 setTimeout(() => {
                     setLoadingSign(false)
                     setSignUpData((prevData) => prevData = { ...prevData, complete: true })
-                    console.log("signUpData", signUpData)
                     navigate(`${SIGNUP_V1_PATH}/complete`)
                 }, 1500)
             }
