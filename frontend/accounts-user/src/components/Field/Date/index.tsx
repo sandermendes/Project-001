@@ -1,8 +1,9 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import dayjs from 'dayjs';
-import { AGE_ACCEPTABLE } from '../../../shared/constants/user';
-import { FieldList } from '../../UserInfo/CardListField/@types';
+
+import { FieldList } from '@/components/UserInfo/CardListField/@types';
+import { AGE_ACCEPTABLE } from '@/shared/constants/user';
 
 interface IDateProps extends FieldList {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */

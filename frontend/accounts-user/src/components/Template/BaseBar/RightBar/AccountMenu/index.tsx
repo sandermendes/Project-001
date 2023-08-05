@@ -1,18 +1,20 @@
 import { useContext, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { Button, Divider, FormControl, Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-import { TranslatedString } from '../../../../../shared/providers/translate';
-import { SessionContext } from '../../../../../contexts/SessionContext';
-import { useMutation } from '@apollo/client';
+import { TranslatedString } from '@/shared/providers/translate';
+import { SessionContext } from '@/contexts/SessionContext';
 import { LOGOUT } from './graphql/logout.graphql';
 
-const MenuArea = styled('div')(({ theme }) => ({
+const MenuArea = styled('div')((/* { theme } */) => ({
     width: '100%',
     flexGrow: 1,
 }));
 
 interface IGridInterface {
+    /* TODO: Fix any parameter GridInterface */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     style?: any;
     children: React.ReactNode;
 }
@@ -49,7 +51,7 @@ function AccountMenu() {
         },
     });
 
-    const onClick = async (event: React.SyntheticEvent) => {
+    const onClick = async (/* event: React.SyntheticEvent */) => {
         setDisable(true);
         setTimeout(async () => {
             await logOut();

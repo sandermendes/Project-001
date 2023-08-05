@@ -1,5 +1,4 @@
-import React from 'react';
-import PageHeader from '../../PageHeader';
+import PageHeader from '@/components/PageHeader';
 import { IUserInfo } from './@types';
 import FieldsList from '../FieldsList';
 import * as S from './styles';

@@ -1,11 +1,11 @@
-import React from 'react';
-import './App.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import BaseTemplate from './components/Template/BaseTemplate';
-import { appInternalRoute } from './routes';
-import { APP_TITLE } from './shared/constants/title';
-import BaseTemplateEdit from './components/Template/BaseTemplateEdit';
-import SessionContextProvider from './contexts/SessionContext';
+
+import '@/App.css';
+import BaseTemplate from '@/components/Template/BaseTemplate';
+import BaseTemplateEdit from '@/components/Template/BaseTemplateEdit';
+import { appInternalRoute } from '@/routes';
+import { APP_TITLE } from '@/shared/constants/title';
+import SessionContextProvider from '@/contexts/SessionContext';
 
 function App() {
   return (
@@ -14,23 +14,14 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate replace to="/u" />} />
-            <Route
-              element={
-                <BaseTemplate
-                  appTitle={APP_TITLE}
-                  /* language={language} */
-                  /* handleLanguageChange={handleLanguageChange} */
-                  /* authUser={data.getAuthUser} */
-                  /* refetch={refetch} */
-                />
-              }
-            >
+            <Route element={<BaseTemplate appTitle={APP_TITLE} />}>
               {appInternalRoute.map((route, index) => (
                 <Route key={index} path={route.path} element={route.component} />
               ))}
             </Route>
             <Route path="/u/user-info/*" element={<BaseTemplateEdit appTitle={APP_TITLE} />} />
-            {/*<Route path="*" element={<NotFound />} />*/}
+            {/* TODO: Implement Not found page */}
+            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </BrowserRouter>
       </div>

@@ -1,11 +1,12 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { PROFILE } from '../../graphql/User';
-import Loading from '../../components/Loading';
+
+import { ICheckAuthData } from '@/components/Template/Base/@types';
+import { CHECK_AUTH } from '@/components/Template/Base/graphql/check.graphql';
+import { redirectToAccountSign } from '@/shared/utils/url';
+import { PROFILE } from '@/graphql/User';
+import Loading from '@/components/Loading';
 import { ISessionContextProviderProps, ProfileContext, ProfileData } from './@types';
-import { ICheckAuthData } from '../../components/Template/Base/@types';
-import { CHECK_AUTH } from '../../components/Template/Base/graphql/check.graphql';
-import { redirectToAccountSign } from '../../shared/utils/url';
 
 export const SessionContext = createContext({} as ProfileContext);
 

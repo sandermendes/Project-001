@@ -1,5 +1,5 @@
-import React from 'react';
 import { CssBaseline } from '@mui/material';
+
 import { IBaseProps } from './@types';
 
 function Base(props: IBaseProps) {

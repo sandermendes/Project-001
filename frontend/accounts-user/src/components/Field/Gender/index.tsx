@@ -1,6 +1,5 @@
-import React from 'react';
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
-import { TranslatedString } from '../../../../src/shared/providers/translate';
+import { TranslatedString } from '@/shared/providers/translate';
 // import { FieldList } from '../../UserInfo/CardListField/@types';
 
 // type IGenderProps = FieldList;

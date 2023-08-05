@@ -1,6 +1,6 @@
-import React from 'react';
-import { TranslatedString } from '../../shared/providers/translate';
 import { styled } from '@mui/material/styles';
+
+import { TranslatedString } from '@/shared/providers/translate';
 
 const LoadingDots = styled('div')(() => ({
   '&:after': {

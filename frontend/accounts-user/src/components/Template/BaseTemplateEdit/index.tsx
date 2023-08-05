@@ -1,4 +1,3 @@
-import React from 'react';
 import Base from '../Base';
 import { ThemeProvider } from '@mui/material';
 import { themeEdit } from '../../../theme';
@@ -14,7 +13,7 @@ const EditContent = () => {
 
   const contentType = userInfos
     .filter((element) => element.fieldItems.some((fieldItem) => fieldItem.name === screen))
-    .map((element) => element.fieldItems.filter((fieldItem) => fieldItem.name == screen)[0])[0];
+    .map((element) => element.fieldItems.filter((fieldItem) => fieldItem.name === screen)[0])[0];
 
   if (!contentType) return <Navigate replace to="/u/user-info" />;
 

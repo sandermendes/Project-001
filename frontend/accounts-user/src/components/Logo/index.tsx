@@ -1,8 +1,8 @@
-import React from 'react';
 import { Link } from '@mui/material';
-import { APP_TITLE, BRAND_NAME } from '../../shared/constants/title';
-import { ReactComponent as ProjectLogo } from '../../assets/images/svgs/main-logo.svg';
 import { styled } from '@mui/material/styles';
+
+import { APP_TITLE, BRAND_NAME } from '@/shared/constants/title';
+import { ReactComponent as ProjectLogo } from '@/assets/images/svgs/main-logo.svg';
 
 interface ISpanLogoProps {
   logoTextColor?: string;

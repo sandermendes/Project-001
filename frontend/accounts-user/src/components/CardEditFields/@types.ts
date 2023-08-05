@@ -1,4 +1,4 @@
-import { FieldList } from '../UserInfo/CardListField/@types';
+import { FieldList } from '@/components/UserInfo/CardListField/@types';
 
 export interface ICardEditFieldsProps {
   field: FieldList;

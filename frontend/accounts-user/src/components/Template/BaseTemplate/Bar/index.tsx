@@ -1,6 +1,6 @@
-import React from 'react';
 import { AppBar, Toolbar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+
 import BaseBar from '../../BaseBar';
 import { IBarProps } from './@types';
 import * as S from './styles';

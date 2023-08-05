@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Base from '../Base';
+import { useEffect, useState } from 'react';
 import { useMediaQuery, useTheme } from '@mui/material';
+
+import Base from '../Base';
 import Bar from './Bar';
 import SideMenu from './SideMenu';
 import Content from './Content';

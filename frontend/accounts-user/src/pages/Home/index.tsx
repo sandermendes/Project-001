@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
-import PageHeader from '../../components/PageHeader';
-import { translatedString, TranslatedString } from '../../shared/providers/translate';
-import { APP_TITLE } from '../../shared/constants/title';
+import { useContext } from 'react';
+
+import PageHeader from '@/components/PageHeader';
+import { SessionContext } from '@/contexts/SessionContext';
+import { APP_TITLE } from '@/shared/constants/title';
+import { translatedString, TranslatedString } from '@/shared/providers/translate';
 import * as S from './styles';
-import { SessionContext } from '../../contexts/SessionContext';
 
 const InfoHeader = ({ nameSpace }: { nameSpace: string[] }) => {
   return (

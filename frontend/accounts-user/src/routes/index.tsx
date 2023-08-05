@@ -1,7 +1,6 @@
-import React from 'react';
 import { Home as HomeIcon, Person } from '@mui/icons-material';
-import Home from '../pages/Home';
-import UserInfo from '../pages/UserInfo';
+import Home from '@/pages/Home';
+import UserInfo from '@/pages/UserInfo';
 
 export const HOME = '/u';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, ThemeProvider } from '@mui/material';
 import CardEditFields from '../../../CardEditFields';
 import { themeEditContent } from '../../../../theme';

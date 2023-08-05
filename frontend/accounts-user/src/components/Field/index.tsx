@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { FieldList, Type } from '../UserInfo/CardListField/@types';
 import Text from './Text';
 import Date from './Date';

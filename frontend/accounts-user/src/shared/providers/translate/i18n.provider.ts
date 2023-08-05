@@ -1,8 +1,8 @@
 import { initReactI18next, useTranslation } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-
-import * as locale from '../../locale';
 import i18next from 'i18next';
+import LanguageDetector, { DetectorOptions } from 'i18next-browser-languagedetector';
+
+import * as locale from '@/shared/locale';
 
 const resources = {
   'de-DE': {
@@ -28,7 +28,7 @@ const resources = {
   },
 };
 
-const detection = {
+const detection: DetectorOptions = {
   order: ['querystring', 'cookie', 'localStorage', 'navigator'],
 
   lookupQuerystring: 'lng',

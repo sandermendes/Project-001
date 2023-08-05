@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppBar, Grid, IconButton } from '@mui/material';
 import BaseBar from '../../BaseBar';
 import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';

@@ -1,22 +1,23 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+// import { useMutation } from '@apollo/client';
+
 import { ICardEditFieldsProps } from './@types';
 import Field from '../Field';
 import * as S from './styles';
-import { SessionContext } from '../../contexts/SessionContext';
-import { useMutation } from '@apollo/client';
-import { PROFILE /*, PROFILE_UPDATE */ } from '../../graphql/User';
-import { useNavigate } from 'react-router-dom';
-import { IProfileUpdate } from '../../@types/profile';
-import { TranslatedString } from '../../../src/shared/providers/translate';
+import { SessionContext } from '@/contexts/SessionContext';
+// import { PROFILE } from '@/graphql/User';
+// import { IProfileUpdate } from '@/@types/profile';
+import { TranslatedString } from '@/shared/providers/translate';
 
 function CardEditFields({ field }: ICardEditFieldsProps) {
-  const nameSpace = ['translation', 'common'];
+  // const nameSpace = ['translation', 'common'];
 
   const navigate = useNavigate();
-  const { profile, setProfile } = useContext(SessionContext);
+  const { profile, /* setProfile */ } = useContext(SessionContext);
   const [value, setValue] = useState(profile[field.name]);
-  const [loading, setLoading] = useState(false);
+  const [loading, /* setLoading */ ] = useState(false);
 
   // const [profileUpdate] = useMutation<string, IProfileUpdate>(PROFILE_UPDATE, {
   //   refetchQueries: [{ query: PROFILE, returnPartialData: true }],
@@ -40,7 +41,7 @@ function CardEditFields({ field }: ICardEditFieldsProps) {
     setValue(value);
   };
 
-  const onSubmit = async (event: React.SyntheticEvent) => {
+  const onSubmit = async (/* event: React.SyntheticEvent */) => {
     // event.preventDefault();
     // setLoading(true);
     // await profileUpdate({

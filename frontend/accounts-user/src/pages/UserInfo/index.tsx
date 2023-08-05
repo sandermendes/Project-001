@@ -1,4 +1,3 @@
-import React from 'react';
 import PageHeader from '../../components/PageHeader';
 import { TranslatedString /*, translatedString */ } from '../../shared/providers/translate';
 import { APP_TITLE } from '../../shared/constants/title';
