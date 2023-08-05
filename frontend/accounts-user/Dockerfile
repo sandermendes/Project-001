@@ -4,7 +4,7 @@ FROM node:20-alpine AS deps
 # RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY frontend/accounts-user/package.json ./
-COPY frontend/accounts-user/package-lock.json ./
+# COPY frontend/accounts-user/package-lock.json ./
 COPY frontend/accounts-user/yarn.lock ./
 # RUN yarn install
 RUN npm install && npm ci
@@ -18,7 +18,7 @@ COPY frontend/accounts-user/src ./src
 COPY frontend/accounts-user/.env ./.env
 COPY frontend/accounts-user/index.html ./index.html
 COPY frontend/accounts-user/package.json ./package.json
-COPY frontend/accounts-user/package-lock.json ./package-lock.json
+# COPY frontend/accounts-user/package-lock.json ./package-lock.json
 COPY frontend/accounts-user/tsconfig.json ./tsconfig.json
 COPY frontend/accounts-user/tsconfig.node.json ./tsconfig.node.json
 COPY frontend/accounts-user/vite.config.ts ./vite.config.ts
