@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 24
+      docker: 18
   pre_build:
     commands:
       # Variables
@@ -25,7 +25,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:$BUILD_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$BUILD_TAG > imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files:
