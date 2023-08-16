@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm/schema"
 )
 
+var databaseSSLMode = ""
+
 func NewConnection() (*gorm.DB, error) {
 	// dsn := fmt.Sprintf(
 	// 	"host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
@@ -24,9 +26,14 @@ func NewConnection() (*gorm.DB, error) {
 		panic(fmt.Sprintf("No database name specified for %s", databaseName))
 	}
 
+	sslMode, _ := os.LookupEnv("DATABASE_SSL_MODE")
+	if sslMode != "" {
+		databaseSSLMode = "sslmode=" + sslMode
+	}
+
 	dsn := fmt.Sprintf(
-		"host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",
-		databaseHost, "5432", databaseName, "postgres", "postgres",
+		"host=%s port=%s dbname=%s user=%s password=%s %s",
+		databaseHost, "5432", databaseName, "postgres", "postgres", databaseSSLMode,
 	)
 
 	dbConn, err := gorm.Open(postgres.Open(dsn), &gorm.Config{

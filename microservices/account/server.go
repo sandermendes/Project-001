@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/redis/go-redis/v9"
 	middlewareAccount "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/account/middleware"
-	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/cache"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/interceptors"
 	accountv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
@@ -30,16 +28,13 @@ func LoggingStreamInterceptor(ctx context.Context, req interface{}, info *grpc.U
 type Server struct {
 	accountv1.UnimplementedAccountServiceServer
 	service Service
-	cache   *redis.Client
 }
 
 func NewGrpcServer() *Server {
 	service := NewService()
-	cache := cache.ConnectCache()
 
 	return &Server{
 		service: service,
-		cache:   cache,
 	}
 }
 

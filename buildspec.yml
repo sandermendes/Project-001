@@ -1,0 +1,5 @@
+version: 0.2
+
+projects:
+  - name: user
+    buildspec: microservices/buildspec.yml
