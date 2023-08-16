@@ -8,7 +8,7 @@ phases:
       - AWS_CONTAINER=user-service-app-ctn
 
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - $(aws ecr get-login-password --region us-east-1)
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPOSITORY
   build:
     commands:
