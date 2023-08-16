@@ -14,7 +14,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - ls -la
+      - cd microservices/user
       - docker build -t $AWS_ECR_REPOSITORY:$BUILD_TAG -f Dockerfile ../../
       - docker tag $AWS_ECR_REPOSITORY:$BUILD_TAG $REPOSITORY_URI:$BUILD_TAG
   post_build:
