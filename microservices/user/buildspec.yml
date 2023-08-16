@@ -23,7 +23,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:$BUILD_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$BUILD_TAG > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$BUILD_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
       - cat imagedefinitions.json
 artifacts:
   files:
