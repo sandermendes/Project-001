@@ -2,6 +2,7 @@ version: 0.2
 
 phases:
   pre_build:
+    on-failure: ABORT
     commands:
       # Variables
       - AWS_ECR_REPOSITORY=user-service
@@ -11,6 +12,7 @@ phases:
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 582505159266.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPOSITORY
   build:
+    on-failure: ABORT
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
@@ -18,6 +20,7 @@ phases:
       - docker build -t $AWS_ECR_REPOSITORY:$BUILD_TAG -f Dockerfile ../../
       - docker tag $AWS_ECR_REPOSITORY:$BUILD_TAG $REPOSITORY_URI:$BUILD_TAG
   post_build:
+    on-failure: ABORT
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
