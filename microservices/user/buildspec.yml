@@ -28,13 +28,6 @@ phases:
       - echo Writing image definitions file...
       - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$BUILD_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
       - cat $CODEBUILD_SRC_DIR/imagedefinitions.json
-# artifacts:
-#   files:
-#     - imagedefinitions.json
 artifacts:
   files:
-    # - build/*      # Specify the files or directories you want to upload
     - imagedefinitions.json
-  base-directory: /microservices/user  # Path where build artifacts are located
-  name: user-build-artifacts
-  discard-paths: no
