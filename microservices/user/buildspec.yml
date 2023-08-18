@@ -16,6 +16,7 @@ phases:
       - echo $CODEBUILD_WEBHOOK_BASE_REF
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
       - echo $CODEBUILD_WEBHOOK_TRIGGER
+      - echo "Branch:" $CODEBUILD_WEBHOOK_TRIGGER " Source:" $CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     on-failure: ABORT
     commands:
