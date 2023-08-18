@@ -11,6 +11,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 582505159266.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPOSITORY
+      - echo $CODEBUILD_SOURCE_VERSION
   build:
     on-failure: ABORT
     commands:
