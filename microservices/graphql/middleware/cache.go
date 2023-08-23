@@ -89,6 +89,9 @@ func handleServiceData(ctx context.Context, operationName string, serviceData *g
 	if serviceData == nil {
 		return nil, fmt.Errorf("failed to return data from service")
 	}
+	if serviceData.Errors != nil {
+		return nil, fmt.Errorf(serviceData.Errors[0].Message)
+	}
 
 	// Convert to interface{} to extract only the part with Fields from OperationName
 	var handlerResponse interface{}

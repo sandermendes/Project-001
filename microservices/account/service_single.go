@@ -1,19 +1,17 @@
-//go:build !single
-// +build !single
+//go:build single
+// +build single
 
 package account
 
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 
+	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/user"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/providers/encrypt"
 	contextkeys "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/context_keys"
 	accountv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/account/v1"
 	userv1 "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/protobufs/_generated/user/v1"
-	serviceConnection "github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/service_connection"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/shared/utils"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -27,23 +25,26 @@ type Service interface {
 }
 
 type service struct {
-	userConn userv1.UserServiceClient
+	// userConn userv1.UserServiceClient
+	userServer *user.Server
 }
 
 func NewService() Service {
-	userAddress, ok := os.LookupEnv("USER_SERVICE_ADDRESS")
-	if !ok {
-		fmt.Println("USER_SERVICE_ADDRESS - ok", ok)
-		panic(fmt.Sprintf("No url specified for %s", userAddress))
-	}
+	userServer := user.NewGrpcServer()
 
-	userConn, err := serviceConnection.GetUserConnection(userAddress)
-	if err != nil {
-		log.Fatalf("failed to connect to userService: %v", err)
-	}
+	// userAddress, ok := os.LookupEnv("USER_SERVICE_ADDRESS")
+	// if !ok {
+	// 	fmt.Println("USER_SERVICE_ADDRESS - ok", ok)
+	// 	panic(fmt.Sprintf("No url specified for %s", userAddress))
+	// }
+
+	// userConn, err := serviceConnection.GetUserConnection(userAddress)
+	// if err != nil {
+	// 	log.Fatalf("failed to connect to userService: %v", err)
+	// }
 
 	return &service{
-		userConn: userConn,
+		userServer: userServer,
 	}
 }
 
@@ -59,7 +60,7 @@ func (s *service) Register(ctx context.Context, input *accountv1.RegisterRequest
 	}
 
 	// Call userService function CreateUser
-	userCreated, err := s.userConn.CreateUser(ctx, &user)
+	userCreated, err := s.userServer.CreateUser(ctx, &user)
 	if err != nil {
 		return nil, status.Error(codes.Internal, utils.FmtLogError(err))
 	}
@@ -80,7 +81,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	var findUser userv1.UpdateUserRequest
 	findUser.Email = input.GetEmail()
 
-	userResponse, err := s.userConn.GetUser(ctx, &findUser)
+	userResponse, err := s.userServer.GetUser(ctx, &findUser)
 	if err != nil {
 		// TODO: Improve error
 		fmt.Println("Error - err: ", err)
@@ -100,7 +101,7 @@ func (s *service) Login(ctx context.Context, input *accountv1.LoginRequest) (*ac
 	// }
 
 	return &accountv1.AccountResponse{
-		UserId: userResponse.GetId(),
+		UserId: userResponse.Id,
 	}, nil
 }
 
@@ -113,10 +114,9 @@ func (s *service) Profile(ctx context.Context, input *emptypb.Empty) (*userv1.Us
 		return nil, status.Error(codes.Unauthenticated, "user not authenticated")
 	}
 
-	userResponse, err := s.userConn.GetUser(ctx, &userv1.UpdateUserRequest{Id: userID})
+	userResponse, err := s.userServer.GetUser(ctx, &userv1.UpdateUserRequest{Id: userID})
 	if err != nil {
 		// TODO: Improve error
-		fmt.Printf("Failed to return user: %s\n", err.Error())
 		return nil, status.Error(codes.NotFound, "information about current user not found")
 	}
 	userResponse.Password = nil

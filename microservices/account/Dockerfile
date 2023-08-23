@@ -14,7 +14,11 @@ COPY microservices/account .
 
 RUN go mod download
 
-RUN GO111MODULE=on go build -o /go/src/ ./cmd/main.go
+# Uncomment to get separated build for account
+# RUN GO111MODULE=on go build -o /go/src/ ./cmd/main.go
+
+# Command to build a bundle account and user in a single (to reduces the number of containers)
+RUN GO111MODULE=on go build -tags single -o /go/src/ ./cmd/main.go
 
 # # Generate a set of keys for JWT tasks
 # FROM nginx:1.25.1-alpine as generator-key
