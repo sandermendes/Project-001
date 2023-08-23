@@ -12,8 +12,8 @@ networks:
     name: graphql
   account:
     name: account
-  user:
-    name: user
+  # user:
+  #   name: user
 
   ################################
   ########## Resources ###########
@@ -50,29 +50,34 @@ services:
     build:
       context: .
       dockerfile: ./microservices/account/Dockerfile
-    env_file:
-      - .env
-    expose:
-      - ${ACCOUNT_SERVICE_PORT}
-    networks:
-      - account
-      - user
-
-  user:
-    container_name: User_Service
-    build:
-      context: .
-      dockerfile: ./microservices/user/Dockerfile
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
       - .env
     expose:
-      - ${USER_SERVICE_PORT}
+      - ${ACCOUNT_SERVICE_PORT}
     networks:
-      - user
+      - account
+      # - user
       - database
+
+  # Uncommented to generate User as a standalone service
+  # user:
+  #   container_name: User_Service
+  #   build:
+  #     context: .
+  #     dockerfile: ./microservices/user/Dockerfile
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   expose:
+  #     - ${USER_SERVICE_PORT}
+  #   networks:
+  #     - user
+  #     - database
 
   account_auth:
     container_name: AccountAuthentication
