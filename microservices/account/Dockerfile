@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine3.18 AS builder
+FROM public.ecr.aws/docker/library/golang:1.20-alpine3.18 AS builder
 
 # RUN apk --no-cache add gcc g++ make ca-certificates
 WORKDIR /go/src
@@ -29,7 +29,7 @@ RUN GO111MODULE=on go build -tags single -o /go/src/ ./cmd/main.go
 #     openssl rsa -in /etc/ssl/private.pem -outform PEM -pubout -out /etc/ssl/public.pem
 
 # Build the final environment for deploy go app
-FROM alpine:3.18
+FROM public.ecr.aws/docker/library/alpine:3.18
 
 WORKDIR /usr/bin
 
