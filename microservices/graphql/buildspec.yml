@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+      # Variables
+      - AWS_ECR_REPOSITORY=graphql-service
+      - AWS_CONTAINER=graphql-service-container-ctn
+
+      - echo "Branch:" $CODEBUILD_WEBHOOK_TRIGGER " Source:" $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 582505159266.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$AWS_ECR_REPOSITORY
+      - echo $CODEBUILD_SRC_DIR
+      - echo $CODEBUILD_SOURCE_VERSION
+      - echo $CODEBUILD_WEBHOOK_BASE_REF
+      - echo $CODEBUILD_WEBHOOK_HEAD_REF
+  build:
+    on-failure: ABORT
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - cd microservices/graphql
+      - docker build -t $AWS_ECR_REPOSITORY:$BUILD_TAG -f Dockerfile ../../
+      - docker tag $AWS_ECR_REPOSITORY:$BUILD_TAG $REPOSITORY_URI:$BUILD_TAG
+  post_build:
+    on-failure: ABORT
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:$BUILD_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s"}]' $AWS_CONTAINER $REPOSITORY_URI:$BUILD_TAG > $CODEBUILD_SRC_DIR/imagedefinitions.json
+      - cat $CODEBUILD_SRC_DIR/imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
