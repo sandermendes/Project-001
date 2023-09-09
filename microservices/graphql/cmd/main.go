@@ -9,7 +9,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/gorilla/mux"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/httprate"
 	"github.com/rs/cors"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/directives"
 	"github.com/sandermendes/Go-Golang-Gorm-Postgres-Gqlgen-Graphql/main/microservices/graphql/generated"
@@ -44,7 +45,7 @@ func main() {
 	quit := make(chan struct{})
 	go store.PeriodicCleanup(1*time.Hour, quit)
 
-	router := mux.NewRouter()
+	router := chi.NewRouter()
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))
 	router.Use(cors.New(
 		cors.Options{
@@ -69,6 +70,14 @@ func main() {
 			// 	},
 		},
 	).Handler)
+	router.Use(httprate.Limit(
+		5,
+		20*time.Second,
+		httprate.WithKeyFuncs(
+			httprate.KeyByIP,
+			httprate.KeyByEndpoint,
+		),
+	))
 
 	resolver, err := resolvers.NewGraphQLServer()
 	if err != nil {
