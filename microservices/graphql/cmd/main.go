@@ -72,11 +72,17 @@ func main() {
 	).Handler)
 	router.Use(httprate.Limit(
 		5,
-		20*time.Second,
+		45*time.Second,
 		httprate.WithKeyFuncs(
 			httprate.KeyByIP,
 			httprate.KeyByEndpoint,
 		),
+		httprate.WithLimitHandler(func(w http.ResponseWriter, r *http.Request) {
+			// Send custom responses for the rate limited requests in a JSON message
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusTooManyRequests)
+			w.Write([]byte(`{ "errors": [{ "message": "Too many requests" }], "data": null }`))
+		}),
 	))
 
 	resolver, err := resolvers.NewGraphQLServer()
