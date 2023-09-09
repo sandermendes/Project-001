@@ -4,9 +4,10 @@ go 1.20
 
 require (
 	github.com/99designs/gqlgen v0.17.31
+	github.com/go-chi/chi v1.5.5
+	github.com/go-chi/httprate v0.7.4
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
-	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1
 	github.com/jinzhu/copier v0.3.5
 	github.com/onsi/ginkgo/v2 v2.10.0
