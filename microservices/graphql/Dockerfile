@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine3.18 AS builder
+FROM public.ecr.aws/docker/library/golang:1.20-alpine3.18 AS builder
 
 WORKDIR /go/src
 ADD . /go/src/
