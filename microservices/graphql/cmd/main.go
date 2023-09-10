@@ -46,6 +46,7 @@ func main() {
 	go store.PeriodicCleanup(1*time.Hour, quit)
 
 	router := chi.NewRouter()
+	router.Use(middlewareGraphql.Logger())
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))
 	router.Use(cors.New(
 		cors.Options{
@@ -74,7 +75,7 @@ func main() {
 		5,
 		45*time.Second,
 		httprate.WithKeyFuncs(
-			httprate.KeyByIP,
+			httprate.KeyByRealIP,
 			httprate.KeyByEndpoint,
 		),
 		httprate.WithLimitHandler(func(w http.ResponseWriter, r *http.Request) {
