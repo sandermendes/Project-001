@@ -14,23 +14,36 @@ func Logger() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-			IPAddress := r.Header.Get("X-Real-Ip")
-			fmt.Println("X-Real-Ip - ", IPAddress)
-			if IPAddress == "" {
-				IPAddress = r.Header.Get("X-Forwarded-For")
-				fmt.Println("X-Forwarded-For - ", IPAddress)
-			}
-			if IPAddress == "" {
-				IPAddress = r.RemoteAddr
-				fmt.Println("r.RemoteAddr - ", IPAddress)
-			}
-			defer func() {
+			// IPAddress := r.Header.Get("X-Real-Ip")
+			// fmt.Println("X-Real-Ip - ", IPAddress)
+			// if IPAddress == "" {
+			// 	IPAddress = r.Header.Get("X-Forwarded-For")
+			// 	fmt.Println("X-Forwarded-For - ", IPAddress)
+			// }
+			// if IPAddress == "" {
+			// 	IPAddress = r.RemoteAddr
+			// 	fmt.Println("r.RemoteAddr - ", IPAddress)
+			// }
+			IPAddress := r.Header.Get("X-Forwarded-For")
+			if IPAddress != "" {
+				defer func() {
+					since := time.Since(startTime)
+					fmt.Printf(
+						interceptors.Green+"[%s] "+interceptors.Reset+"- %s - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
+						time.Now().Format(time.DateTime), IPAddress, since,
+					)
+				}()
+			} /* else {
+				IPAddress := r.Header.Get("X-Real-Ip")
+				if IPAddress == "" {
+					IPAddress = r.RemoteAddr
+				}
 				since := time.Since(startTime)
 				fmt.Printf(
 					interceptors.Green+"[%s] "+interceptors.Reset+"- %s - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
 					time.Now().Format(time.DateTime), IPAddress, since,
 				)
-			}()
+			} */
 			next.ServeHTTP(w, r)
 		})
 	}
