@@ -58,13 +58,11 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 
 		// Keep going with the flow to obtain the service response
 		responseHandler := handler(ctx)
-		fmt.Println("string(responseHandler.Data)", string(responseHandler.Data))
 		// Handle Service Data
 		serviceData, err := handleServiceData(ctx, operationName, responseHandler)
 		if err != nil {
 			return graphql.ErrorResponse(ctx, err.Error())
 		}
-		fmt.Println("Cache - serviceData", string(serviceData))
 
 		// Save in cache service
 		err = cacheService.Set(ctx, "UserId:"+userID, serviceData, 0).Err()
