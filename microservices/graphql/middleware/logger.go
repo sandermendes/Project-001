@@ -26,14 +26,17 @@ func Logger() func(http.Handler) http.Handler {
 			// }
 			IPAddress := r.Header.Get("X-Forwarded-For")
 			if IPAddress != "" {
+				requestMethod := r.Method
+				urlPath := r.URL.Path
 				defer func() {
 					since := time.Since(startTime)
 					fmt.Printf(
-						interceptors.Green+"[%s] "+interceptors.Reset+"- %s - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
-						time.Now().Format(time.DateTime), IPAddress, since,
+						interceptors.Green+"[%s] "+interceptors.Reset+"- %s - %s - %s - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
+						time.Now().Format(time.DateTime), IPAddress, requestMethod, urlPath, since,
 					)
 				}()
-			} /* else {
+			}
+			/* else {
 				IPAddress := r.Header.Get("X-Real-Ip")
 				if IPAddress == "" {
 					IPAddress = r.RemoteAddr
