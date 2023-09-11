@@ -107,11 +107,25 @@ func main() {
 	server.AroundOperations(middlewareGraphql.Authentication)
 	server.AroundOperations(middlewareGraphql.Cache)
 
-	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	router.Handle("/query", server)
+	// router.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	router.Handle("/", graphQLPlaygroundHandler())
+	router.Handle("/api", server)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	if err := http.ListenAndServe(":"+port, router); err != nil {
 		panic(err)
+	}
+}
+
+func graphQLPlaygroundHandler() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		playground_ip, ok := os.LookupEnv("GRAPHQL_PLAYGROUND_FOR_IP")
+
+		if ok {
+			IPAddress := r.Header.Get("X-Forwarded-For")
+			if playground_ip == "all" || IPAddress == playground_ip {
+				playground.Handler("GraphQL playground", "/api").ServeHTTP(w, r)
+			}
+		}
 	}
 }
