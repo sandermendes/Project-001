@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"strings"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -48,7 +49,7 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 				),
 			)
 
-			fmt.Println("Interceptor from cache", cacheResult)
+			log.Println("Intercepted from cache")
 
 			// Return from cache
 			return &graphql.Response{
@@ -70,7 +71,7 @@ func Cache(ctx context.Context, next graphql.OperationHandler) graphql.ResponseH
 			return graphql.ErrorResponse(ctx, "failed to save data to cache: %s", err.Error())
 		}
 
-		fmt.Println("Interceptor from service", string(serviceData))
+		log.Println("Intercepted from service")
 
 		// Return response from service
 		return &graphql.Response{
