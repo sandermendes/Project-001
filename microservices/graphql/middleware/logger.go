@@ -19,12 +19,12 @@ func Logger() func(http.Handler) http.Handler {
 			if IPAddress != "" {
 				requestMethod := r.Method
 				urlPath := r.URL.Path
-				responseStatusCode := r.Response.StatusCode
+				// responseStatusCode := r.Response.StatusCode
 				defer func() {
 					since := time.Since(startTime)
 					fmt.Printf(
-						interceptors.Green+"[%s] "+interceptors.Reset+"- %s - %s - %s - %d - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
-						time.Now().Format(time.DateTime), IPAddress, requestMethod, urlPath, responseStatusCode, since,
+						interceptors.Green+"[%s] "+interceptors.Reset+"- %s - %s - %s - "+interceptors.Yellow+"Time:"+interceptors.Reset+" %s\n",
+						time.Now().Format(time.DateTime), IPAddress, requestMethod, urlPath /* responseStatusCode, */, since,
 					)
 				}()
 			}
