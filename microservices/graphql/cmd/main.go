@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/99designs/gqlgen/graphql/handler"
@@ -26,10 +27,16 @@ func main() {
 	if !ok {
 		panic(fmt.Sprintf("No port specified for %s", port))
 	}
+	allowedOriginsString, ok := os.LookupEnv("GRAPHQL_PUBLIC_SERVICE_ALLOWED_ORIGINS")
+	if !ok {
+		panic(fmt.Sprintf("No allowed Origins specified for %v", port))
+	}
 	sessionKey, ok := os.LookupEnv("SESSION_KEY")
 	if !ok {
 		panic(fmt.Sprintf("No session key specified for %s", sessionKey))
 	}
+
+	allowedOrigins := strings.Split(strings.Trim(allowedOriginsString, `[]"`), `","`)
 
 	dbConn, err := database.NewConnection()
 	if err != nil {
@@ -50,19 +57,12 @@ func main() {
 	router.Use(middlewareGraphql.InjectHTTPMiddleware(store))
 	router.Use(cors.New(
 		cors.Options{
-			AllowedOrigins: []string{
-				"http://localhost:4000",
-				"http://localhost:4050",
-			},
+			//Allowed origins for app
+			AllowedOrigins: allowedOrigins,
+
 			AllowedMethods: []string{
 				//http methods for your app
-				// http.MethodGet,
 				http.MethodPost,
-				// http.MethodPut,
-				// http.MethodPatch,
-				// http.MethodDelete,
-				// http.MethodOptions,
-				// http.MethodHead,
 			},
 			AllowCredentials: true,
 			// Debug:            true,
