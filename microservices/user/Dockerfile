@@ -17,7 +17,7 @@ RUN go mod download
 RUN GO111MODULE=on go build -o /go/src/ ./cmd/main.go
 
 # Build the final environment for deploy go app
-FROM alpine:3.18
+FROM alpine:3
 
 WORKDIR /usr/bin
 
