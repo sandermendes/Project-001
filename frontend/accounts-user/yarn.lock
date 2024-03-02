@@ -185,6 +185,13 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
+"@babel/runtime@^7.23.9":
+  version "7.24.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.0.tgz#584c450063ffda59697021430cb47101b085951e"
+  integrity sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.22.5":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.5.tgz#0c8c4d944509875849bd0344ff0050756eefc6ec"
@@ -548,12 +555,12 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.3.tgz#474689f4d691993376e8a1ca07e08d4545275082"
   integrity sha512-QxvrcDqphZoXRjsAmCaQylmWjC/8/qKWwIde1MJMna5YIst3R9O0qhKRPu36/OE2d8AeTbCVjRcRvNqhhW8jyg==
 
-"@mui/icons-material@^5.14.3":
-  version "5.14.3"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.3.tgz#26a84d52ab2fceea2856adf7a139527b3a51ae90"
-  integrity sha512-XkxWPhageu1OPUm2LWjo5XqeQ0t2xfGe8EiLkRW9oz2LHMMZmijvCxulhgquUVTF1DnoSh+3KoDLSsoAFtVNVw==
+"@mui/icons-material@^5.15.9":
+  version "5.15.11"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.15.11.tgz#263a89ba1b55667890fe0da3f5ca753647a0945b"
+  integrity sha512-R5ZoQqnKpd+5Ew7mBygTFLxgYsQHPhgR3TDXSgIHYIjGzYuyPLmGLSdcPUoMdi6kxiYqHlpPj4NJxlbaFD0UHA==
   dependencies:
-    "@babel/runtime" "^7.22.6"
+    "@babel/runtime" "^7.23.9"
 
 "@mui/material@^5.14.3":
   version "5.14.3"
@@ -1994,6 +2001,11 @@ regenerator-runtime@^0.13.11:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.11.tgz#f6dca3e7ceec20590d07ada785636a90cdca17f9"
   integrity sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==
+
+regenerator-runtime@^0.14.0:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.1.tgz#356ade10263f685dda125100cd862c1db895327f"
+  integrity sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==
 
 resolve-from@^4.0.0:
   version "4.0.0"
