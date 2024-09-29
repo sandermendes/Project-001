@@ -26,7 +26,7 @@ COPY frontend/accounts-auth/yarn.lock ./yarn.lock
 RUN npm run build
 
 # Bundle static assets with nginx
-FROM nginx:1.25.1-alpine as production
+FROM nginx:1.25.4-alpine as production
 ENV NODE_ENV development
 # Copy built assets from `builder` image
 COPY --from=builder /app/dist /usr/share/nginx/html
